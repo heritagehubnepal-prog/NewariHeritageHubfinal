@@ -32,9 +32,9 @@ export default function Navbar() {
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
-                  <a className="newari-brown hover:newari-red px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer">
+                  <span className="newari-brown hover:newari-red px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer">
                     {item.label}
-                  </a>
+                  </span>
                 </Link>
               ))}
               <Link href="#download">
@@ -70,12 +70,12 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <a 
+                <span 
                   className="newari-brown hover:newari-red block px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
-                </a>
+                </span>
               </Link>
             ))}
             <Link href="#download">

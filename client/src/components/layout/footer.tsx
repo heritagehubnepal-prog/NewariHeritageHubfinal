@@ -26,7 +26,7 @@ export default function Footer() {
       links: [
         { label: "Download Assets", href: "#download" },
         { label: "Educational Materials", href: "/heritage" },
-        { label: "Usage Guidelines", href: "#download" },
+        { label: "Usage Guidelines", href: "#guidelines" },
         { label: "Contact Us", href: "#contact" },
       ]
     }
@@ -59,12 +59,12 @@ export default function Footer() {
             <div key={section.title}>
               <h4 className="text-lg font-semibold newari-gold mb-4">{section.title}</h4>
               <ul className="space-y-2 text-white/80">
-                {section.links.map((link) => (
-                  <li key={link.href}>
+                {section.links.map((link, index) => (
+                  <li key={`${section.title}-${index}`}>
                     <Link href={link.href}>
-                      <a className="hover:text-white transition-colors cursor-pointer">
+                      <span className="hover:text-white transition-colors cursor-pointer">
                         {link.label}
-                      </a>
+                      </span>
                     </Link>
                   </li>
                 ))}

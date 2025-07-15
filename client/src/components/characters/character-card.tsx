@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Character } from "@/data/characters";
 import { Link } from "wouter";
+import MinchaSVG from "./mincha-svg";
+import BhinchaSVG from "./bhincha-svg";
 
 interface CharacterCardProps {
   character: Character;
@@ -19,13 +21,9 @@ export default function CharacterCard({ character }: CharacterCardProps) {
           <CardContent className="p-0">
             <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
               {character.name === "Mincha" ? (
-                <div className="w-full h-full bg-gradient-to-b from-newari-gold to-newari-red flex items-center justify-center">
-                  <span className="text-white text-lg font-bold">Mincha SVG</span>
-                </div>
+                <MinchaSVG className="w-full h-full" />
               ) : (
-                <div className="w-full h-full bg-gradient-to-b from-newari-red to-newari-brown flex items-center justify-center">
-                  <span className="text-white text-lg font-bold">Bhincha SVG</span>
-                </div>
+                <BhinchaSVG className="w-full h-full" />
               )}
             </div>
             <h3 className="text-2xl font-bold newari-red text-center">{character.name}</h3>

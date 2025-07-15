@@ -4,9 +4,23 @@
 
 Heritage Hub Nepal is a cultural preservation and education platform showcasing Newari heritage through interactive storytelling. The application features two beloved Newari characters, Mincha and Bhincha, who serve as cultural ambassadors and storytellers. Built as a modern full-stack web application, it provides an engaging way to explore traditional Newari culture, stories, and heritage items.
 
+**Mincha** represents modernity, sustainability, and innovation - a modern eco-friendly ambassador who champions environmental stewardship while bridging traditional wisdom with contemporary practices.
+
+**Bhincha** embodies the rich cultural heritage of the Newar community - a traditional cultural guardian who preserves rituals, traditions, and crafts from across Nepal's Newari regions.
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+
+## Recent Changes (January 15, 2025)
+
+- Updated character specifications based on user requirements document
+- Enhanced SVG character illustrations with detailed traditional and modern elements
+- Mincha now features eco-friendly clothing, solar panels, plants, and sustainability symbols
+- Bhincha enhanced with traditional Newari attire, jewelry, hair ornaments, and cultural items
+- Fixed navigation and footer React warnings (nested anchor tags, duplicate keys)
+- Integrated actual SVG components into character cards and homepage displays
+- Character descriptions updated to reflect their roles as cultural ambassadors for Heritage Hub Nepal
 
 ## System Architecture
 

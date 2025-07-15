@@ -5,6 +5,8 @@ import CharacterCard from "@/components/characters/character-card";
 import StoryCard from "@/components/stories/story-card";
 import CultureCard from "@/components/heritage/culture-card";
 import DownloadSection from "@/components/download/download-section";
+import MinchaSVG from "@/components/characters/mincha-svg";
+import BhinchaSVG from "@/components/characters/bhincha-svg";
 import { characters } from "@/data/characters";
 import { stories } from "@/data/stories";
 import { heritageItems } from "@/data/heritage";
@@ -119,15 +121,11 @@ export default function Home() {
                 className="bg-gradient-to-br from-newari-cream to-white rounded-3xl p-8 shadow-2xl border-2 border-newari-gold"
               >
                 <div className="text-center mb-8">
-                  <div className="w-64 h-80 mx-auto mb-6">
+                  <div className="w-64 h-80 mx-auto mb-6 rounded-2xl shadow-lg border-4 border-newari-gold overflow-hidden bg-gradient-to-br from-newari-cream to-white">
                     {character.name === "Mincha" ? (
-                      <div className="w-full h-full bg-gradient-to-b from-newari-gold to-newari-red rounded-2xl shadow-lg border-4 border-newari-gold flex items-center justify-center">
-                        <span className="text-white text-2xl font-bold">Mincha SVG</span>
-                      </div>
+                      <MinchaSVG className="w-full h-full" />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-b from-newari-red to-newari-brown rounded-2xl shadow-lg border-4 border-newari-gold flex items-center justify-center">
-                        <span className="text-white text-2xl font-bold">Bhincha SVG</span>
-                      </div>
+                      <BhinchaSVG className="w-full h-full" />
                     )}
                   </div>
                 </div>
