@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(60, 9.1%, 97.8%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(0, 65%, 48%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* Newari color palette */
+  --newari-red: hsl(0, 65%, 48%);
+  --newari-gold: hsl(45, 67%, 55%);
+  --newari-brown: hsl(20, 40%, 25%);
+  --newari-sienna: hsl(20, 43%, 40%);
+  --newari-beige: hsl(60, 9.1%, 97.8%);
+  --newari-cream: hsl(60, 20%, 96%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(0, 65%, 48%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .newari-red {
+    color: var(--newari-red);
+  }
+  
+  .bg-newari-red {
+    background-color: var(--newari-red);
+  }
+  
+  .newari-gold {
+    color: var(--newari-gold);
+  }
+  
+  .bg-newari-gold {
+    background-color: var(--newari-gold);
+  }
+  
+  .newari-brown {
+    color: var(--newari-brown);
+  }
+  
+  .bg-newari-brown {
+    background-color: var(--newari-brown);
+  }
+  
+  .newari-sienna {
+    color: var(--newari-sienna);
+  }
+  
+  .bg-newari-sienna {
+    background-color: var(--newari-sienna);
+  }
+  
+  .newari-beige {
+    color: var(--newari-beige);
+  }
+  
+  .bg-newari-beige {
+    background-color: var(--newari-beige);
+  }
+  
+  .newari-cream {
+    color: var(--newari-cream);
+  }
+  
+  .bg-newari-cream {
+    background-color: var(--newari-cream);
+  }
+}
+
+/* Cultural pattern utilities */
+.cultural-pattern {
+  background-image: 
+    repeating-linear-gradient(45deg, var(--newari-red) 0px, var(--newari-red) 2px, transparent 2px, transparent 20px),
+    repeating-linear-gradient(-45deg, var(--newari-gold) 0px, var(--newari-gold) 2px, transparent 2px, transparent 20px);
+}
+
+/* Custom animations for cultural elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px var(--newari-gold);
+    opacity: 0.6;
+  }
+  50% { 
+    box-shadow: 0 0 40px var(--newari-gold);
+    opacity: 1;
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}

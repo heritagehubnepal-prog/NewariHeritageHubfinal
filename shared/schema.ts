@@ -1,0 +1,72 @@
+import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+});
+
+export const characters = pgTable("characters", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  role: text("role").notNull(),
+  trait: text("trait").notNull(),
+  description: text("description").notNull(),
+  quote: text("quote").notNull(),
+  imageUrl: text("image_url"),
+  isActive: boolean("is_active").default(true),
+});
+
+export const stories = pgTable("stories", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  narrator: text("narrator").notNull(),
+  duration: text("duration").notNull(),
+  imageUrl: text("image_url"),
+  characterId: integer("character_id").references(() => characters.id),
+  isPublished: boolean("is_published").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const heritageItems = pgTable("heritage_items", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  category: text("category").notNull(),
+  imageUrl: text("image_url"),
+  isActive: boolean("is_active").default(true),
+});
+
+export const insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true,
+});
+
+export const insertCharacterSchema = createInsertSchema(characters).omit({
+  id: true,
+});
+
+export const insertStorySchema = createInsertSchema(stories).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertHeritageItemSchema = createInsertSchema(heritageItems).omit({
+  id: true,
+});
+
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
+
+export type InsertCharacter = z.infer<typeof insertCharacterSchema>;
+export type Character = typeof characters.$inferSelect;
+
+export type InsertStory = z.infer<typeof insertStorySchema>;
+export type Story = typeof stories.$inferSelect;
+
+export type InsertHeritageItem = z.infer<typeof insertHeritageItemSchema>;
+export type HeritageItem = typeof heritageItems.$inferSelect;
