@@ -2,11 +2,13 @@
 
 ## Overview
 
-Heritage Hub Nepal is a cultural preservation and education platform showcasing Newari heritage through interactive storytelling. The application features two beloved Newari characters, Mincha and Bhincha, who serve as cultural ambassadors and storytellers. Built as a modern full-stack web application, it provides an engaging way to explore traditional Newari culture, stories, and heritage items.
+Heritage Hub Nepal is a cultural and eco-friendly initiative aimed at preserving Nepal's heritage while promoting sustainability, zero-waste practices, and community engagement. Starting in Hadigaun and expanding to culturally significant regions (Patan, Bhaktapur, Pokhara, Lumbini), the hub features engaging activities like farmers markets, cultural performances, workshops, storytelling sessions, and refreshment zones.
 
-**Mincha** represents modernity, sustainability, and innovation - a modern eco-friendly ambassador who champions environmental stewardship while bridging traditional wisdom with contemporary practices.
+The platform showcases two versatile mascot characters who serve as cultural ambassadors across different regions and themes:
 
-**Bhincha** embodies the rich cultural heritage of the Newar community - a traditional cultural guardian who preserves rituals, traditions, and crafts from across Nepal's Newari regions.
+**Mincha** - Modern eco-friendly ambassador representing sustainability, innovation, and social responsibility. Champions urban farming, bamboo crafting, zero-waste practices, and renewable energy solutions while bridging traditional wisdom with contemporary environmental stewardship.
+
+**Bhincha** - Traditional Newari cultural guardian preserving rituals, traditions, and crafts across all Heritage Hub locations. Guides cultural performances, storytelling sessions, and heritage workshops while maintaining adaptability to represent different regional themes.
 
 ## User Preferences
 
@@ -14,13 +16,21 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (January 15, 2025)
 
-- Updated character specifications based on user requirements document
-- Enhanced SVG character illustrations with detailed traditional and modern elements
-- Mincha now features eco-friendly clothing, solar panels, plants, and sustainability symbols
-- Bhincha enhanced with traditional Newari attire, jewelry, hair ornaments, and cultural items
-- Fixed navigation and footer React warnings (nested anchor tags, duplicate keys)
-- Integrated actual SVG components into character cards and homepage displays
-- Character descriptions updated to reflect their roles as cultural ambassadors for Heritage Hub Nepal
+- Completely redesigned Heritage Hub Nepal platform based on comprehensive business requirements
+- Enhanced UI/UX with earthy sustainability colors (eco-green, bamboo-yellow, sage-green, earth-orange)
+- Added comprehensive Heritage Hub Services section showcasing all revenue streams:
+  - Eco-Products & Merchandise (bamboo crafts, microgreens kits, character merchandise)
+  - Training & Workshops (urban farming, zero-waste practices, cultural preservation)
+  - Event Hosting (weddings, corporate retreats, cultural festivals)
+  - Farmers Market Stalls (NPR 500-1,000/day vendor spaces)
+  - Heritage Refreshments (eco-friendly snacks and traditional drinks)
+  - Digital Content (recorded workshops and storytelling sessions)
+- Implemented regional expansion roadmap (Hadigaun → Patan → Bhaktapur → Pokhara → Lumbini)
+- Created Character Integration section showing marketing, education, and product design applications
+- Updated character descriptions to reflect Heritage Hub Nepal business model and versatility
+- Enhanced character designs with eco-friendly and traditional elements reflecting their adaptability
+- Added character collaboration showcase demonstrating harmony between tradition and modernity
+- Improved responsive design with modern animations and cultural patterns
 
 ## System Architecture
 

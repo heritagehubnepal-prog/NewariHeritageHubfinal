@@ -24,13 +24,22 @@
   --ring: hsl(20, 14.3%, 4.1%);
   --radius: 0.5rem;
   
-  /* Newari color palette */
+  /* Heritage Hub Nepal - Earthy & Sustainable Color Palette */
   --newari-red: hsl(0, 65%, 48%);
   --newari-gold: hsl(45, 67%, 55%);
   --newari-brown: hsl(20, 40%, 25%);
   --newari-sienna: hsl(20, 43%, 40%);
   --newari-beige: hsl(60, 9.1%, 97.8%);
   --newari-cream: hsl(60, 20%, 96%);
+  
+  /* Sustainability & Nature Colors */
+  --eco-green: hsl(115, 54%, 35%);
+  --forest-green: hsl(140, 60%, 30%);
+  --sage-green: hsl(95, 30%, 45%);
+  --earth-orange: hsl(25, 75%, 50%);
+  --bamboo-yellow: hsl(55, 70%, 60%);
+  --clay-brown: hsl(30, 35%, 40%);
+  --temple-stone: hsl(210, 8%, 45%);
 }
 
 .dark {
@@ -113,6 +122,90 @@
   
   .bg-newari-cream {
     background-color: var(--newari-cream);
+  }
+  
+  /* Eco-friendly sustainability colors */
+  .eco-green {
+    color: var(--eco-green);
+  }
+  
+  .bg-eco-green {
+    background-color: var(--eco-green);
+  }
+  
+  .forest-green {
+    color: var(--forest-green);
+  }
+  
+  .bg-forest-green {
+    background-color: var(--forest-green);
+  }
+  
+  .sage-green {
+    color: var(--sage-green);
+  }
+  
+  .bg-sage-green {
+    background-color: var(--sage-green);
+  }
+  
+  .earth-orange {
+    color: var(--earth-orange);
+  }
+  
+  .bg-earth-orange {
+    background-color: var(--earth-orange);
+  }
+  
+  .bamboo-yellow {
+    color: var(--bamboo-yellow);
+  }
+  
+  .bg-bamboo-yellow {
+    background-color: var(--bamboo-yellow);
+  }
+  
+  .clay-brown {
+    color: var(--clay-brown);
+  }
+  
+  .bg-clay-brown {
+    background-color: var(--clay-brown);
+  }
+  
+  .temple-stone {
+    color: var(--temple-stone);
+  }
+  
+  .bg-temple-stone {
+    background-color: var(--temple-stone);
+  }
+  
+  /* Enhanced animations for heritage theme */
+  .heritage-float {
+    animation: heritageFloat 6s ease-in-out infinite;
+  }
+  
+  @keyframes heritageFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes pulseGlow {
+    from { opacity: 0.4; }
+    to { opacity: 0.8; }
+  }
+  
+  /* Traditional patterns */
+  .cultural-pattern {
+    background-image: 
+      radial-gradient(circle at 25% 25%, var(--newari-gold) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, var(--newari-red) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 }
 

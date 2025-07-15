@@ -14,8 +14,8 @@ export const characters: Character[] = [
     name: "Mincha",
     role: "Modern Eco-Friendly Ambassador",
     trait: "Innovative & Sustainable",
-    description: "Mincha represents modernity, sustainability, and the younger generation's role in addressing societal challenges. As a forward-thinking boy who champions eco-friendly practices like composting, rainwater harvesting, urban farming, and renewable energy, he bridges traditional wisdom with contemporary environmental stewardship.",
-    quote: "Innovation and tradition dance together in harmony for a sustainable future",
+    description: "Mincha champions sustainability, innovation, and social responsibility at Heritage Hub Nepal. This modern eco-friendly boy promotes urban farming, bamboo crafting, zero-waste practices, and renewable energy solutions. His adaptable design represents different regions while maintaining his core message of environmental stewardship and community engagement.",
+    quote: "Where tradition meets innovation, sustainable futures take root",
     imageUrl: "/images/mincha.svg"
   },
   {
@@ -23,8 +23,8 @@ export const characters: Character[] = [
     name: "Bhincha",
     role: "Traditional Newari Cultural Guardian",
     trait: "Wise & Nurturing",
-    description: "Bhincha embodies the rich cultural heritage of the Newar community from across Nepal. As a custodian of rituals, traditions, and crafts, she represents the diversity of Newari culture from Kathmandu Valley to Patan, Bhaktapur, and Bandipur. Through her nurturing wisdom, she preserves and shares the sacred knowledge of festivals, arts, and ancestral practices.",
-    quote: "In every tradition lies the wisdom of generations, waiting to bloom in modern hearts",
+    description: "Bhincha preserves Nepal's rich cultural heritage, rituals, and traditions across all Heritage Hub locations. As a traditional Newari girl, she guides cultural performances, storytelling sessions, and heritage workshops. Her versatile design adapts to represent different regional themes while maintaining her core identity as a cultural custodian and educator.",
+    quote: "Every tradition carries the heartbeat of our ancestors into tomorrow",
     imageUrl: "/images/bhincha.svg"
   }
 ];
