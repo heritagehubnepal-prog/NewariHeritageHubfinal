@@ -13,7 +13,7 @@ import { heritageItems } from "@/data/heritage";
 import { 
   Play, Book, GraduationCap, ArrowRight, Leaf, Recycle, Users, 
   ShoppingBag, Calendar, Coffee, Video, MapPin, Heart, Star,
-  Building, TreePine, Sprout, Workshop
+  Building, TreePine, Sprout, Workshop, Gamepad2
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -579,6 +579,81 @@ export default function Home() {
               >
                 <Book className="mr-2 h-5 w-5" />
                 View All Stories
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Interactive Games Section */}
+      <section className="py-20 bg-gradient-to-br from-newari-gold/10 to-eco-green/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold newari-red mb-6">Interactive Learning Games</h2>
+            <p className="text-xl newari-brown max-w-3xl mx-auto">
+              Learn Newari heritage and sustainability through fun, educational games guided by Mincha and Bhincha!
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {[
+              {
+                title: "Cultural Quiz",
+                description: "Test your knowledge of Newari traditions and eco-practices",
+                icon: "🧠",
+                color: "bg-newari-red"
+              },
+              {
+                title: "Memory Match",
+                description: "Match cultural and sustainability pairs to improve focus",
+                icon: "🎯", 
+                color: "bg-eco-green"
+              },
+              {
+                title: "Story Builder",
+                description: "Create your own heritage adventures with guided prompts",
+                icon: "📚",
+                color: "bg-newari-gold"
+              }
+            ].map((game, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                whileHover={{ y: -10 }}
+              >
+                <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-eco-green">
+                  <CardContent className="p-6 text-center">
+                    <div className={`${game.color} text-white w-16 h-16 rounded-2xl flex items-center justify-center mb-4 mx-auto text-2xl`}>
+                      {game.icon}
+                    </div>
+                    <h3 className="text-xl font-bold newari-brown mb-3">{game.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{game.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center"
+          >
+            <Link href="/games">
+              <Button 
+                size="lg" 
+                className="bg-newari-red hover:bg-red-700 text-white transform hover:scale-105 transition-all"
+              >
+                <Gamepad2 className="mr-2 h-5 w-5" />
+                Start Playing Games
               </Button>
             </Link>
           </motion.div>

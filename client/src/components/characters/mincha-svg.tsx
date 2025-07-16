@@ -1,11 +1,47 @@
-export default function MinchaSVG({ className = "w-full h-full" }: { className?: string }) {
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+interface MinchaSVGProps {
+  className?: string;
+  interactive?: boolean;
+  onCharacterClick?: () => void;
+}
+
+export default function MinchaSVG({ 
+  className = "w-full h-full", 
+  interactive = false,
+  onCharacterClick 
+}: MinchaSVGProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [eyesBlink, setEyesBlink] = useState(false);
+  const [waveHand, setWaveHand] = useState(false);
+
+  const handleCharacterClick = () => {
+    if (onCharacterClick) {
+      onCharacterClick();
+    }
+    setEyesBlink(true);
+    setWaveHand(true);
+    setTimeout(() => setEyesBlink(false), 300);
+    setTimeout(() => setWaveHand(false), 1000);
+  };
+
   return (
-    <svg
-      viewBox="0 0 400 500"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+    <motion.div
+      className={interactive ? "cursor-pointer" : ""}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={interactive ? handleCharacterClick : undefined}
+      whileHover={interactive ? { scale: 1.05 } : {}}
+      whileTap={interactive ? { scale: 0.98 } : {}}
+      transition={{ duration: 0.2 }}
     >
+      <svg
+        viewBox="0 0 400 500"
+        className={className}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
       {/* Modern Eco-Friendly Character - Mincha */}
       
       {/* Background with eco elements */}
@@ -117,6 +153,7 @@ export default function MinchaSVG({ className = "w-full h-full" }: { className?:
           <stop offset="100%" stopColor="#1E3A8A" />
         </linearGradient>
       </defs>
-    </svg>
+      </svg>
+    </motion.div>
   );
 }

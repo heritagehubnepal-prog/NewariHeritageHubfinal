@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import Character from "@/pages/character";
 import Heritage from "@/pages/heritage";
 import Stories from "@/pages/stories";
+import Games from "@/pages/games";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 
@@ -20,6 +21,7 @@ function Router() {
         <Route path="/character/:name" component={Character} />
         <Route path="/heritage" component={Heritage} />
         <Route path="/stories" component={Stories} />
+        <Route path="/games" component={Games} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

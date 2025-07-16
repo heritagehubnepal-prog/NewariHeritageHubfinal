@@ -13,6 +13,7 @@ export default function Navbar() {
     { href: "#characters", label: "Characters" },
     { href: "/heritage", label: "Heritage" },
     { href: "/stories", label: "Stories" },
+    { href: "/games", label: "Games" },
   ];
 
   return (
