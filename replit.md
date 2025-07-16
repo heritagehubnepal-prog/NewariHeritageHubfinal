@@ -31,6 +31,9 @@ Preferred communication style: Simple, everyday language.
 - Enhanced character designs with eco-friendly and traditional elements reflecting their adaptability
 - Added character collaboration showcase demonstrating harmony between tradition and modernity
 - Improved responsive design with modern animations and cultural patterns
+- Integrated PostgreSQL database with Drizzle ORM replacing in-memory storage
+- Database contains characters, stories, heritage items, and user tables with sample data
+- Characters, heritage items, and stories now populated with authentic Newari cultural content
 
 ## System Architecture
 
@@ -53,8 +56,8 @@ Preferred communication style: Simple, everyday language.
 - **Database**: PostgreSQL configured through Drizzle ORM
 - **ORM**: Drizzle ORM with type-safe database operations
 - **Connection**: Neon Database serverless adapter for PostgreSQL
-- **Development Storage**: In-memory storage implementation for development
-- **Schema Management**: Drizzle migrations with schema versioning
+- **Production Storage**: PostgreSQL database with authenticated content
+- **Schema Management**: Drizzle migrations with schema versioning and sample data seeding
 
 ## Key Components
 
