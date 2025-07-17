@@ -21,52 +21,122 @@ interface QuizQuestion {
 const quizQuestions: QuizQuestion[] = [
   {
     id: 1,
-    question: "What is the traditional Newari festival that honors Lord Indra?",
-    options: ["Indra Jatra", "Dashain", "Tihar", "Holi"],
-    correctAnswer: 0,
-    category: "culture",
-    narrator: "Bhincha",
-    explanation: "Indra Jatra is one of the most celebrated festivals in Nepal, featuring traditional dances and the Living Goddess Kumari parade.",
-    difficulty: "easy"
-  },
-  {
-    id: 2,
-    question: "Which sustainable practice does Heritage Hub Nepal promote for urban living?",
-    options: ["Plastic use", "Urban farming", "Car dependency", "Food waste"],
-    correctAnswer: 1,
-    category: "sustainability",
-    narrator: "Mincha",
-    explanation: "Urban farming helps communities grow their own food while reducing environmental impact and promoting food security.",
-    difficulty: "easy"
-  },
-  {
-    id: 3,
-    question: "What is the traditional Newari dress worn by women called?",
-    options: ["Sari", "Haku Patasi", "Cholo", "Gunyu"],
+    question: "Which king built the five-tiered Nyatapola Temple in Bhaktapur in 1702?",
+    options: ["King Manadeva I", "King Bhupatindra Malla", "Siddhi Narsingh Malla", "Jayasthiti Malla"],
     correctAnswer: 1,
     category: "heritage",
     narrator: "Bhincha",
-    explanation: "Haku Patasi is the traditional black sari with red border worn by Newari women, often paired with a blouse called Cholo.",
+    explanation: "King Bhupatindra Malla built the Nyatapola Temple in 1702, dedicated to Goddess Siddhi Lakshmi with mythical protectors carved on each tier.",
     difficulty: "medium"
   },
   {
-    id: 4,
-    question: "Which renewable energy source is featured in Heritage Hub Nepal's eco-initiatives?",
-    options: ["Coal", "Solar panels", "Nuclear", "Natural gas"],
+    id: 2,
+    question: "What legendary tale is celebrated during Bisket Jatra festival?",
+    options: ["Dancing goddess", "Cursed princess freed by brave suitor", "Golden pagoda", "Sacred flood"],
     correctAnswer: 1,
+    category: "culture",
+    narrator: "Bhincha",
+    explanation: "Bisket Jatra celebrates the legend of a cursed princess freed by a brave suitor who killed serpents emerging from her nostrils, marking the Nepali New Year.",
+    difficulty: "medium"
+  },
+  {
+    id: 3,
+    question: "Which sustainable practice helps reduce environmental impact in urban areas?",
+    options: ["Bamboo crafting", "Microgreen cultivation", "Zero-waste practices", "All of the above"],
+    correctAnswer: 3,
     category: "sustainability",
     narrator: "Mincha",
-    explanation: "Solar panels convert sunlight into clean electricity, reducing carbon footprint and promoting energy independence.",
+    explanation: "Heritage Hub Nepal promotes bamboo crafting, microgreen cultivation, and zero-waste practices as part of comprehensive sustainable living.",
     difficulty: "easy"
   },
   {
+    id: 4,
+    question: "Where did Guru Padmasambhava meditate to transform local spirits into Buddhist protectors?",
+    options: ["Phewa Lake", "Yanglesho and Asura caves", "Changu Narayan", "Baghwan Bahal"],
+    correctAnswer: 1,
+    category: "heritage",
+    narrator: "Mincha",
+    explanation: "Guru Padmasambhava meditated in Yanglesho and Asura caves near Pharping to harmonize indigenous beliefs with Vajrayana Buddhism.",
+    difficulty: "hard"
+  },
+  {
     id: 5,
-    question: "What material is commonly used for traditional Newari wood carvings?",
-    options: ["Pine", "Sal wood", "Bamboo", "Teak"],
+    question: "What year was the oldest documented Licchavi inscription created by King Manadeva?",
+    options: ["464 CE", "505 CE", "621 CE", "636 CE"],
+    correctAnswer: 0,
+    category: "heritage",
+    narrator: "Bhincha",
+    explanation: "The Changunārāyana pillar inscription from 464 CE is one of the earliest documented records of the Licchavi dynasty under King Manadeva I.",
+    difficulty: "hard"
+  },
+  {
+    id: 6,
+    question: "Which temple in Patan was built by Siddhi Narsingh Malla in 1636?",
+    options: ["Nyatapola Temple", "Krishna Temple", "Changu Narayan", "Taal Barahi"],
     correctAnswer: 1,
     category: "heritage",
     narrator: "Bhincha",
-    explanation: "Sal wood is traditionally used for intricate Newari carvings due to its durability and workability.",
+    explanation: "The Krishna Temple in Patan was commissioned by Siddhi Narsingh Malla in 1636, featuring intricate carvings and multistoried pagoda-style architecture.",
+    difficulty: "medium"
+  },
+  {
+    id: 7,
+    question: "What do Nagas represent in Newari mythology around Pokhara?",
+    options: ["Mountain spirits", "Serpent guardians of water bodies", "Bird warriors", "Forest protectors"],
+    correctAnswer: 1,
+    category: "culture",
+    narrator: "Mincha",
+    explanation: "Nagas are serpent-like beings revered as guardians of water bodies and fertility, particularly associated with Phewa Lake in Pokhara.",
+    difficulty: "medium"
+  },
+  {
+    id: 8,
+    question: "Which eco-friendly material is promoted by Heritage Hub Nepal for sustainable crafting?",
+    options: ["Plastic", "Bamboo", "Synthetic fibers", "Metal"],
+    correctAnswer: 1,
+    category: "sustainability",
+    narrator: "Mincha",
+    explanation: "Bamboo is a renewable, biodegradable material perfect for crafting eco-friendly products while supporting traditional skills.",
+    difficulty: "easy"
+  },
+  {
+    id: 9,
+    question: "What does the Uma-Maheswara sculpture in Patan Museum represent?",
+    options: ["War victory", "Divine unity of Shiva and Parvati", "Harvest celebration", "Royal power"],
+    correctAnswer: 1,
+    category: "heritage",
+    narrator: "Bhincha",
+    explanation: "The 12th-century Uma-Maheswara sculpture symbolizes divine unity and harmonious balance between masculine and feminine cosmic energies.",
+    difficulty: "medium"
+  },
+  {
+    id: 10,
+    question: "Which festival honors Kumar Kartikeya and Ganesha with rituals for prosperity?",
+    options: ["Bisket Jatra", "Sithi Nakha", "Indra Jatra", "Dashain"],
+    correctAnswer: 1,
+    category: "culture",
+    narrator: "Bhincha",
+    explanation: "Sithi Nakha is celebrated to honor Kumar Kartikeya and Ganesha, involving rituals for prosperity and familial harmony, integrating agricultural cycles with spiritual practices.",
+    difficulty: "hard"
+  },
+  {
+    id: 11,
+    question: "What sustainable practice reduces household waste while creating nutrient-rich soil?",
+    options: ["Burning trash", "Composting", "Plastic recycling", "Water conservation"],
+    correctAnswer: 1,
+    category: "sustainability",
+    narrator: "Mincha",
+    explanation: "Composting organic waste creates nutrient-rich soil for gardens while significantly reducing household waste sent to landfills.",
+    difficulty: "easy"
+  },
+  {
+    id: 12,
+    question: "Which ancient Newari site was the former capital of the Licchavi dynasty?",
+    options: ["Patan", "Bhaktapur", "Hadigaun", "Pokhara"],
+    correctAnswer: 2,
+    category: "heritage",
+    narrator: "Bhincha",
+    explanation: "Hadigaun was the capital of the Licchavi dynasty, with archaeological artifacts over 1,300 years old including the life-size statue of Jaya Varma from the 2nd century CE.",
     difficulty: "hard"
   }
 ];

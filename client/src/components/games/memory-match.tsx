@@ -17,18 +17,26 @@ interface MemoryCard {
 }
 
 const cardPairs = [
-  { content: "Indra Jatra Festival", emoji: "🎭", category: "culture" as const },
-  { content: "Traditional Masks", emoji: "🎭", category: "culture" as const },
+  { content: "Bisket Jatra Festival", emoji: "🎭", category: "culture" as const },
+  { content: "Cursed Princess Legend", emoji: "🎭", category: "culture" as const },
+  { content: "Bamboo Crafting", emoji: "🎋", category: "sustainability" as const },
+  { content: "Eco-Friendly Materials", emoji: "🎋", category: "sustainability" as const },
+  { content: "Nyatapola Temple", emoji: "🏛️", category: "culture" as const },
+  { content: "Five-Tiered Pagoda", emoji: "🏛️", category: "culture" as const },
+  { content: "Microgreen Growing", emoji: "🌱", category: "sustainability" as const },
+  { content: "Urban Agriculture", emoji: "🌱", category: "sustainability" as const },
+  { content: "Zero-Waste Practices", emoji: "♻️", category: "sustainability" as const },
+  { content: "Circular Economy", emoji: "♻️", category: "sustainability" as const },
+  { content: "Guru Padmasambhava", emoji: "🧘", category: "culture" as const },
+  { content: "Lotus-Born Master", emoji: "🧘", category: "culture" as const },
+  { content: "Nagas Water Guardians", emoji: "🐍", category: "culture" as const },
+  { content: "Phewa Lake Spirits", emoji: "🐍", category: "culture" as const },
   { content: "Solar Energy", emoji: "☀️", category: "sustainability" as const },
   { content: "Renewable Power", emoji: "☀️", category: "sustainability" as const },
-  { content: "Newari Architecture", emoji: "🏛️", category: "culture" as const },
-  { content: "Heritage Buildings", emoji: "🏛️", category: "culture" as const },
-  { content: "Urban Farming", emoji: "🌱", category: "sustainability" as const },
-  { content: "Growing Food", emoji: "🌱", category: "sustainability" as const },
-  { content: "Recycling", emoji: "♻️", category: "sustainability" as const },
-  { content: "Waste Reduction", emoji: "♻️", category: "sustainability" as const },
-  { content: "Traditional Music", emoji: "🎵", category: "culture" as const },
-  { content: "Dhime Drums", emoji: "🎵", category: "culture" as const },
+  { content: "Licchavi Inscriptions", emoji: "📜", category: "culture" as const },
+  { content: "King Manadeva 464 CE", emoji: "📜", category: "culture" as const },
+  { content: "Composting Systems", emoji: "🌿", category: "sustainability" as const },
+  { content: "Organic Waste Reduction", emoji: "🌿", category: "sustainability" as const }
 ];
 
 export default function MemoryMatch() {

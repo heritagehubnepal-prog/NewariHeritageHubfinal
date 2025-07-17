@@ -47,10 +47,10 @@ export default function Home() {
                 Meet <span className="newari-gold">Mincha</span> & <span className="eco-green">Bhincha</span>
               </h1>
               <p className="text-xl md:text-2xl newari-brown mb-4 leading-relaxed">
-                Where <span className="font-semibold eco-green">sustainability</span> meets <span className="font-semibold newari-red">heritage</span> through cultural preservation, eco-friendly practices, and community engagement.
+                Preserving <span className="font-semibold newari-red">Licchavi heritage</span> and promoting <span className="font-semibold eco-green">zero-waste practices</span> across Nepal's sacred cultural landscapes.
               </p>
               <p className="text-lg clay-brown mb-8">
-                Starting in Hadigaun and expanding across Nepal's cultural regions - Patan, Bhaktapur, Pokhara, and Lumbini.
+                From Hadigaun's ancient capital to Bhaktapur's Nyatapola Temple, Patan's Krishna Temple, Pokhara's Phewa Lake, and Lumbini's sacred grounds.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -240,8 +240,8 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold newari-red mb-6">Our Cultural Ambassadors</h2>
             <p className="text-xl newari-brown max-w-3xl mx-auto">
-              Mincha and Bhincha represent the harmony between tradition and modernity, serving as versatile 
-              ambassadors for Heritage Hub Nepal across different regions and cultural themes.
+              Mincha bridges traditional wisdom with modern sustainability while Bhincha preserves the sacred stories of 
+              Guru Padmasambhava, the Bisket Jatra festival, and ancient Newari culture across all Heritage Hub locations.
             </p>
           </motion.div>
 

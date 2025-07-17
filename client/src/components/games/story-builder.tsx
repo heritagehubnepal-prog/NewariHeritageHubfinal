@@ -21,50 +21,82 @@ const storyPrompts: StoryPrompt[] = [
   {
     id: 1,
     category: "culture",
-    setting: "Ancient Kathmandu Valley",
+    setting: "Nyatapola Temple, Bhaktapur",
     character: "Bhincha",
-    prompt: "Bhincha discovers an ancient temple with mysterious carvings that tell the story of...",
-    keywords: ["temple", "carvings", "mystery", "tradition", "ancient"]
+    prompt: "Bhincha discovers that the five-tiered guardian statues of Nyatapola Temple come alive at night to protect the city from...",
+    keywords: ["guardians", "mythical protectors", "Goddess Siddhi Lakshmi", "Bhairava", "temple"]
   },
   {
     id: 2,
     category: "sustainability",
-    setting: "Heritage Hub Nepal",
+    setting: "Heritage Hub Nepal - Bamboo Workshop",
     character: "Mincha",
-    prompt: "Mincha teaches children how to turn waste into treasure using...",
-    keywords: ["recycling", "children", "creativity", "environment", "innovation"]
+    prompt: "Mincha shows a group of children how bamboo crafting can replace plastic items while preserving traditional skills...",
+    keywords: ["bamboo", "eco-friendly", "traditional crafts", "plastic reduction", "sustainability"]
   },
   {
     id: 3,
     category: "adventure",
-    setting: "Bhaktapur Streets",
+    setting: "Phewa Lake, Pokhara",
     character: "Both",
-    prompt: "Mincha and Bhincha work together to solve the mystery of the disappearing festival masks...",
-    keywords: ["teamwork", "festival", "masks", "mystery", "friendship"]
+    prompt: "Mincha and Bhincha meet the ancient Nagas who guard Phewa Lake and must help them solve a problem threatening the water's purity...",
+    keywords: ["Nagas", "water guardians", "lake protection", "teamwork", "environmental crisis"]
   },
   {
     id: 4,
     category: "culture",
-    setting: "Traditional Workshop",
+    setting: "Changu Narayan Temple",
     character: "Bhincha",
-    prompt: "An old artisan teaches Bhincha the secret art of creating traditional pottery, but...",
-    keywords: ["pottery", "artisan", "tradition", "skill", "heritage"]
+    prompt: "While exploring the ancient Licchavi inscriptions from 464 CE, Bhincha discovers King Manadeva's spirit still watches over the temple...",
+    keywords: ["Licchavi dynasty", "King Manadeva", "ancient inscriptions", "Vishnu avatars", "heritage"]
   },
   {
     id: 5,
     category: "sustainability",
-    setting: "Rooftop Garden",
+    setting: "Heritage Hub Microgreen Farm",
     character: "Mincha",
-    prompt: "Mincha's rooftop garden produces something unexpected that changes the entire community...",
-    keywords: ["garden", "community", "growth", "surprise", "change"]
+    prompt: "Mincha's innovative microgreen system helps urban families grow fresh food, but a challenge arises that tests the community's cooperation...",
+    keywords: ["urban farming", "microgreens", "food security", "community cooperation", "innovation"]
   },
   {
     id: 6,
     category: "adventure",
-    setting: "Patan Market",
+    setting: "Bisket Jatra Festival",
     character: "Both",
-    prompt: "During the bustling market day, Mincha and Bhincha must help find a lost cultural treasure...",
-    keywords: ["market", "treasure", "culture", "adventure", "help"]
+    prompt: "During Bisket Jatra, Mincha and Bhincha must prevent a modern threat from disrupting the ancient chariot procession honoring the cursed princess legend...",
+    keywords: ["festival", "chariot procession", "Bhairab", "Bhadrakali", "tradition vs modernity"]
+  },
+  {
+    id: 7,
+    category: "culture",
+    setting: "Guru Padmasambhava's Sacred Caves",
+    character: "Bhincha",
+    prompt: "Bhincha enters the meditation caves of Yanglesho where spirits share the story of how the Lotus-Born Master brought harmony between Buddhist and indigenous beliefs...",
+    keywords: ["meditation caves", "spiritual harmony", "Vajrayana Buddhism", "indigenous traditions", "transformation"]
+  },
+  {
+    id: 8,
+    category: "sustainability",
+    setting: "Zero-Waste Heritage Hub Community",
+    character: "Mincha",
+    prompt: "Mincha leads a community challenge to achieve zero waste for a month, but unexpected obstacles test everyone's commitment to sustainability...",
+    keywords: ["zero waste", "circular economy", "community challenge", "environmental commitment", "problem-solving"]
+  },
+  {
+    id: 9,
+    category: "adventure",
+    setting: "Uma-Maheswara Gallery, Patan Museum",
+    character: "Both",
+    prompt: "The 12th-century Uma-Maheswara sculpture begins glowing mysteriously, and Mincha and Bhincha must discover what cosmic imbalance needs to be restored...",
+    keywords: ["divine balance", "cosmic harmony", "Shiva and Parvati", "museum mystery", "spiritual quest"]
+  },
+  {
+    id: 10,
+    category: "culture",
+    setting: "Hadigaun Archaeological Site",
+    character: "Bhincha",
+    prompt: "While exploring the former Licchavi capital at Hadigaun, Bhincha uncovers artifacts that reveal a forgotten celebration connecting all Heritage Hub regions...",
+    keywords: ["archaeological discovery", "Licchavi capital", "ancient artifacts", "cultural connections", "forgotten traditions"]
   }
 ];
 

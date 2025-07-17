@@ -14,7 +14,18 @@ The platform showcases two versatile mascot characters who serve as cultural amb
 
 Preferred communication style: Simple, everyday language.
 
-## Recent Changes (January 15, 2025)
+## Recent Changes (January 17, 2025)
+
+- Enhanced all content with authentic Newari cultural research from comprehensive academic document
+- Updated heritage items with 12 specific cultural sites including Nyatapola Temple, Changu Narayan, Uma-Maheswara sculpture, and Guru Padmasambhava's sacred caves
+- Replaced stories with 7 authentic legends including Bisket Jatra's cursed princess, Phewa Lake formation, and King Manadeva's sacred pillar
+- Enhanced cultural quiz with 12 research-based questions covering Licchavi dynasty, temple architecture, festivals, and sustainability practices
+- Updated Memory Match game with 20 cultural/sustainability pairs based on specific heritage elements and eco-practices
+- Improved Story Builder with 10 prompts featuring authentic locations and cultural elements from Hadigaun, Patan, Bhaktapur, Pokhara, and Lumbini
+- Updated homepage descriptions to reference specific temples, lakes, and cultural practices from the research
+- Integrated academic content about King Bhupatindra Malla, Siddhi Narsingh Malla, Nagas, Garudas, and Vajrayana Buddhism
+
+## Previous Changes (January 15, 2025)
 
 - Completely redesigned Heritage Hub Nepal platform based on comprehensive business requirements
 - Enhanced UI/UX with earthy sustainability colors (eco-green, bamboo-yellow, sage-green, earth-orange)
