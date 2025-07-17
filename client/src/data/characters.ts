@@ -23,7 +23,7 @@ export const characters: Character[] = [
     name: "Bhincha",
     role: "Traditional Newari Cultural Guardian",
     trait: "Wise & Nurturing",
-    description: "Bhincha preserves Nepal's rich cultural heritage, rituals, and traditions across all Heritage Hub locations. As a traditional Newari girl, she guides cultural performances, storytelling sessions, and heritage workshops. Her versatile design adapts to represent different regional themes while maintaining her core identity as a cultural custodian and educator.",
+    description: "Bhincha preserves Nepal's rich cultural heritage wearing authentic traditional Newari attire - black Haku Patasi sari with red borders, golden threaded Cholo blouse, Surwal pants, and ceremonial jewelry including Tilhari necklace and Pote beads. She guides cultural performances, storytelling sessions, and heritage workshops across all Heritage Hub locations, embodying the timeless beauty of Newari tradition.",
     quote: "Every tradition carries the heartbeat of our ancestors into tomorrow",
     imageUrl: "/images/bhincha.svg"
   }
