@@ -20,12 +20,18 @@ export default function BhinchaSVG({ className = "w-full h-full" }: { className?
       </g>
       
       {/* Traditional Black Haku Patasi (Newari Sari) with Red Border */}
+      {/* Body shape under sari - more natural torso */}
+      <ellipse cx="200" cy="340" rx="35" ry="45" fill="#F4A460" opacity="0.8" />
+      
       {/* Main black sari body */}
-      <ellipse cx="200" cy="390" rx="110" ry="95" fill="#1a1a1a" />
+      <ellipse cx="200" cy="390" rx="100" ry="85" fill="#1a1a1a" />
+      
+      {/* Sari draping with natural folds */}
+      <path d="M110 370 Q130 360 150 370 Q170 365 190 370 Q210 365 230 370 Q250 360 270 370 Q290 375 300 390 Q290 410 270 400 Q250 405 230 400 Q210 405 190 400 Q170 405 150 400 Q130 410 110 390 Q120 375 110 370" fill="#1a1a1a" opacity="0.9" />
       
       {/* Traditional red border on sari */}
-      <ellipse cx="200" cy="390" rx="110" ry="95" fill="none" stroke="#C41E3A" strokeWidth="8" />
-      <ellipse cx="200" cy="390" rx="100" ry="85" fill="none" stroke="#C41E3A" strokeWidth="3" />
+      <ellipse cx="200" cy="390" rx="100" ry="85" fill="none" stroke="#C41E3A" strokeWidth="6" />
+      <ellipse cx="200" cy="390" rx="90" ry="75" fill="none" stroke="#C41E3A" strokeWidth="2" />
       
       {/* Black Cholo (Blouse) with intricate golden patterns */}
       <rect x="135" y="255" width="130" height="80" fill="#1a1a1a" rx="15" />
@@ -64,82 +70,150 @@ export default function BhinchaSVG({ className = "w-full h-full" }: { className?
         <circle cx="230" cy="280" r="2" />
       </g>
       
-      {/* Face */}
-      <ellipse cx="200" cy="200" rx="55" ry="65" fill="#F4A460" />
+      {/* Neck - more natural connection */}
+      <ellipse cx="200" cy="245" rx="18" ry="20" fill="#F4A460" />
+      <ellipse cx="200" cy="245" rx="15" ry="17" fill="#E6967A" opacity="0.2" />
       
-      {/* Traditional Hair Style with regional variation */}
-      <ellipse cx="200" cy="145" rx="75" ry="45" fill="#2F1B14" />
-      <path d="M125 145 Q145 120 165 135 Q185 115 200 135 Q215 115 235 135 Q255 120 275 145" fill="#2F1B14" />
+      {/* Shoulders */}
+      <ellipse cx="200" cy="275" rx="55" ry="20" fill="#F4A460" />
+      <ellipse cx="200" cy="275" rx="50" ry="15" fill="#E6967A" opacity="0.3" />
+      
+      {/* Face with more human proportions */}
+      <ellipse cx="200" cy="195" rx="40" ry="50" fill="#F4A460" />
+      
+      {/* Natural facial shading */}
+      <ellipse cx="200" cy="195" rx="35" ry="45" fill="#F4A460" opacity="0.3" />
+      <ellipse cx="195" cy="210" rx="6" ry="3" fill="#E6967A" opacity="0.5" />
+      <ellipse cx="205" cy="210" rx="6" ry="3" fill="#E6967A" opacity="0.5" />
+      
+      {/* Traditional Hair Style - more natural */}
+      <ellipse cx="200" cy="155" rx="60" ry="40" fill="#2F1B14" />
+      <path d="M140 155 Q160 135 180 150 Q190 140 200 150 Q210 140 220 150 Q240 135 260 155 Q250 170 230 165 Q215 175 200 165 Q185 175 170 165 Q150 170 140 155" fill="#2F1B14" />
+      
+      {/* Hair parting and natural texture */}
+      <path d="M200 125 Q205 140 210 155 Q200 160 190 155 Q195 140 200 125" fill="#1a0f0a" />
       
       {/* Elaborate Hair Ornaments (Sirbandi) */}
-      <circle cx="150" cy="135" r="5" fill="#D4AF37" />
-      <circle cx="200" cy="120" r="6" fill="#FFD700" />
-      <circle cx="250" cy="135" r="5" fill="#D4AF37" />
-      <rect x="195" y="115" width="10" height="3" fill="#C41E3A" />
+      <circle cx="165" cy="145" r="4" fill="#D4AF37" />
+      <circle cx="200" cy="130" r="5" fill="#FFD700" />
+      <circle cx="235" cy="145" r="4" fill="#D4AF37" />
+      <rect x="197" y="127" width="6" height="2" fill="#C41E3A" />
       
       {/* Traditional hair decoration (Chhuti) */}
-      <path d="M180 130 Q200 125 220 130" stroke="#D4AF37" strokeWidth="3" fill="none" />
-      <circle cx="190" cy="128" r="2" fill="#FFD700" />
-      <circle cx="200" cy="127" r="2" fill="#FFD700" />
-      <circle cx="210" cy="128" r="2" fill="#FFD700" />
+      <path d="M180 140 Q200 135 220 140" stroke="#D4AF37" strokeWidth="2" fill="none" />
+      <circle cx="190" cy="138" r="1.5" fill="#FFD700" />
+      <circle cx="200" cy="137" r="1.5" fill="#FFD700" />
+      <circle cx="210" cy="138" r="1.5" fill="#FFD700" />
       
-      {/* Eyes with traditional kohl */}
-      <ellipse cx="185" cy="185" rx="8" ry="12" fill="white" />
-      <ellipse cx="215" cy="185" rx="8" ry="12" fill="white" />
-      <circle cx="185" cy="185" r="4" fill="black" />
-      <circle cx="215" cy="185" r="4" fill="black" />
+      {/* More expressive human eyes */}
+      <ellipse cx="185" cy="180" rx="10" ry="8" fill="white" />
+      <ellipse cx="215" cy="180" rx="10" ry="8" fill="white" />
       
-      {/* Extended eyelashes and kohl */}
-      <path d="M175 175 L178 170" stroke="black" strokeWidth="1.5" />
-      <path d="M193 175 L190 169" stroke="black" strokeWidth="1.5" />
-      <path d="M207 175 L210 169" stroke="black" strokeWidth="1.5" />
-      <path d="M225 175 L222 170" stroke="black" strokeWidth="1.5" />
+      {/* Iris and pupils */}
+      <circle cx="185" cy="180" r="5" fill="#4A4A4A" />
+      <circle cx="215" cy="180" r="5" fill="#4A4A4A" />
+      <circle cx="185" cy="180" r="3" fill="black" />
+      <circle cx="215" cy="180" r="3" fill="black" />
       
-      {/* Nose */}
-      <path d="M200 195 L195 205 Q200 210 205 205 Z" fill="#E6967A" />
+      {/* Light reflection in eyes */}
+      <circle cx="186" cy="178" r="1" fill="white" opacity="0.8" />
+      <circle cx="216" cy="178" r="1" fill="white" opacity="0.8" />
       
-      {/* Traditional Nose Ring (Phuli) */}
-      <circle cx="198" cy="205" r="3" fill="none" stroke="#D4AF37" strokeWidth="2" />
-      <circle cx="198" cy="205" r="1" fill="#D4AF37" />
+      {/* Eyebrows - more natural shape */}
+      <path d="M175 170 Q185 167 195 170" stroke="#2F1B14" strokeWidth="3" fill="none" />
+      <path d="M205 170 Q215 167 225 170" stroke="#2F1B14" strokeWidth="3" fill="none" />
       
-      {/* Gentle smile */}
-      <path d="M188 225 Q200 238 212 225" stroke="#8B4513" strokeWidth="2" fill="none" />
+      {/* Traditional kohl with softer appearance */}
+      <path d="M175 175 Q185 172 195 175" stroke="black" strokeWidth="1" fill="none" opacity="0.7" />
+      <path d="M205 175 Q215 172 225 175" stroke="black" strokeWidth="1" fill="none" opacity="0.7" />
       
-      {/* Traditional Tilaka (Forehead marking) */}
-      <circle cx="200" cy="165" r="4" fill="#C41E3A" />
-      <path d="M200 158 L200 172" stroke="#C41E3A" strokeWidth="3" />
-      <path d="M196 165 L204 165" stroke="#C41E3A" strokeWidth="2" />
-      
-      {/* Arms */}
-      <ellipse cx="105" cy="320" rx="20" ry="58" fill="#F4A460" />
-      <ellipse cx="295" cy="320" rx="20" ry="58" fill="#F4A460" />
-      
-      {/* Elaborate Traditional Bangles (Chooda) */}
-      <g stroke="#D4AF37" strokeWidth="2" fill="#D4AF37">
-        <rect x="100" y="305" width="12" height="5" rx="2" />
-        <rect x="100" y="315" width="12" height="5" rx="2" fill="#C41E3A" />
-        <rect x="100" y="325" width="12" height="5" rx="2" />
-        <rect x="100" y="335" width="12" height="5" rx="2" fill="#C41E3A" />
+      {/* Natural eyelashes */}
+      <g stroke="black" strokeWidth="0.8" opacity="0.6">
+        <path d="M177 175 L175 172" />
+        <path d="M180 174 L178 171" />
+        <path d="M183 174 L182 171" />
+        <path d="M187 174 L187 171" />
+        <path d="M190 174 L191 171" />
+        <path d="M193 174 L195 171" />
         
-        <rect x="290" y="305" width="12" height="5" rx="2" />
-        <rect x="290" y="315" width="12" height="5" rx="2" fill="#C41E3A" />
-        <rect x="290" y="325" width="12" height="5" rx="2" />
-        <rect x="290" y="335" width="12" height="5" rx="2" fill="#C41E3A" />
+        <path d="M207 174 L205 171" />
+        <path d="M210 174 L208 171" />
+        <path d="M213 174 L212 171" />
+        <path d="M217 174 L217 171" />
+        <path d="M220 174 L221 171" />
+        <path d="M223 175 L225 172" />
       </g>
       
-      {/* Hands holding traditional items */}
-      <ellipse cx="85" cy="385" rx="14" ry="20" fill="#F4A460" />
-      <ellipse cx="315" cy="385" rx="14" ry="20" fill="#F4A460" />
+      {/* More realistic nose */}
+      <path d="M200 190 L198 198 Q200 202 202 198 Z" fill="#E6967A" />
+      <path d="M198 195 Q200 197 202 195" stroke="#D2A679" strokeWidth="0.5" fill="none" />
       
-      {/* Left hand holding prayer beads (Mala) */}
-      <circle cx="78" cy="375" r="2" fill="#8B4513" />
-      <circle cx="75" cy="378" r="2" fill="#8B4513" />
-      <circle cx="78" cy="381" r="2" fill="#8B4513" />
-      <circle cx="81" cy="378" r="2" fill="#8B4513" />
+      {/* Traditional Nose Ring (Phuli) - smaller and more delicate */}
+      <circle cx="199" cy="198" r="2" fill="none" stroke="#D4AF37" strokeWidth="1.5" />
+      <circle cx="199" cy="198" r="0.8" fill="#D4AF37" />
       
-      {/* Right hand holding traditional bamboo basket */}
-      <ellipse cx="320" cy="375" rx="8" ry="12" fill="#DEB887" stroke="#8B4513" strokeWidth="1" />
-      <path d="M315 370 L325 370 M315 375 L325 375 M315 380 L325 380" stroke="#8B4513" strokeWidth="1" />
+      {/* Natural smile with lip definition */}
+      <path d="M190 215 Q200 225 210 215" stroke="#B8860B" strokeWidth="1.5" fill="none" />
+      <path d="M192 218 Q200 222 208 218" fill="#CD853F" opacity="0.6" />
+      
+      {/* Traditional Tilaka (Forehead marking) - more refined */}
+      <circle cx="200" cy="160" r="3" fill="#C41E3A" />
+      <path d="M200 154 L200 166" stroke="#C41E3A" strokeWidth="2" />
+      <path d="M197 160 L203 160" stroke="#C41E3A" strokeWidth="1.5" />
+      
+      {/* More natural arms with proper joints */}
+      <ellipse cx="120" cy="305" rx="15" ry="35" fill="#F4A460" />
+      <ellipse cx="280" cy="305" rx="15" ry="35" fill="#F4A460" />
+      
+      {/* Forearms */}
+      <ellipse cx="105" cy="350" rx="12" ry="30" fill="#F4A460" />
+      <ellipse cx="295" cy="350" rx="12" ry="30" fill="#F4A460" />
+      
+      {/* Arm shading for depth */}
+      <ellipse cx="115" cy="310" rx="8" ry="25" fill="#E6967A" opacity="0.3" />
+      <ellipse cx="285" cy="310" rx="8" ry="25" fill="#E6967A" opacity="0.3" />
+      
+      {/* Elaborate Traditional Bangles (Chooda) on wrists */}
+      <g stroke="#D4AF37" strokeWidth="1.5" fill="#D4AF37">
+        <rect x="100" y="330" width="10" height="4" rx="2" />
+        <rect x="100" y="336" width="10" height="4" rx="2" fill="#C41E3A" />
+        <rect x="100" y="342" width="10" height="4" rx="2" />
+        <rect x="100" y="348" width="10" height="4" rx="2" fill="#C41E3A" />
+        
+        <rect x="290" y="330" width="10" height="4" rx="2" />
+        <rect x="290" y="336" width="10" height="4" rx="2" fill="#C41E3A" />
+        <rect x="290" y="342" width="10" height="4" rx="2" />
+        <rect x="290" y="348" width="10" height="4" rx="2" fill="#C41E3A" />
+      </g>
+      
+      {/* More realistic hands with fingers */}
+      <ellipse cx="95" cy="385" rx="12" ry="18" fill="#F4A460" />
+      <ellipse cx="305" cy="385" rx="12" ry="18" fill="#F4A460" />
+      
+      {/* Fingers on left hand */}
+      <ellipse cx="90" cy="375" rx="3" ry="8" fill="#F4A460" />
+      <ellipse cx="94" cy="372" rx="3" ry="10" fill="#F4A460" />
+      <ellipse cx="98" cy="373" rx="3" ry="9" fill="#F4A460" />
+      <ellipse cx="102" cy="375" rx="3" ry="7" fill="#F4A460" />
+      
+      {/* Fingers on right hand */}
+      <ellipse cx="298" cy="375" rx="3" ry="7" fill="#F4A460" />
+      <ellipse cx="302" cy="373" rx="3" ry="9" fill="#F4A460" />
+      <ellipse cx="306" cy="372" rx="3" ry="10" fill="#F4A460" />
+      <ellipse cx="310" cy="375" rx="3" ry="8" fill="#F4A460" />
+      
+      {/* Left hand holding prayer beads (Mala) - more detailed */}
+      <circle cx="88" cy="378" r="1.5" fill="#8B4513" />
+      <circle cx="85" cy="381" r="1.5" fill="#8B4513" />
+      <circle cx="88" cy="384" r="1.5" fill="#8B4513" />
+      <circle cx="91" cy="381" r="1.5" fill="#8B4513" />
+      <path d="M85 381 Q88 378 91 381 Q88 384 85 381" stroke="#654321" strokeWidth="0.5" fill="none" />
+      
+      {/* Right hand holding traditional lotus flower */}
+      <ellipse cx="308" cy="378" rx="6" ry="8" fill="#FFB6C1" />
+      <path d="M305 375 Q308 372 311 375 Q308 378 305 375" fill="#FF69B4" />
+      <path d="M305 381 Q308 384 311 381 Q308 378 305 381" fill="#FF69B4" />
+      <circle cx="308" cy="378" r="2" fill="#FFD700" />
       
       {/* Elaborate Traditional Necklace (Tilhari) - Heavy gold jewelry */}
       <ellipse cx="200" cy="248" rx="50" ry="12" fill="none" stroke="#D4AF37" strokeWidth="6" />
