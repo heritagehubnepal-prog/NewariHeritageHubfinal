@@ -4,17 +4,25 @@
 
 Heritage Hub Nepal is a cultural and eco-friendly initiative aimed at preserving Nepal's heritage while promoting sustainability, zero-waste practices, and community engagement. Starting in Hadigaun and expanding to culturally significant regions (Patan, Bhaktapur, Pokhara, Lumbini), the hub features engaging activities like farmers markets, cultural performances, workshops, storytelling sessions, and refreshment zones.
 
-The platform showcases two versatile mascot characters who serve as cultural ambassadors across different regions and themes:
+The platform showcases two beloved mascot characters who represent the beautiful union of tradition and modernity:
 
-**Mincha** - Modern eco-friendly ambassador representing sustainability, innovation, and social responsibility. Champions urban farming, bamboo crafting, zero-waste practices, and renewable energy solutions while bridging traditional wisdom with contemporary environmental stewardship.
+**Mincha** - An enthusiastic young man who married into Newari culture through his beloved wife Bhincha. Though not originally from the Newari community, he is deeply fascinated by the rich cultural heritage and actively learning traditions, stories, and customs. His passion for eco-friendly practices drives him to discover connections between ancient myths and sustainable living, making him a bridge between modern environmental consciousness and traditional wisdom.
 
-**Bhincha** - Traditional Newari cultural guardian preserving rituals, traditions, and crafts across all Heritage Hub locations. Guides cultural performances, storytelling sessions, and heritage workshops while maintaining adaptability to represent different regional themes.
+**Bhincha** - Traditional Newari cultural guardian representing authentic heritage in her beautiful traditional attire - black Haku Patasi sari with red borders, golden threaded patterns, and ceremonial jewelry. As Mincha's wife, she lovingly shares her cultural knowledge while guiding cultural performances, storytelling sessions, and heritage workshops across all Heritage Hub locations.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
 
-## Recent Changes (January 17, 2025)
+## Recent Changes (January 20, 2025)
+
+- Updated Mincha's character background: He is not originally from the Newari community but married into it through his beloved wife Bhincha
+- Refined character relationship: Mincha is a cultural learner who is fascinated by Newari stories and traditions
+- Enhanced character dynamic: Mincha brings eco-friendly perspective while respectfully learning from Bhincha's cultural heritage
+- Updated character descriptions to reflect this beautiful union of tradition and modernity through their marriage
+- Maintained Mincha's passion for connecting ancient myths with sustainable practices while emphasizing his role as a cultural bridge-builder
+
+## Previous Changes (January 17, 2025)
 
 - Enhanced all content with authentic Newari cultural research from comprehensive academic document
 - Updated heritage items with 12 specific cultural sites including Nyatapola Temple, Changu Narayan, Uma-Maheswara sculpture, and Guru Padmasambhava's sacred caves

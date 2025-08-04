@@ -12,10 +12,10 @@ export const characters: Character[] = [
   {
     id: 1,
     name: "Mincha",
-    role: "Modern Eco-Friendly Ambassador",
-    trait: "Innovative & Sustainable",
-    description: "Mincha champions sustainability, innovation, and social responsibility at Heritage Hub Nepal. This modern eco-friendly boy promotes urban farming, bamboo crafting, zero-waste practices, and renewable energy solutions. His adaptable design represents different regions while maintaining his core message of environmental stewardship and community engagement.",
-    quote: "Where tradition meets innovation, sustainable futures take root",
+    role: "Eco-Friendly Cultural Learner",
+    trait: "Curious & Passionate",
+    description: "Mincha is an enthusiastic young man who married into Newari culture through his beloved wife Bhincha. Though not originally from the Newari community, he is deeply fascinated by the rich cultural heritage and actively learning traditions, stories, and customs. His passion for eco-friendly practices drives him to discover beautiful connections between ancient myths and sustainable living, making him a bridge between modern environmental consciousness and traditional wisdom.",
+    quote: "Every ancient story holds the seeds of our sustainable future",
     imageUrl: "/images/mincha.svg"
   },
   {
