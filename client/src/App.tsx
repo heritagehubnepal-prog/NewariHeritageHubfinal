@@ -9,23 +9,34 @@ import Character from "@/pages/character";
 import Heritage from "@/pages/heritage";
 import Stories from "@/pages/stories";
 import Games from "@/pages/games";
+import AdminLogin from "@/pages/admin/login";
+import AdminDashboard from "@/pages/admin/dashboard";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 
 function Router() {
   return (
-    <div className="min-h-screen bg-newari-cream">
-      <Navbar />
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/character/:name" component={Character} />
-        <Route path="/heritage" component={Heritage} />
-        <Route path="/stories" component={Stories} />
-        <Route path="/games" component={Games} />
-        <Route component={NotFound} />
-      </Switch>
-      <Footer />
-    </div>
+    <Switch>
+      {/* Admin routes - no navbar/footer */}
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
+      
+      {/* Main application routes */}
+      <Route>
+        <div className="min-h-screen bg-newari-cream">
+          <Navbar />
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/character/:name" component={Character} />
+            <Route path="/heritage" component={Heritage} />
+            <Route path="/stories" component={Stories} />
+            <Route path="/games" component={Games} />
+            <Route component={NotFound} />
+          </Switch>
+          <Footer />
+        </div>
+      </Route>
+    </Switch>
   );
 }
 

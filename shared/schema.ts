@@ -8,6 +8,14 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
 });
 
+export const admins = pgTable("admins", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
@@ -46,6 +54,11 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
 });
 
+export const insertAdminSchema = createInsertSchema(admins).pick({
+  username: true,
+  password: true,
+});
+
 export const insertCharacterSchema = createInsertSchema(characters).omit({
   id: true,
 });
@@ -61,6 +74,9 @@ export const insertHeritageItemSchema = createInsertSchema(heritageItems).omit({
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+
+export type InsertAdmin = z.infer<typeof insertAdminSchema>;
+export type Admin = typeof admins.$inferSelect;
 
 export type InsertCharacter = z.infer<typeof insertCharacterSchema>;
 export type Character = typeof characters.$inferSelect;
