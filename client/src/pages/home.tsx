@@ -12,6 +12,9 @@ import LottieCharacter from "@/components/animations/lottie-character";
 import EnhancedHero from "@/components/animations/enhanced-hero";
 import ParticleBackground from "@/components/animations/particle-background";
 import { EnhancedCharacterSection, EnhancedServicesSection } from "@/components/animations/enhanced-sections";
+import VoiceNarration from "@/components/enhancements/voice-narration";
+import ARViewer from "@/components/enhancements/ar-viewer";
+import AIChatGuide from "@/components/enhancements/ai-chat-guide";
 import { characters } from "@/data/characters";
 import { stories } from "@/data/stories";
 import { heritageItems } from "@/data/heritage";
@@ -673,6 +676,9 @@ export default function Home() {
 
       {/* Download Section */}
       <DownloadSection />
+      
+      {/* AI Chat Guide */}
+      <AIChatGuide />
     </div>
   );
 }
