@@ -1,55 +1,279 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
 import { 
-  Users, BookOpen, Building, Settings, LogOut, 
-  Plus, Edit, Trash2, Eye, BarChart3 
-} from "lucide-react";
-import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+  BookOpen, Building, Users, BarChart3, 
+  Plus, Edit, Trash2, LogOut, Shield, Save, Eye
+} from 'lucide-react';
+import { useLocation } from 'wouter';
+import { apiRequest } from '@/lib/queryClient';
 
 interface AdminStats {
   totalStories: number;
   totalHeritage: number;
   totalCharacters: number;
-  totalUsers: number;
+  totalViews: number;
+}
+
+interface Story {
+  id: number;
+  title: string;
+  content: string;
+  narrator: string;
+  readingTime: number;
+}
+
+interface HeritageItem {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  significance: string;
+  location: string;
+}
+
+interface Character {
+  id: number;
+  name: string;
+  description: string;
+  role: string;
+  personality: string;
 }
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
+  const [stats, setStats] = useState<AdminStats | null>(null);
+  const [stories, setStories] = useState<Story[]>([]);
+  const [heritage, setHeritage] = useState<HeritageItem[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  
+  // Form states
+  const [showAddStoryForm, setShowAddStoryForm] = useState(false);
+  const [showAddHeritageForm, setShowAddHeritageForm] = useState(false);
+  const [showAddCharacterForm, setShowAddCharacterForm] = useState(false);
+  const [editingStory, setEditingStory] = useState<Story | null>(null);
+  const [editingHeritage, setEditingHeritage] = useState<HeritageItem | null>(null);
+  const [editingCharacter, setEditingCharacter] = useState<Character | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      setLocation("/admin/login");
-    }
-  }, [setLocation]);
+    fetchData();
+  }, []);
 
-  const { data: stats } = useQuery<AdminStats>({
-    queryKey: ["/api/admin/stats"],
-  });
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        setLocation('/admin/login');
+        return;
+      }
+
+      const [statsRes, storiesRes, heritageRes, charactersRes] = await Promise.all([
+        fetch('/api/admin/stats', { 
+          headers: { Authorization: `Bearer ${token}` } 
+        }).then(res => res.json()),
+        fetch('/api/stories').then(res => res.json()),
+        fetch('/api/heritage').then(res => res.json()),
+        fetch('/api/characters').then(res => res.json())
+      ]);
+
+      setStats(statsRes);
+      setStories(storiesRes);
+      setHeritage(heritageRes);
+      setCharacters(charactersRes);
+    } catch (error: any) {
+      console.error('Failed to fetch data:', error);
+      if (error.message?.includes('401')) {
+        setLocation('/admin/login');
+      }
+    }
+  };
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    setLocation("/admin/login");
+    localStorage.removeItem('adminToken');
+    setLocation('/admin/login');
+  };
+
+  // Story Management
+  const handleAddStory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const storyData = {
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      narrator: formData.get('narrator') as string,
+      readingTime: parseInt(formData.get('readingTime') as string)
+    };
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('/api/admin/stories', {
+        method: 'POST',
+        body: JSON.stringify(storyData),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      if (response.ok) {
+        setShowAddStoryForm(false);
+        fetchData();
+        (e.target as HTMLFormElement).reset();
+      }
+    } catch (error) {
+      console.error('Failed to add story:', error);
+    }
+  };
+
+  const handleEditStory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingStory) return;
+    
+    const formData = new FormData(e.target as HTMLFormElement);
+    const storyData = {
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      narrator: formData.get('narrator') as string,
+      readingTime: parseInt(formData.get('readingTime') as string)
+    };
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`/api/admin/stories/${editingStory.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(storyData),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      if (response.ok) {
+        setEditingStory(null);
+        fetchData();
+      }
+    } catch (error) {
+      console.error('Failed to edit story:', error);
+    }
+  };
+
+  const handleDeleteStory = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this story?')) return;
+    
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`/api/admin/stories/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.ok) {
+        fetchData();
+      }
+    } catch (error) {
+      console.error('Failed to delete story:', error);
+    }
+  };
+
+  // Heritage Management
+  const handleAddHeritage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const heritageData = {
+      name: formData.get('name') as string,
+      description: formData.get('description') as string,
+      category: formData.get('category') as string,
+      significance: formData.get('significance') as string,
+      location: formData.get('location') as string
+    };
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('/api/admin/heritage', {
+        method: 'POST',
+        body: JSON.stringify(heritageData),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      if (response.ok) {
+        setShowAddHeritageForm(false);
+        fetchData();
+        (e.target as HTMLFormElement).reset();
+      }
+    } catch (error) {
+      console.error('Failed to add heritage item:', error);
+    }
+  };
+
+  const handleDeleteHeritage = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this heritage item?')) return;
+    
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`/api/admin/heritage/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.ok) {
+        fetchData();
+      }
+    } catch (error) {
+      console.error('Failed to delete heritage item:', error);
+    }
+  };
+
+  // Character Management
+  const handleAddCharacter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const characterData = {
+      name: formData.get('name') as string,
+      description: formData.get('description') as string,
+      role: formData.get('role') as string,
+      personality: formData.get('personality') as string
+    };
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('/api/admin/characters', {
+        method: 'POST',
+        body: JSON.stringify(characterData),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      if (response.ok) {
+        setShowAddCharacterForm(false);
+        fetchData();
+        (e.target as HTMLFormElement).reset();
+      }
+    } catch (error) {
+      console.error('Failed to add character:', error);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
-              <h1 className="text-xl font-semibold text-gray-900">
-                Heritage Hub Nepal Admin
-              </h1>
+              <Shield className="h-8 w-8 text-newari-red" />
+              <h1 className="text-2xl font-bold text-gray-900">Heritage Hub Nepal Admin</h1>
             </div>
-            <Button 
-              variant="outline" 
+            <Button
               onClick={handleLogout}
+              variant="outline"
               className="flex items-center space-x-2"
             >
               <LogOut className="h-4 w-4" />
@@ -57,15 +281,15 @@ export default function AdminDashboard() {
             </Button>
           </div>
         </div>
-      </header>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Stats Overview */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
         >
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -73,10 +297,8 @@ export default function AdminDashboard() {
               <BookOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalStories || 0}</div>
-              <p className="text-xs text-muted-foreground">
-                Cultural stories and legends
-              </p>
+              <div className="text-2xl font-bold">{stats?.totalStories || stories.length}</div>
+              <p className="text-xs text-muted-foreground">Cultural stories and legends</p>
             </CardContent>
           </Card>
 
@@ -86,10 +308,8 @@ export default function AdminDashboard() {
               <Building className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalHeritage || 0}</div>
-              <p className="text-xs text-muted-foreground">
-                Cultural artifacts and sites
-              </p>
+              <div className="text-2xl font-bold">{stats?.totalHeritage || heritage.length}</div>
+              <p className="text-xs text-muted-foreground">Cultural artifacts and sites</p>
             </CardContent>
           </Card>
 
@@ -99,10 +319,8 @@ export default function AdminDashboard() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalCharacters || 0}</div>
-              <p className="text-xs text-muted-foreground">
-                Cultural ambassadors
-              </p>
+              <div className="text-2xl font-bold">{stats?.totalCharacters || characters.length}</div>
+              <p className="text-xs text-muted-foreground">Cultural ambassadors</p>
             </CardContent>
           </Card>
 
@@ -113,9 +331,7 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">1,234</div>
-              <p className="text-xs text-muted-foreground">
-                This month
-              </p>
+              <p className="text-xs text-muted-foreground">This month</p>
             </CardContent>
           </Card>
         </motion.div>
@@ -134,89 +350,383 @@ export default function AdminDashboard() {
               <TabsTrigger value="settings">Settings</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="stories">
+            {/* Stories Tab */}
+            <TabsContent value="stories" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold">Manage Stories</h2>
+                <Button 
+                  onClick={() => setShowAddStoryForm(true)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Story
+                </Button>
+              </div>
+              
+              {/* Add/Edit Story Form */}
+              {(showAddStoryForm || editingStory) && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{editingStory ? 'Edit Story' : 'Add New Story'}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={editingStory ? handleEditStory : handleAddStory} className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Title</label>
+                        <Input
+                          name="title"
+                          required
+                          defaultValue={editingStory?.title || ''}
+                          placeholder="Enter story title"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Content</label>
+                        <textarea
+                          name="content"
+                          required
+                          rows={6}
+                          defaultValue={editingStory?.content || ''}
+                          className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-newari-red focus:border-transparent"
+                          placeholder="Enter story content"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Narrator</label>
+                          <select 
+                            name="narrator" 
+                            required 
+                            defaultValue={editingStory?.narrator || ''}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                          >
+                            <option value="">Select narrator</option>
+                            <option value="Mincha">Mincha</option>
+                            <option value="Bhincha">Bhincha</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Reading Time (minutes)</label>
+                          <Input
+                            type="number"
+                            name="readingTime"
+                            required
+                            defaultValue={editingStory?.readingTime || ''}
+                            placeholder="5"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button type="submit" className="bg-green-600 hover:bg-green-700">
+                          <Save className="mr-2 h-4 w-4" />
+                          {editingStory ? 'Update Story' : 'Save Story'}
+                        </Button>
+                        <Button 
+                          type="button" 
+                          variant="outline"
+                          onClick={() => {
+                            setShowAddStoryForm(false);
+                            setEditingStory(null);
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {/* Stories List */}
               <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle>Manage Stories</CardTitle>
-                      <CardDescription>
-                        Add, edit, or remove cultural stories and legends
-                      </CardDescription>
-                    </div>
-                    <Button className="bg-eco-green hover:bg-forest-green">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Story
-                    </Button>
-                  </div>
+                  <CardTitle>Existing Stories ({stories.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-8 text-gray-500">
-                    Story management interface coming soon...
-                  </div>
+                  {stories.length === 0 ? (
+                    <p className="text-center text-gray-500 py-8">No stories added yet. Click "Add Story" to get started.</p>
+                  ) : (
+                    <div className="space-y-4">
+                      {stories.map((story) => (
+                        <div key={story.id} className="border rounded-lg p-4 flex justify-between items-start">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-lg">{story.title}</h3>
+                            <p className="text-sm text-gray-600 mt-1 line-clamp-2">{story.content.substring(0, 150)}...</p>
+                            <div className="flex gap-4 mt-3 text-xs text-gray-500">
+                              <span className="bg-gray-100 px-2 py-1 rounded">Narrator: {story.narrator}</span>
+                              <span className="bg-gray-100 px-2 py-1 rounded">Reading Time: {story.readingTime} min</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-2 ml-4">
+                            <Button size="sm" variant="outline" onClick={() => setEditingStory(story)}>
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="text-red-600" onClick={() => handleDeleteStory(story.id)}>
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="heritage">
+            {/* Heritage Tab */}
+            <TabsContent value="heritage" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold">Manage Heritage Items</h2>
+                <Button 
+                  onClick={() => setShowAddHeritageForm(true)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Heritage Item
+                </Button>
+              </div>
+              
+              {/* Add Heritage Form */}
+              {showAddHeritageForm && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Add New Heritage Item</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleAddHeritage} className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Name</label>
+                        <Input name="name" required placeholder="Enter heritage item name" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Description</label>
+                        <textarea
+                          name="description"
+                          required
+                          rows={4}
+                          className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-newari-red focus:border-transparent"
+                          placeholder="Enter description"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Category</label>
+                          <select name="category" required className="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="">Select category</option>
+                            <option value="Architecture">Architecture</option>
+                            <option value="Festivals">Festivals</option>
+                            <option value="Cuisine">Cuisine</option>
+                            <option value="Arts">Arts</option>
+                            <option value="Religion">Religion</option>
+                            <option value="Music">Music</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Location</label>
+                          <Input name="location" required placeholder="Enter location" />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Cultural Significance</label>
+                        <textarea
+                          name="significance"
+                          required
+                          rows={3}
+                          className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-newari-red focus:border-transparent"
+                          placeholder="Enter cultural significance"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button type="submit" className="bg-green-600 hover:bg-green-700">
+                          <Save className="mr-2 h-4 w-4" />
+                          Save Heritage Item
+                        </Button>
+                        <Button 
+                          type="button" 
+                          variant="outline"
+                          onClick={() => setShowAddHeritageForm(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {/* Heritage List */}
               <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle>Manage Heritage Items</CardTitle>
-                      <CardDescription>
-                        Add, edit, or remove heritage sites and cultural artifacts
-                      </CardDescription>
-                    </div>
-                    <Button className="bg-eco-green hover:bg-forest-green">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Heritage Item
-                    </Button>
-                  </div>
+                  <CardTitle>Existing Heritage Items ({heritage.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-8 text-gray-500">
-                    Heritage management interface coming soon...
-                  </div>
+                  {heritage.length === 0 ? (
+                    <p className="text-center text-gray-500 py-8">No heritage items added yet.</p>
+                  ) : (
+                    <div className="grid gap-4">
+                      {heritage.map((item) => (
+                        <div key={item.id} className="border rounded-lg p-4 flex justify-between items-start">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-lg">{item.name}</h3>
+                            <p className="text-sm text-gray-600 mt-1">{item.description.substring(0, 100)}...</p>
+                            <div className="flex gap-2 mt-3">
+                              <span className="bg-newari-gold/20 text-newari-brown px-2 py-1 rounded text-xs">{item.category}</span>
+                              <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">{item.location}</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-2 ml-4">
+                            <Button size="sm" variant="outline">
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="text-red-600" onClick={() => handleDeleteHeritage(item.id)}>
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="characters">
+            {/* Characters Tab */}
+            <TabsContent value="characters" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold">Manage Characters</h2>
+                <Button 
+                  onClick={() => setShowAddCharacterForm(true)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Character
+                </Button>
+              </div>
+              
+              {/* Add Character Form */}
+              {showAddCharacterForm && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Add New Character</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleAddCharacter} className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Name</label>
+                          <Input name="name" required placeholder="Enter character name" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Role</label>
+                          <Input name="role" required placeholder="e.g., Cultural Guardian" />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Description</label>
+                        <textarea
+                          name="description"
+                          required
+                          rows={4}
+                          className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-newari-red focus:border-transparent"
+                          placeholder="Enter character description"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Personality</label>
+                        <textarea
+                          name="personality"
+                          required
+                          rows={3}
+                          className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-newari-red focus:border-transparent"
+                          placeholder="Enter personality traits"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button type="submit" className="bg-green-600 hover:bg-green-700">
+                          <Save className="mr-2 h-4 w-4" />
+                          Save Character
+                        </Button>
+                        <Button 
+                          type="button" 
+                          variant="outline"
+                          onClick={() => setShowAddCharacterForm(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {/* Characters List */}
               <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle>Manage Characters</CardTitle>
-                      <CardDescription>
-                        Update character information and descriptions
-                      </CardDescription>
-                    </div>
-                    <Button className="bg-eco-green hover:bg-forest-green">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Character
-                    </Button>
-                  </div>
+                  <CardTitle>Existing Characters ({characters.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-8 text-gray-500">
-                    Character management interface coming soon...
-                  </div>
+                  {characters.length === 0 ? (
+                    <p className="text-center text-gray-500 py-8">No characters added yet.</p>
+                  ) : (
+                    <div className="grid gap-4">
+                      {characters.map((character) => (
+                        <div key={character.id} className="border rounded-lg p-4 flex justify-between items-start">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-lg">{character.name}</h3>
+                            <p className="text-sm text-newari-gold font-medium">{character.role}</p>
+                            <p className="text-sm text-gray-600 mt-2">{character.description.substring(0, 120)}...</p>
+                          </div>
+                          <div className="flex gap-2 ml-4">
+                            <Button size="sm" variant="outline">
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="text-red-600">
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="settings">
+            {/* Settings Tab */}
+            <TabsContent value="settings" className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Platform Settings</CardTitle>
-                  <CardDescription>
-                    Configure platform settings and preferences
-                  </CardDescription>
+                  <CardDescription>Configure platform preferences and security settings</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-center py-8 text-gray-500">
-                    Settings interface coming soon...
+                <CardContent className="space-y-6">
+                  <div className="grid gap-4">
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Change Admin Password</h3>
+                        <p className="text-sm text-gray-600">Update your admin password for security</p>
+                      </div>
+                      <Button variant="outline">Change Password</Button>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Backup Content</h3>
+                        <p className="text-sm text-gray-600">Download a backup of all content data</p>
+                      </div>
+                      <Button variant="outline">Download Backup</Button>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">View Public Site</h3>
+                        <p className="text-sm text-gray-600">Preview how the public site appears</p>
+                      </div>
+                      <Button variant="outline" onClick={() => window.open('/', '_blank')}>
+                        <Eye className="mr-2 h-4 w-4" />
+                        View Site
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

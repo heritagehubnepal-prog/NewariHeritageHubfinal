@@ -243,4 +243,137 @@ router.put("/characters/:id", verifyAdmin, async (req, res) => {
   }
 });
 
+// Stories Management
+router.post('/stories', verifyAdmin, async (req, res) => {
+  try {
+    const { title, content, narrator, readingTime } = req.body;
+    const [newStory] = await db.insert(stories).values({
+      title,
+      content,
+      narrator,
+      readingTime
+    }).returning();
+    res.json(newStory);
+  } catch (error) {
+    console.error('Create story error:', error);
+    res.status(500).json({ error: 'Failed to create story' });
+  }
+});
+
+router.put('/stories/:id', verifyAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { title, content, narrator, readingTime } = req.body;
+    const [updatedStory] = await db
+      .update(stories)
+      .set({ title, content, narrator, readingTime })
+      .where(eq(stories.id, id))
+      .returning();
+    res.json(updatedStory);
+  } catch (error) {
+    console.error('Update story error:', error);
+    res.status(500).json({ error: 'Failed to update story' });
+  }
+});
+
+router.delete('/stories/:id', verifyAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    await db.delete(stories).where(eq(stories.id, id));
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Delete story error:', error);
+    res.status(500).json({ error: 'Failed to delete story' });
+  }
+});
+
+// Heritage Items Management
+router.post('/heritage', verifyAdmin, async (req, res) => {
+  try {
+    const { name, description, category, significance, location } = req.body;
+    const [newHeritage] = await db.insert(heritageItems).values({
+      name,
+      description,
+      category,
+      significance,
+      location
+    }).returning();
+    res.json(newHeritage);
+  } catch (error) {
+    console.error('Create heritage error:', error);
+    res.status(500).json({ error: 'Failed to create heritage item' });
+  }
+});
+
+router.put('/heritage/:id', verifyAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { name, description, category, significance, location } = req.body;
+    const [updatedHeritage] = await db
+      .update(heritageItems)
+      .set({ name, description, category, significance, location })
+      .where(eq(heritageItems.id, id))
+      .returning();
+    res.json(updatedHeritage);
+  } catch (error) {
+    console.error('Update heritage error:', error);
+    res.status(500).json({ error: 'Failed to update heritage item' });
+  }
+});
+
+router.delete('/heritage/:id', verifyAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    await db.delete(heritageItems).where(eq(heritageItems.id, id));
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Delete heritage error:', error);
+    res.status(500).json({ error: 'Failed to delete heritage item' });
+  }
+});
+
+// Characters Management
+router.post('/characters', verifyAdmin, async (req, res) => {
+  try {
+    const { name, description, role, personality } = req.body;
+    const [newCharacter] = await db.insert(characters).values({
+      name,
+      description,
+      role,
+      personality
+    }).returning();
+    res.json(newCharacter);
+  } catch (error) {
+    console.error('Create character error:', error);
+    res.status(500).json({ error: 'Failed to create character' });
+  }
+});
+
+router.put('/characters/:id', verifyAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { name, description, role, personality } = req.body;
+    const [updatedCharacter] = await db
+      .update(characters)
+      .set({ name, description, role, personality })
+      .where(eq(characters.id, id))
+      .returning();
+    res.json(updatedCharacter);
+  } catch (error) {
+    console.error('Update character error:', error);
+    res.status(500).json({ error: 'Failed to update character' });
+  }
+});
+
+router.delete('/characters/:id', verifyAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    await db.delete(characters).where(eq(characters.id, id));
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Delete character error:', error);
+    res.status(500).json({ error: 'Failed to delete character' });
+  }
+});
+
 export default router;
