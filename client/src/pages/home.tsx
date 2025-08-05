@@ -7,13 +7,18 @@ import CultureCard from "@/components/heritage/culture-card";
 import DownloadSection from "@/components/download/download-section";
 import MinchaSVG from "@/components/characters/mincha-svg";
 import BhinchaSVG from "@/components/characters/bhincha-svg";
+import GSAPWrapper from "@/components/animations/gsap-wrapper";
+import LottieCharacter from "@/components/animations/lottie-character";
+import EnhancedHero from "@/components/animations/enhanced-hero";
+import ParticleBackground from "@/components/animations/particle-background";
+import { EnhancedCharacterSection, EnhancedServicesSection } from "@/components/animations/enhanced-sections";
 import { characters } from "@/data/characters";
 import { stories } from "@/data/stories";
 import { heritageItems } from "@/data/heritage";
 import { 
   Play, Book, GraduationCap, ArrowRight, Leaf, Recycle, Users, 
   ShoppingBag, Calendar, Coffee, Video, MapPin, Heart, Star,
-  Building, TreePine, Sprout, Workshop, Gamepad2
+  Building, TreePine, Sprout, Gamepad2
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -23,8 +28,11 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-newari-cream via-white to-sage-green/10">
+      {/* Enhanced Hero Section with GSAP Animations */}
+      <EnhancedHero />
+      
+      {/* Original Content Sections with GSAP Enhancements */}
+      <section className="relative py-20 bg-gradient-to-br from-newari-cream via-white to-sage-green/10">
         {/* Cultural pattern background */}
         <div className="absolute inset-0 opacity-10">
           <div className="w-full h-full cultural-pattern"></div>
@@ -229,8 +237,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Characters Gallery Section */}
-      <section id="characters" className="py-20 bg-white">
+      {/* Enhanced Characters Section with GSAP */}
+      <EnhancedCharacterSection characters={characters} />
+
+      {/* Heritage Education Section */}
+      <section className="py-20 bg-gradient-to-br from-newari-beige to-newari-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
