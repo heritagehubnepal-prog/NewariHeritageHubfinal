@@ -11,6 +11,7 @@ import Stories from "@/pages/stories";
 import Games from "@/pages/games";
 import AdminLogin from "@/pages/admin/login";
 import AdminDashboard from "@/pages/admin/dashboard";
+import AdminGuide from "@/pages/admin-guide";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 
@@ -20,6 +21,15 @@ function Router() {
       {/* Admin routes - no navbar/footer */}
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      
+      {/* Admin guide with navbar/footer */}
+      <Route path="/admin-guide">
+        <div className="min-h-screen bg-newari-cream">
+          <Navbar />
+          <AdminGuide />
+          <Footer />
+        </div>
+      </Route>
       
       {/* Main application routes */}
       <Route>
