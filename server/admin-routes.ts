@@ -246,9 +246,10 @@ router.put("/characters/:id", verifyAdmin, async (req, res) => {
 // Stories Management
 router.post('/stories', verifyAdmin, async (req, res) => {
   try {
-    const { title, content, narrator, readingTime } = req.body;
+    const { title, excerpt, content, narrator, readingTime } = req.body;
     const [newStory] = await db.insert(stories).values({
       title,
+      excerpt,
       content,
       narrator,
       readingTime
@@ -263,10 +264,10 @@ router.post('/stories', verifyAdmin, async (req, res) => {
 router.put('/stories/:id', verifyAdmin, async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const { title, content, narrator, readingTime } = req.body;
+    const { title, excerpt, content, narrator, readingTime } = req.body;
     const [updatedStory] = await db
       .update(stories)
-      .set({ title, content, narrator, readingTime })
+      .set({ title, excerpt, content, narrator, readingTime })
       .where(eq(stories.id, id))
       .returning();
     res.json(updatedStory);

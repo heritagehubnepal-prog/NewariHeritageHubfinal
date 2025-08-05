@@ -20,9 +20,8 @@ export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   role: text("role").notNull(),
-  trait: text("trait").notNull(),
   description: text("description").notNull(),
-  quote: text("quote").notNull(),
+  personality: text("personality"),
   imageUrl: text("image_url"),
   isActive: boolean("is_active").default(true),
 });
@@ -30,10 +29,10 @@ export const characters = pgTable("characters", {
 export const stories = pgTable("stories", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
-  excerpt: text("excerpt").notNull(),
+  excerpt: text("excerpt"),
   content: text("content").notNull(),
   narrator: text("narrator").notNull(),
-  duration: text("duration").notNull(),
+  readingTime: integer("reading_time"),
   imageUrl: text("image_url"),
   characterId: integer("character_id").references(() => characters.id),
   isPublished: boolean("is_published").default(true),
@@ -42,9 +41,11 @@ export const stories = pgTable("stories", {
 
 export const heritageItems = pgTable("heritage_items", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(),
+  name: text("name").notNull(),
   description: text("description").notNull(),
   category: text("category").notNull(),
+  significance: text("significance"),
+  location: text("location"),
   imageUrl: text("image_url"),
   isActive: boolean("is_active").default(true),
 });

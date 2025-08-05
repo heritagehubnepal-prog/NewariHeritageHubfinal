@@ -102,6 +102,7 @@ export default function AdminDashboard() {
     const formData = new FormData(e.target as HTMLFormElement);
     const storyData = {
       title: formData.get('title') as string,
+      excerpt: formData.get('excerpt') as string || null,
       content: formData.get('content') as string,
       narrator: formData.get('narrator') as string,
       readingTime: parseInt(formData.get('readingTime') as string)
@@ -135,6 +136,7 @@ export default function AdminDashboard() {
     const formData = new FormData(e.target as HTMLFormElement);
     const storyData = {
       title: formData.get('title') as string,
+      excerpt: formData.get('excerpt') as string || null,
       content: formData.get('content') as string,
       narrator: formData.get('narrator') as string,
       readingTime: parseInt(formData.get('readingTime') as string)
@@ -378,6 +380,16 @@ export default function AdminDashboard() {
                           required
                           defaultValue={editingStory?.title || ''}
                           placeholder="Enter story title"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Excerpt (Brief Summary)</label>
+                        <textarea
+                          name="excerpt"
+                          rows={2}
+                          defaultValue={editingStory?.excerpt || ''}
+                          className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-newari-red focus:border-transparent"
+                          placeholder="Enter a brief excerpt or summary"
                         />
                       </div>
                       <div>
