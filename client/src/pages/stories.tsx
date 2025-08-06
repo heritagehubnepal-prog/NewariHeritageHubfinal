@@ -25,7 +25,16 @@ export default function Stories() {
 
   const narrators = ["all", "Mincha", "Bhincha", "Both"];
   
-  const allStories: (Story | import('@shared/schema').Story)[] = [...stories, ...apiStories];
+  // Merge stories and prevent key conflicts by prefixing static story IDs and ensuring proper typing
+  const staticStoriesWithPrefix = stories.map(story => ({
+    ...story,
+    id: `static_${story.id}`,
+    readingTime: parseInt(story.duration?.replace(/\D/g, '') || '5'),
+    isPublished: true,
+    createdAt: new Date()
+  }));
+  
+  const allStories: any[] = [...staticStoriesWithPrefix, ...apiStories];
   
   const filteredStories = allStories.filter(story => {
     const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -36,14 +45,14 @@ export default function Stories() {
     return matchesSearch && matchesNarrator;
   });
 
-  const handleStoryPreview = (story: Story | import('@shared/schema').Story) => {
+  const handleStoryPreview = (story: any) => {
     const convertedStory: import('@shared/schema').Story = {
-      id: story.id,
+      id: typeof story.id === 'string' ? story.id : story.id,
       title: story.title,
       excerpt: story.excerpt || null,
       content: story.content,
       narrator: story.narrator,
-      readingTime: 'duration' in story ? parseInt(story.duration.replace(/\D/g, '')) || 5 : story.readingTime || 5,
+      readingTime: story.readingTime || 5,
       imageUrl: story.imageUrl || null,
       characterId: null,
       isPublished: true,
