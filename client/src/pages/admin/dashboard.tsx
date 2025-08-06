@@ -100,12 +100,20 @@ export default function AdminDashboard() {
   const handleAddStory = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
+    const content = formData.get('content') as string;
+    const readingTimeValue = formData.get('readingTime') as string;
+    
+    // Auto-calculate reading time if not provided (average 200 words per minute)
+    const calculatedReadingTime = readingTimeValue ? 
+      parseInt(readingTimeValue) : 
+      Math.max(1, Math.ceil(content.split(/\s+/).length / 200));
+    
     const storyData = {
       title: formData.get('title') as string,
       excerpt: formData.get('excerpt') as string || null,
-      content: formData.get('content') as string,
+      content: content,
       narrator: formData.get('narrator') as string,
-      readingTime: parseInt(formData.get('readingTime') as string)
+      readingTime: calculatedReadingTime
     };
 
     try {
@@ -134,12 +142,20 @@ export default function AdminDashboard() {
     if (!editingStory) return;
     
     const formData = new FormData(e.target as HTMLFormElement);
+    const content = formData.get('content') as string;
+    const readingTimeValue = formData.get('readingTime') as string;
+    
+    // Auto-calculate reading time if not provided (average 200 words per minute)
+    const calculatedReadingTime = readingTimeValue ? 
+      parseInt(readingTimeValue) : 
+      Math.max(1, Math.ceil(content.split(/\s+/).length / 200));
+    
     const storyData = {
       title: formData.get('title') as string,
       excerpt: formData.get('excerpt') as string || null,
-      content: formData.get('content') as string,
+      content: content,
       narrator: formData.get('narrator') as string,
-      readingTime: parseInt(formData.get('readingTime') as string)
+      readingTime: calculatedReadingTime
     };
 
     try {
@@ -418,13 +434,12 @@ export default function AdminDashboard() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">Reading Time (minutes)</label>
+                          <label className="block text-sm font-medium mb-2">Reading Time (minutes) <span className="text-gray-500 text-xs">- Optional, auto-calculated if empty</span></label>
                           <Input
                             type="number"
                             name="readingTime"
-                            required
                             defaultValue={editingStory?.readingTime || editingStory?.reading_time || ''}
-                            placeholder="5"
+                            placeholder="Auto-calculated from content"
                           />
                         </div>
                       </div>
