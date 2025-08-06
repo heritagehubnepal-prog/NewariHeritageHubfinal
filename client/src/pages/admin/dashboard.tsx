@@ -46,7 +46,7 @@ interface Character {
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const [stats, setStats] = useState<AdminStats | null>(null);
-  const [stories, setStories] = useState<Story[]>([]);
+  const [stories, setStories] = useState<any[]>([]);
   const [heritage, setHeritage] = useState<HeritageItem[]>([]);
   const [characters, setCharacters] = useState<Character[]>([]);
   
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
   const [showAddStoryForm, setShowAddStoryForm] = useState(false);
   const [showAddHeritageForm, setShowAddHeritageForm] = useState(false);
   const [showAddCharacterForm, setShowAddCharacterForm] = useState(false);
-  const [editingStory, setEditingStory] = useState<Story | null>(null);
+  const [editingStory, setEditingStory] = useState<any>(null);
   const [editingHeritage, setEditingHeritage] = useState<HeritageItem | null>(null);
   const [editingCharacter, setEditingCharacter] = useState<Character | null>(null);
 
@@ -423,7 +423,7 @@ export default function AdminDashboard() {
                             type="number"
                             name="readingTime"
                             required
-                            defaultValue={editingStory?.readingTime || ''}
+                            defaultValue={editingStory?.readingTime || editingStory?.reading_time || ''}
                             placeholder="5"
                           />
                         </div>
@@ -466,7 +466,7 @@ export default function AdminDashboard() {
                             <p className="text-sm text-gray-600 mt-1 line-clamp-2">{story.content.substring(0, 150)}...</p>
                             <div className="flex gap-4 mt-3 text-xs text-gray-500">
                               <span className="bg-gray-100 px-2 py-1 rounded">Narrator: {story.narrator}</span>
-                              <span className="bg-gray-100 px-2 py-1 rounded">Reading Time: {story.readingTime} min</span>
+                              <span className="bg-gray-100 px-2 py-1 rounded">Reading Time: {story.readingTime || story.reading_time || 5} min</span>
                             </div>
                           </div>
                           <div className="flex gap-2 ml-4">
