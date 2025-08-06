@@ -8,9 +8,10 @@ import { ArrowRight, User, Play } from "lucide-react";
 interface StoryCardProps {
   story: Story | DBStory;
   onPreview?: () => void;
+  onRead?: () => void;
 }
 
-export default function StoryCard({ story, onPreview }: StoryCardProps) {
+export default function StoryCard({ story, onPreview, onRead }: StoryCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -46,9 +47,15 @@ export default function StoryCard({ story, onPreview }: StoryCardProps) {
                   Preview
                 </Button>
               )}
-              <Button variant="ghost" className="newari-red hover:text-red-700 text-sm p-0">
-                Read Story <ArrowRight className="ml-1 w-4 h-4" />
-              </Button>
+              {onRead && (
+                <Button 
+                  onClick={onRead}
+                  variant="ghost" 
+                  className="newari-red hover:text-red-700 text-sm p-0"
+                >
+                  Read Story <ArrowRight className="ml-1 w-4 h-4" />
+                </Button>
+              )}
             </div>
           </div>
         </CardContent>

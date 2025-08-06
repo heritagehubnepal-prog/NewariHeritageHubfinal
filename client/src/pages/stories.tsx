@@ -7,6 +7,7 @@ import { Book, Filter, Search, Play } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { StorytellingPreview } from "@/components/interactive/StorytellingPreview";
+import { StoryReader } from "@/components/stories/story-reader";
 import { useQuery } from '@tanstack/react-query';
 import { Story, Character } from '@shared/schema';
 
@@ -14,6 +15,7 @@ export default function Stories() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedNarrator, setSelectedNarrator] = useState("all");
   const [selectedStoryForPreview, setSelectedStoryForPreview] = useState<Story | null>(null);
+  const [selectedStoryForReading, setSelectedStoryForReading] = useState<Story | null>(null);
 
   const { data: apiStories = [] } = useQuery<Story[]>({
     queryKey: ['/api/stories']
@@ -59,6 +61,22 @@ export default function Stories() {
       createdAt: new Date()
     };
     setSelectedStoryForPreview(convertedStory);
+  };
+
+  const handleStoryRead = (story: any) => {
+    const convertedStory: import('@shared/schema').Story = {
+      id: typeof story.id === 'string' ? story.id : story.id,
+      title: story.title,
+      excerpt: story.excerpt || null,
+      content: story.content,
+      narrator: story.narrator,
+      readingTime: story.readingTime || 5,
+      imageUrl: story.imageUrl || null,
+      characterId: null,
+      isPublished: true,
+      createdAt: new Date()
+    };
+    setSelectedStoryForReading(convertedStory);
   };
 
   const getCharacterForStory = (story: import('@shared/schema').Story) => {
@@ -148,6 +166,7 @@ export default function Stories() {
                   <StoryCard 
                     story={story} 
                     onPreview={() => handleStoryPreview(story)}
+                    onRead={() => handleStoryRead(story)}
                   />
                 </motion.div>
               ))}
@@ -252,6 +271,14 @@ export default function Stories() {
           story={selectedStoryForPreview}
           character={getCharacterForStory(selectedStoryForPreview)}
           onClose={() => setSelectedStoryForPreview(null)}
+        />
+      )}
+
+      {/* Story Reader with Voice Narration */}
+      {selectedStoryForReading && (
+        <StoryReader
+          story={selectedStoryForReading}
+          onBack={() => setSelectedStoryForReading(null)}
         />
       )}
     </div>
