@@ -3,24 +3,66 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import StoryCard from "@/components/stories/story-card";
 import { stories } from "@/data/stories";
-import { Book, Filter, Search } from "lucide-react";
+import { Book, Filter, Search, Play } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { StorytellingPreview } from "@/components/interactive/StorytellingPreview";
+import { useQuery } from '@tanstack/react-query';
+import { Story, Character } from '@shared/schema';
 
 export default function Stories() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedNarrator, setSelectedNarrator] = useState("all");
+  const [selectedStoryForPreview, setSelectedStoryForPreview] = useState<Story | null>(null);
+
+  const { data: apiStories = [] } = useQuery<Story[]>({
+    queryKey: ['/api/stories']
+  });
+
+  const { data: characters = [] } = useQuery<Character[]>({
+    queryKey: ['/api/characters']
+  });
 
   const narrators = ["all", "Mincha", "Bhincha", "Both"];
   
-  const filteredStories = stories.filter(story => {
+  const allStories: (Story | import('@shared/schema').Story)[] = [...stories, ...apiStories];
+  
+  const filteredStories = allStories.filter(story => {
     const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         story.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+                         (story.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
     const matchesNarrator = selectedNarrator === "all" || 
                            story.narrator.includes(selectedNarrator) ||
                            (selectedNarrator === "Both" && story.narrator.includes("Together"));
     return matchesSearch && matchesNarrator;
   });
+
+  const handleStoryPreview = (story: Story | import('@shared/schema').Story) => {
+    const convertedStory: import('@shared/schema').Story = {
+      id: story.id,
+      title: story.title,
+      excerpt: story.excerpt || null,
+      content: story.content,
+      narrator: story.narrator,
+      readingTime: 'duration' in story ? parseInt(story.duration.replace(/\D/g, '')) || 5 : story.readingTime || 5,
+      imageUrl: story.imageUrl || null,
+      characterId: null,
+      isPublished: true,
+      createdAt: new Date()
+    };
+    setSelectedStoryForPreview(convertedStory);
+  };
+
+  const getCharacterForStory = (story: import('@shared/schema').Story) => {
+    return characters.find(char => char.name === story.narrator) || characters[0] || {
+      id: 1,
+      name: story.narrator,
+      role: 'Storyteller',
+      description: `${story.narrator} loves sharing stories`,
+      personality: 'friendly',
+      imageUrl: null,
+      isActive: true
+    };
+  };
 
   return (
     <div className="min-h-screen bg-newari-cream pt-20">
@@ -94,7 +136,10 @@ export default function Stories() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <StoryCard story={story} />
+                  <StoryCard 
+                    story={story} 
+                    onPreview={() => handleStoryPreview(story)}
+                  />
                 </motion.div>
               ))}
             </div>
@@ -191,6 +236,15 @@ export default function Stories() {
           </div>
         </div>
       </section>
+
+      {/* Interactive Storytelling Preview */}
+      {selectedStoryForPreview && (
+        <StorytellingPreview
+          story={selectedStoryForPreview}
+          character={getCharacterForStory(selectedStoryForPreview)}
+          onClose={() => setSelectedStoryForPreview(null)}
+        />
+      )}
     </div>
   );
 }

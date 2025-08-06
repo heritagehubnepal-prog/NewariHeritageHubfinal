@@ -2,13 +2,15 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Story } from "@/data/stories";
-import { ArrowRight, User } from "lucide-react";
+import { Story as DBStory } from "@shared/schema";
+import { ArrowRight, User, Play } from "lucide-react";
 
 interface StoryCardProps {
-  story: Story;
+  story: Story | DBStory;
+  onPreview?: () => void;
 }
 
-export default function StoryCard({ story }: StoryCardProps) {
+export default function StoryCard({ story, onPreview }: StoryCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -26,12 +28,28 @@ export default function StoryCard({ story }: StoryCardProps) {
             <span className="text-sm newari-brown font-semibold">{story.narrator}</span>
           </div>
           <h3 className="text-xl font-bold newari-red mb-3">{story.title}</h3>
-          <p className="newari-brown text-sm mb-4 leading-relaxed">{story.excerpt}</p>
+          <p className="newari-brown text-sm mb-4 leading-relaxed">
+            {story.excerpt || story.content.substring(0, 100) + "..."}
+          </p>
           <div className="flex justify-between items-center">
-            <span className="text-xs newari-sienna">{story.duration}</span>
-            <Button variant="ghost" className="newari-red hover:text-red-700 text-sm p-0">
-              Read Story <ArrowRight className="ml-1 w-4 h-4" />
-            </Button>
+            <span className="text-xs newari-sienna">
+              {'duration' in story ? story.duration : `${story.readingTime || 5} min read`}
+            </span>
+            <div className="flex gap-2">
+              {onPreview && (
+                <Button 
+                  onClick={onPreview}
+                  size="sm" 
+                  className="bg-newari-red hover:bg-newari-red/90 text-white"
+                >
+                  <Play className="w-4 h-4 mr-1" />
+                  Preview
+                </Button>
+              )}
+              <Button variant="ghost" className="newari-red hover:text-red-700 text-sm p-0">
+                Read Story <ArrowRight className="ml-1 w-4 h-4" />
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
