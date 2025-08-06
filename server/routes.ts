@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import adminRoutes from "./admin-routes";
 import { db } from "./db";
-import { stories, characters, heritageItems } from "@shared/schema";
+import { stories, characters, heritageItems, services } from "@shared/schema";
 import { eq } from "drizzle-orm";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -39,6 +39,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching heritage items:", error);
       res.status(500).json({ error: "Failed to fetch heritage items" });
+    }
+  });
+
+  // Services endpoint
+  app.get("/api/services", async (req, res) => {
+    try {
+      const allServices = await db.select().from(services);
+      res.json(allServices);
+    } catch (error) {
+      console.error("Error fetching services:", error);
+      res.status(500).json({ error: "Failed to fetch services" });
     }
   });
 

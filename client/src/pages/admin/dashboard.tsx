@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { 
-  BookOpen, Building, Users, BarChart3, 
+  BookOpen, Building, Users, BarChart3, Package,
   Plus, Edit, Trash2, LogOut, Shield, Save, Eye
 } from 'lucide-react';
+import { ServicesManagement } from '@/components/admin/services-management';
 import { useLocation } from 'wouter';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -15,7 +16,8 @@ interface AdminStats {
   totalStories: number;
   totalHeritage: number;
   totalCharacters: number;
-  totalViews: number;
+  totalServices: number;
+  totalUsers: number;
 }
 
 interface Story {
@@ -344,12 +346,12 @@ export default function AdminDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Platform Views</CardTitle>
-              <BarChart3 className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Services</CardTitle>
+              <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">1,234</div>
-              <p className="text-xs text-muted-foreground">This month</p>
+              <div className="text-2xl font-bold">{stats?.totalServices || 0}</div>
+              <p className="text-xs text-muted-foreground">Hub services available</p>
             </CardContent>
           </Card>
         </motion.div>
@@ -361,10 +363,11 @@ export default function AdminDashboard() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="stories" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="stories">Stories</TabsTrigger>
               <TabsTrigger value="heritage">Heritage</TabsTrigger>
               <TabsTrigger value="characters">Characters</TabsTrigger>
+              <TabsTrigger value="services">Services</TabsTrigger>
               <TabsTrigger value="settings">Settings</TabsTrigger>
             </TabsList>
 
@@ -717,6 +720,11 @@ export default function AdminDashboard() {
                   )}
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* Services Tab */}
+            <TabsContent value="services" className="space-y-6">
+              <ServicesManagement />
             </TabsContent>
 
             {/* Settings Tab */}

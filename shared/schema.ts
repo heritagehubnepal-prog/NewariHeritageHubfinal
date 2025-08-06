@@ -50,6 +50,19 @@ export const heritageItems = pgTable("heritage_items", {
   isActive: boolean("is_active").default(true),
 });
 
+export const services = pgTable("services", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  category: text("category").notNull(), // "eco-products", "training", "events", "market", "refreshments", "digital"
+  price: text("price"), // e.g., "NPR 500-1,000/day", "NPR 2,500/person"
+  duration: text("duration"), // e.g., "2 hours", "Full day", "Ongoing"
+  features: text("features").array(), // Array of service features
+  imageUrl: text("image_url"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -73,6 +86,11 @@ export const insertHeritageItemSchema = createInsertSchema(heritageItems).omit({
   id: true,
 });
 
+export const insertServiceSchema = createInsertSchema(services).omit({
+  id: true,
+  createdAt: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
@@ -87,3 +105,6 @@ export type Story = typeof stories.$inferSelect;
 
 export type InsertHeritageItem = z.infer<typeof insertHeritageItemSchema>;
 export type HeritageItem = typeof heritageItems.$inferSelect;
+
+export type InsertService = z.infer<typeof insertServiceSchema>;
+export type Service = typeof services.$inferSelect;

@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { db } from "./db";
-import { admins, stories, heritageItems, characters } from "@shared/schema";
+import { admins, stories, heritageItems, characters, services } from "@shared/schema";
 import { eq, count } from "drizzle-orm";
 
 const router = express.Router();
@@ -79,11 +79,13 @@ router.get("/stats", verifyAdmin, async (req, res) => {
     const [storiesCount] = await db.select({ count: count() }).from(stories);
     const [heritageCount] = await db.select({ count: count() }).from(heritageItems);
     const [charactersCount] = await db.select({ count: count() }).from(characters);
+    const [servicesCount] = await db.select({ count: count() }).from(services);
 
     res.json({
       totalStories: storiesCount.count,
       totalHeritage: heritageCount.count,
       totalCharacters: charactersCount.count,
+      totalServices: servicesCount.count,
       totalUsers: 0, // Can be implemented later if needed
     });
   } catch (error) {
@@ -374,6 +376,66 @@ router.delete('/characters/:id', verifyAdmin, async (req, res) => {
   } catch (error) {
     console.error('Delete character error:', error);
     res.status(500).json({ error: 'Failed to delete character' });
+  }
+});
+
+// Services management
+router.get("/services", verifyAdmin, async (req, res) => {
+  try {
+    const allServices = await db.select().from(services);
+    res.json(allServices);
+  } catch (error) {
+    console.error("Services fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch services" });
+  }
+});
+
+router.post("/services", verifyAdmin, async (req, res) => {
+  try {
+    const newService = await db.insert(services).values(req.body).returning();
+    res.status(201).json(newService[0]);
+  } catch (error) {
+    console.error("Service creation error:", error);
+    res.status(500).json({ error: "Failed to create service" });
+  }
+});
+
+router.put("/services/:id", verifyAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedService = await db
+      .update(services)
+      .set(req.body)
+      .where(eq(services.id, parseInt(id)))
+      .returning();
+    
+    if (!updatedService.length) {
+      return res.status(404).json({ error: "Service not found" });
+    }
+    
+    res.json(updatedService[0]);
+  } catch (error) {
+    console.error("Service update error:", error);
+    res.status(500).json({ error: "Failed to update service" });
+  }
+});
+
+router.delete("/services/:id", verifyAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedService = await db
+      .delete(services)
+      .where(eq(services.id, parseInt(id)))
+      .returning();
+    
+    if (!deletedService.length) {
+      return res.status(404).json({ error: "Service not found" });
+    }
+    
+    res.json({ message: "Service deleted successfully" });
+  } catch (error) {
+    console.error("Service deletion error:", error);
+    res.status(500).json({ error: "Failed to delete service" });
   }
 });
 
