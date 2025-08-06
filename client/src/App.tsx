@@ -21,6 +21,7 @@ function Router() {
       {/* Admin routes - no navbar/footer */}
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin" component={AdminDashboard} />
       
       {/* Admin guide with navbar/footer */}
       <Route path="/admin-guide">
