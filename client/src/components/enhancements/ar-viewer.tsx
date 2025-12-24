@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, Smartphone, QrCode, Eye } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface ARViewerProps {
   heritage: {
@@ -15,6 +16,7 @@ interface ARViewerProps {
 export default function ARViewer({ heritage }: ARViewerProps) {
   const [isARActive, setIsARActive] = useState(false);
   const [hasCamera, setHasCamera] = useState(false);
+  const { toast } = useToast();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const startAR = async () => {
@@ -28,9 +30,27 @@ export default function ARViewer({ heritage }: ARViewerProps) {
         setIsARActive(true);
         setHasCamera(true);
       }
-    } catch (error) {
-      console.error('Camera access denied:', error);
+    } catch (error: any) {
       setHasCamera(false);
+      if (error.name === 'NotAllowedError') {
+        toast({
+          title: "Camera Access Denied",
+          description: "Please enable camera access in your browser settings to use AR features.",
+          variant: "destructive"
+        });
+      } else if (error.name === 'NotFoundError') {
+        toast({
+          title: "Camera Not Available",
+          description: "No camera device found on your device.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Camera Error",
+          description: "Unable to access camera. Please try again.",
+          variant: "destructive"
+        });
+      }
     }
   };
 

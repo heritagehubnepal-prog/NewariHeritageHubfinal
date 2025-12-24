@@ -11,6 +11,7 @@ import {
 import { ServicesManagement } from '@/components/admin/services-management';
 import { useLocation } from 'wouter';
 import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 interface AdminStats {
   totalStories: number;
@@ -47,6 +48,7 @@ interface Character {
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [stories, setStories] = useState<any[]>([]);
   const [heritage, setHeritage] = useState<HeritageItem[]>([]);
@@ -86,7 +88,11 @@ export default function AdminDashboard() {
       setHeritage(heritageRes);
       setCharacters(charactersRes);
     } catch (error: any) {
-      console.error('Failed to fetch data:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load admin data. Please try again.",
+        variant: "destructive"
+      });
       if (error.message?.includes('401')) {
         setLocation('/admin/login');
       }
@@ -133,9 +139,23 @@ export default function AdminDashboard() {
         setShowAddStoryForm(false);
         fetchData();
         (e.target as HTMLFormElement).reset();
+        toast({
+          title: "Success",
+          description: "Story added successfully!"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to add story. Please try again.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
-      console.error('Failed to add story:', error);
+      toast({
+        title: "Error",
+        description: "Failed to add story. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -174,9 +194,23 @@ export default function AdminDashboard() {
       if (response.ok) {
         setEditingStory(null);
         fetchData();
+        toast({
+          title: "Success",
+          description: "Story updated successfully!"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to update story. Please try again.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
-      console.error('Failed to edit story:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update story. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -192,9 +226,23 @@ export default function AdminDashboard() {
       
       if (response.ok) {
         fetchData();
+        toast({
+          title: "Success",
+          description: "Story deleted successfully!"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete story. Please try again.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
-      console.error('Failed to delete story:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete story. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -225,9 +273,23 @@ export default function AdminDashboard() {
         setShowAddHeritageForm(false);
         fetchData();
         (e.target as HTMLFormElement).reset();
+        toast({
+          title: "Success",
+          description: "Heritage item added successfully!"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to add heritage item. Please try again.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
-      console.error('Failed to add heritage item:', error);
+      toast({
+        title: "Error",
+        description: "Failed to add heritage item. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -243,9 +305,23 @@ export default function AdminDashboard() {
       
       if (response.ok) {
         fetchData();
+        toast({
+          title: "Success",
+          description: "Heritage item deleted successfully!"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete heritage item. Please try again.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
-      console.error('Failed to delete heritage item:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete heritage item. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -275,9 +351,23 @@ export default function AdminDashboard() {
         setShowAddCharacterForm(false);
         fetchData();
         (e.target as HTMLFormElement).reset();
+        toast({
+          title: "Success",
+          description: "Character added successfully!"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to add character. Please try again.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
-      console.error('Failed to add character:', error);
+      toast({
+        title: "Error",
+        description: "Failed to add character. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
