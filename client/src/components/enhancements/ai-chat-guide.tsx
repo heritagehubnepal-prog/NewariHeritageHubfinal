@@ -161,14 +161,13 @@ export default function AIChatGuide() {
               <Bot className="h-5 w-5" />
               Cultural AI Guides
             </CardTitle>
-            <Button
-              variant="ghost"
-              size="sm"
+            <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20"
+              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/30 transition-colors text-white"
+              title="Close chat"
             >
-              <X className="h-4 w-4" />
-            </Button>
+              <X className="h-5 w-5" />
+            </button>
           </div>
         </CardHeader>
         
