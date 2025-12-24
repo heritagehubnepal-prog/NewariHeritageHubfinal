@@ -85,13 +85,13 @@ export default function Games() {
 
   if (selectedGame) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-newari-cream via-white to-eco-green/5 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen w-full bg-gradient-to-br from-newari-cream via-white to-eco-green/5 py-8 px-4 overflow-y-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Back Navigation */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6"
+            className="mb-8 sticky top-0 bg-gradient-to-b from-newari-cream via-newari-cream to-transparent pt-4 pb-2 z-10"
           >
             <Button 
               variant="outline"
@@ -107,10 +107,13 @@ export default function Games() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="w-full pb-12"
           >
-            {selectedGame === "quiz" && <CulturalQuiz />}
-            {selectedGame === "memory" && <MemoryMatch />}
-            {selectedGame === "story" && <StoryBuilder />}
+            <div className="w-full flex justify-center">
+              {selectedGame === "quiz" && <CulturalQuiz />}
+              {selectedGame === "memory" && <MemoryMatch />}
+              {selectedGame === "story" && <StoryBuilder />}
+            </div>
           </motion.div>
         </div>
       </div>

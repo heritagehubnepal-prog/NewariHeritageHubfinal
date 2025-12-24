@@ -196,7 +196,7 @@ export default function CulturalQuiz() {
 
   if (gameFinished) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-2xl">
         <CardContent className="p-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -244,8 +244,8 @@ export default function CulturalQuiz() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardContent className="p-6">
+    <Card className="w-full max-w-2xl">
+      <CardContent className="p-8">
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">

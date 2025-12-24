@@ -151,9 +151,9 @@ export default function MemoryMatch() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl">
       {/* Game Header */}
-      <Card className="mb-6">
+      <Card className="mb-6 border-2 border-newari-gold">
         <CardHeader>
           <CardTitle className="text-center">
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -199,9 +199,9 @@ export default function MemoryMatch() {
       </Card>
 
       {/* Game Board */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <Card className="border-2 border-eco-green">
+        <CardContent className="p-6 sm:p-8">
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
             {cards.map((card) => (
               <motion.div
                 key={card.id}

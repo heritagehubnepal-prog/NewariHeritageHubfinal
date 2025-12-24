@@ -205,8 +205,8 @@ Created at Heritage Hub Nepal - Preserving Culture, Building Sustainability
 
   if (storyComplete) {
     return (
-      <div className="w-full max-w-4xl mx-auto">
-        <Card>
+      <div className="w-full max-w-4xl">
+        <Card className="border-2 border-newari-gold">
           <CardHeader>
             <CardTitle className="text-center">
               <div className="flex items-center justify-center gap-4 mb-4">
@@ -311,8 +311,8 @@ Created at Heritage Hub Nepal - Preserving Culture, Building Sustainability
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <Card className="mb-6">
+    <div className="w-full max-w-4xl">
+      <Card className="mb-6 border-2 border-eco-green">
         <CardHeader>
           <CardTitle className="text-center">
             <div className="flex items-center justify-center gap-4 mb-4">
