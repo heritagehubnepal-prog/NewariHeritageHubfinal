@@ -1,0 +1,39 @@
+[build]
+  command = "npm run build"
+  publish = "dist/public"
+  node_bundler = "esbuild"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NODE_ENV = "production"
+
+# API redirects for development
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+  condition = "Role=api"
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(self), microphone=(self), geolocation=(self)"
+
+[context.production]
+  environment = { VITE_API_URL = "https://your-backend-api.com" }
+
+[context.deploy-preview]
+  environment = { VITE_API_URL = "https://your-backend-api.com" }
+
+[context.branch-deploy]
+  environment = { VITE_API_URL = "https://your-backend-api.com" }

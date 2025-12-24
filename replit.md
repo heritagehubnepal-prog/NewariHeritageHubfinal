@@ -174,9 +174,9 @@ Two main characters serve as cultural guides:
 
 ### Build Process
 1. Frontend builds to `dist/public` using Vite
-2. Backend bundles to `dist/index.js` using ESBuild
+2. Backend bundles to `dist/index.js` using ESBuild (for full-stack deployment)
 3. Shared schema and types maintained across environments
-4. Environment variables manage database connections
+4. Environment variables manage database connections and API URLs
 
 ### Development Workflow
 1. `npm run dev` starts both frontend and backend in development mode
@@ -185,13 +185,32 @@ Two main characters serve as cultural guides:
 4. Database migrations managed through Drizzle Kit
 
 ### Production Deployment
+
+#### Full Stack (Backend & Frontend Together)
 1. `npm run build` creates optimized bundles
 2. `npm start` runs the production server
 3. Express serves static files and API routes
 4. Database schema pushed using `npm run db:push`
+5. Deploy to: Replit, Vercel, Railway, Render, or any Node.js hosting
 
-### Environment Configuration
-- Development uses local storage and development database
-- Production connects to PostgreSQL via DATABASE_URL
+#### Frontend-Only (Netlify Recommended)
+1. `npm run build` creates frontend bundle to `dist/public`
+2. Deploy `dist/public` folder to Netlify
+3. Set `VITE_API_URL` environment variable in Netlify pointing to backend
+4. Configure `netlify.toml` for SPA routing (automatic)
+5. Backend deployed separately to: Replit, Vercel, Railway, etc.
+
+#### Environment Configuration
+- Development: Uses relative paths for API calls (`/api/*`)
+- Local Production: Uses relative paths (same-origin deployment)
+- Netlify: Uses `VITE_API_URL` environment variable
 - Replit-specific plugins for development environment
 - CORS and security headers configured for production
+
+### Netlify Deployment Configuration
+- `netlify.toml`: Build settings and redirects
+- `public/_redirects`: SPA routing fallback
+- `client/src/lib/queryClient.ts`: Dynamic API URL support
+- `.env.example`: Example environment variables
+
+See `NETLIFY_DEPLOYMENT.md` for detailed Netlify deployment instructions.
