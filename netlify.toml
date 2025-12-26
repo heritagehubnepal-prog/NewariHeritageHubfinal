@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_ENV = "production"
+  # Removed NODE_ENV = "production" to ensure devDependencies (like vite) are installed during build
 
 # API redirects for development
 [[redirects]]

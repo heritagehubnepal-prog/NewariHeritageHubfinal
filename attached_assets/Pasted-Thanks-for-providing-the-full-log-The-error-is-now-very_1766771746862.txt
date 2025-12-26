@@ -1,0 +1,127 @@
+Thanks for providing the full log! The error is now **very clear**.
+
+---
+
+### 🔥 Root Cause
+
+```
+sh: 1: vite: not found
+```
+
+This means the `vite` command is **not available** in your build environment — because **Vite is not installed** during the build.
+
+Why? Because **Vite is listed as a `devDependency`**, but **Netlify (by default) does NOT install `devDependencies` in production builds** **unless you explicitly tell it to** — **or** unless your `NODE_ENV` is set to something that doesn’t skip them.
+
+But more importantly: **your `package.json` is likely missing or misconfigured**, or `npm ci` didn’t install dev dependencies.
+
+However, in your case, the **real issue** is this:
+
+> ❌ **You’re trying to run `vite build` in production, but Vite is a dev/build-time tool that must be installed before running the build.**
+
+Netlify **does install devDependencies** by default **only if**:
+- There’s a `package-lock.json` (or `yarn.lock`, etc.), **and**
+- You’re using `npm install` (not `npm ci` with a mismatched setup), **and**
+- The `devDependencies` include `vite`.
+
+But the error `vite: not found` strongly suggests **`vite` was never installed**.
+
+---
+
+### ✅ Solution
+
+#### Step 1: **Ensure `vite` is in `devDependencies` in `package.json`**
+
+Your `package.json` **must** include:
+
+```json
+{
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "scripts": {
+    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist"
+  }
+}
+```
+
+> ⚠️ If `vite` is missing from `devDependencies`, `npm install` won’t install it.
+
+#### Step 2: **Make sure `package-lock.json` is committed to GitHub**
+
+- Run locally:
+  ```bash
+  npm install
+  git add package.json package-lock.json
+  git commit -m "Add lockfile"
+  git push
+  ```
+- Netlify uses the lockfile to decide which install command to run (`npm ci` vs `npm install`). Missing lockfile → inconsistent installs.
+
+#### Step 3: **Force installation of devDependencies (if needed)**
+
+By default, Netlify **does install devDependencies** — **but only if `NODE_ENV` is not set to `production`**.
+
+In your log, this appears:
+```toml
+environment:
+  - NODE_VERSION
+  - NODE_ENV   ← this is likely set to "production"
+```
+
+👉 **If `NODE_ENV=production`, npm skips `devDependencies`!**
+
+✅ **Fix**: **Do NOT set `NODE_ENV=production`** for frontend builds on Netlify.
+
+- Go to **Netlify UI → Site Settings → Build & deploy → Environment variables**
+- **Remove or rename** `NODE_ENV` if it’s set to `production`
+- Or, explicitly set it to **`development`** or **leave it unset**
+
+> For static site builds (like Vite), `NODE_ENV` should **not** be `production` during the build step — Vite **needs** devDependencies!
+
+Alternatively, if you *must* keep `NODE_ENV=production`, you can force npm to install devDependencies by using:
+
+```bash
+npm install --include=dev
+```
+
+But the cleaner fix is to **not set `NODE_ENV`** (Netlify leaves it `undefined` by default, which is ideal for builds).
+
+#### Step 4: **Double-check your repo contents**
+
+Visit:  
+👉 https://github.com/heritagehubnepal-prog/NewariHeritageHubfinal
+
+Make sure it contains:
+- `package.json`
+- `package-lock.json`
+- `vite.config.js` (or equivalent)
+- `src/` or root `index.html`
+
+If the repo is **empty or missing files**, the build will always fail.
+
+---
+
+### 🔧 Quick Fix Summary
+
+1. ✅ Add `vite` to `devDependencies` in `package.json`
+2. ✅ Run `npm install` and **commit `package-lock.json`**
+3. ❌ **Remove `NODE_ENV=production`** from Netlify environment variables
+4. ✅ Ensure all source files are in the GitHub repo
+
+After that, **trigger a new deploy**.
+
+---
+
+### 💡 Bonus: Use `.nvmrc` for Node version consistency
+
+Add `.nvmrc` to your repo root:
+```
+20
+```
+(Or whatever Node version you use locally)
+
+This ensures Netlify uses the right version.
+
+---
+
+Let me know if you'd like help checking your `package.json` or generating a correct `netlify.toml`.
