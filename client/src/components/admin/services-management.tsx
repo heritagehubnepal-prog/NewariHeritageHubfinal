@@ -24,10 +24,7 @@ export function ServicesManagement() {
   });
 
   const createServiceMutation = useMutation({
-    mutationFn: (service: InsertService) => apiRequest('/api/admin/services', {
-      method: 'POST',
-      body: JSON.stringify(service),
-    }),
+    mutationFn: (service: InsertService) => apiRequest('POST', '/api/admin/services', service),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/services'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/stats'] });
@@ -42,10 +39,7 @@ export function ServicesManagement() {
 
   const updateServiceMutation = useMutation({
     mutationFn: ({ id, service }: { id: number; service: Partial<InsertService> }) =>
-      apiRequest(`/api/admin/services/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(service),
-      }),
+      apiRequest('PUT', `/api/admin/services/${id}`, service),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/services'] });
       toast({ title: 'Success', description: 'Service updated successfully' });
@@ -58,9 +52,7 @@ export function ServicesManagement() {
   });
 
   const deleteServiceMutation = useMutation({
-    mutationFn: (id: number) => apiRequest(`/api/admin/services/${id}`, {
-      method: 'DELETE',
-    }),
+    mutationFn: (id: number) => apiRequest('DELETE', `/api/admin/services/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/services'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/stats'] });
