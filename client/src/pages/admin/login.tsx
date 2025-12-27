@@ -20,9 +20,9 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      const loginUrl = import.meta.env.VITE_API_URL 
-        ? `${import.meta.env.VITE_API_URL}/api/admin/login`
-        : "/api/admin/login";
+      // Use absolute path for Netlify function locally if needed, 
+      // but relative path should work with netlify.toml redirects
+      const loginUrl = "/api/admin/login";
 
       const response = await fetch(loginUrl, {
         method: "POST",
