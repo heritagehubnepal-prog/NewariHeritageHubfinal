@@ -1,17 +1,16 @@
 [build]
   command = "npm run build"
   publish = "dist/public"
-  functions = "netlify/functions"
+  functions = "functions"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# API redirects for development
+# API redirects
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api"
   status = 200
-  condition = "Role=api"
 
 # SPA fallback
 [[redirects]]
