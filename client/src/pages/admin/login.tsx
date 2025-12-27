@@ -20,11 +20,8 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      // Use absolute path for Netlify function locally if needed, 
-      // but relative path should work with netlify.toml redirects
-      const loginUrl = "/api/admin/login";
-
-      const response = await fetch(loginUrl, {
+      // Direct call to the login API endpoint
+      const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
@@ -36,11 +33,11 @@ export default function AdminLogin() {
         localStorage.setItem("adminToken", token);
         setLocation("/admin/dashboard");
       } else {
-        const { error } = await response.json();
-        setError(error || "Invalid credentials");
+        const data = await response.json();
+        setError(data.error || "Invalid credentials");
       }
     } catch (err) {
-      setError("Connection error. Please try again.");
+      setError("Login failed. Please check your connection.");
     } finally {
       setIsLoading(false);
     }
