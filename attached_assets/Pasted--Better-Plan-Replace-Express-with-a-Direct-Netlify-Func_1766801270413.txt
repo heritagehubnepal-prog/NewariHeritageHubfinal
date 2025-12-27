@@ -1,0 +1,92 @@
+✅ Better Plan: Replace Express with a Direct Netlify Function
+
+Step A: Delete or bypass server/index.ts for now
+
+Step B: Create a simple login function
+
+// functions/api.ts
+import { Handler } from '@netlify/functions';
+
+// Placeholder: replace with real auth logic (e.g., check DB)
+const ADMIN_EMAIL = 'admin@example.com';
+const ADMIN_PASSWORD = 'secret123'; // ← NEVER hardcode in real app! Use env vars.
+
+export const handler: Handler = async (event, context) => {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Method not allowed' }),
+    };
+  }
+
+  try {
+    const body = JSON.parse(event.body || '{}');
+    const { email, password } = body;
+
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ success: true, message: 'Login successful' }),
+      };
+    } else {
+      return {
+        statusCode: 401,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Invalid credentials' }),
+      };
+    }
+  } catch (err) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid JSON' }),
+    };
+  }
+};
+Step C: Add netlify.toml (if not already)
+
+[build]
+  functions = "functions"
+  publish = "dist"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+Step D: Install function types
+
+npm install --save-dev @netlify/functions
+Step E: Update package.json build script
+
+Since you no longer need to bundle the server with esbuild, simplify:
+
+{
+  "scripts": {
+    "build": "vite build"
+  }
+}
+Remove the && esbuild ... part — we don’t need it anymore.
+
+Step F: Commit all changes
+
+git add .
+git commit -m "Add Netlify Function for /api"
+git push
+🔐 For Production: Use Environment Variables
+
+In Netlify UI:
+
+Go to Site Settings → Environment variables
+Add:
+ADMIN_EMAIL
+ADMIN_PASSWORD
+Then in your function:
+
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+✅ Result
+
+Frontend sends POST to /api/login
+Netlify redirects to /.netlify/functions/api
+Function runs, validates credentials, returns JSON
+No backend server needed!

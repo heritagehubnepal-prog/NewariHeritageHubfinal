@@ -4,11 +4,14 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 function getApiUrl(path: string): string {
+  // For Netlify functions, we might need to adjust the path if not using redirects
+  // But our netlify.toml has redirects, so /api/* goes to /.netlify/functions/api
+  
   // If API_URL is set, use it (for Netlify and other hosting)
   if (API_URL) {
     return `${API_URL}${path}`;
   }
-  // Otherwise use relative path (for local development and same-origin deployment)
+  // Otherwise use relative path
   return path;
 }
 
