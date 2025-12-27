@@ -1,0 +1,136 @@
+Based on your screenshot, you are in the **Build & deploy settings** of your Netlify project, specifically in the **"Enforce deployment methods"** section.
+
+---
+
+### 🎯 Your Goal
+
+You want to **fix the issue where your Netlify Function `api` is not being deployed or resolved**, which is causing your admin dashboard to show a blank page after login.
+
+---
+
+## ✅ Step-by-Step Guide: Where to Go and What to Do
+
+---
+
+### 📍 STEP 1: Go Back to “Build settings”
+
+You’re currently in the “Enforce deployment methods” section. This is **not** where you fix your function deployment.
+
+→ Scroll up or click the **“Back”** button in your browser to return to the main **“Build settings”** form.
+
+This is where you can edit:
+
+- Runtime (Node.js version)
+- Base directory
+- Package directory
+- Build command
+- Publish directory
+- Functions directory
+- Environment variables
+
+---
+
+### 🛠️ STEP 2: Set the Correct “Functions directory”
+
+In the “Build settings” form:
+
+- Find the field labeled **“Functions directory”**
+- Make sure it’s set to:  
+  ```
+  netlify/functions
+  ```
+
+> ✅ This tells Netlify where to look for your functions. If it’s set to something else (like `functions`), change it to `netlify/functions`.
+
+> ⚠️ If you have a folder named `functions/` at the root of your repo, this setting should be `functions/`. But if you have a folder named `netlify/functions`, then use that.
+
+---
+
+### 🧪 STEP 3: Ensure Your Build Command Is Correct
+
+Your **Build command** should be:
+```
+npm run build
+```
+
+This is correct if you have a `build` script in your `package.json` that runs `vite build`.
+
+If you also need to compile TypeScript functions, you might need to add a step:
+```
+npm run build && npm run build:functions
+```
+
+But first, let’s fix the basic setup.
+
+---
+
+### 📦 STEP 4: Set the “Publish directory”
+
+This should be:
+```
+dist
+```
+
+> ✅ This is where Vite outputs your built frontend files.
+
+---
+
+### 🌐 STEP 5: Add a `.nvmrc` File to Your Repo (Recommended)
+
+To ensure Netlify uses the correct Node.js version:
+
+1. Create a file named `.nvmrc` in the root of your repository.
+2. Add this line:
+   ```
+   20
+   ```
+3. Commit and push it to GitHub.
+
+This ensures Netlify uses Node.js v20 during builds — matching most modern frontend tooling.
+
+---
+
+### 🔍 STEP 6: Check Your `netlify.toml`
+
+Make sure your `netlify.toml` looks like this:
+
+```toml
+[build]
+  functions = "netlify/functions"
+  publish = "dist"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+```
+
+> ✅ This tells Netlify where to find your functions and how to route API requests.
+
+---
+
+### 🚀 STEP 7: Redeploy
+
+After making these changes:
+
+```bash
+git add .
+git commit -m "Fix Netlify Function deployment"
+git push
+```
+
+Netlify will automatically redeploy.
+
+---
+
+### 🛡 Bonus: Clear the Build Cache (If Needed)
+
+Sometimes, old cached dependencies cause issues.
+
+Go to **Deploys → Trigger a new deploy → Click “Clear cache and deploy”**
+
+This forces Netlify to reinstall all dependencies fresh.
+
+---
+
+Let me know if you want help checking your actual `package.json` or generating a correct `netlify.toml`.
