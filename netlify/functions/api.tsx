@@ -2,89 +2,50 @@
 import { Handler } from '@netlify/functions';
 
 export const handler: Handler = async (event, context) => {
-  const { httpMethod, path } = event;
+  // Log for debugging
+  console.log('Received request:', event.httpMethod, event.path);
 
-  // Login route
-  if (httpMethod === 'POST' && path === '/api/login') {
+  if (event.httpMethod !== 'POST' || event.path !== '/api/login') {
+    return {
+      statusCode: 404,
+      body: JSON.stringify({ error: 'Not found' }),
+    };
+  }
+
+  try {
     const body = JSON.parse(event.body || '{}');
-    if (body.email === 'admin@example.com' && body.password === 'secret123') {
+    const { username, password } = body;
+
+    // Mock login logic (replace with real DB check later)
+    if (username === 'admin' && password === 'admin123') {
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ success: true, token: 'fake-jwt-token' }),
+        body: JSON.stringify({
+          success: true,
+          message: 'Login successful',
+          token: 'fake-jwt-token-123'
+        }),
+      };
+    } else {
+      return {
+        statusCode: 401,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          success: false,
+          error: 'Invalid credentials'
+        }),
       };
     }
+  } catch (err) {
+    console.error('Login error:', err);
     return {
-      statusCode: 401,
-      body: JSON.stringify({ error: 'Invalid credentials' }),
-    };
-  }
-
-  // Stories route
-  if (httpMethod === 'GET' && path === '/api/stories') {
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify([
-        { id: 1, title: "Sample Story", description: "This is a sample story." },
-        { id: 2, title: "Another Story", description: "More content here." }
-      ]),
-    };
-  }
-
-  // Heritage Items route
-  if (httpMethod === 'GET' && path === '/api/heritage') {
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify([
-        { id: 1, name: "Ancient Pottery", category: "Artifacts" },
-        { id: 2, name: "Traditional Mask", category: "Cultural" }
-      ]),
-    };
-  }
-
-  // Characters route
-  if (httpMethod === 'GET' && path === '/api/characters') {
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify([
-        { id: 1, name: "Rajesh", role: "Ambassador" },
-        { id: 2, name: "Sita", role: "Storyteller" }
-      ]),
-    };
-  }
-
-  // Services route
-  if (httpMethod === 'GET' && path === '/api/services') {
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify([
-        { id: 1, name: "Guided Tours", description: "Explore heritage sites with local guides." },
-        { id: 2, name: "Workshops", description: "Learn traditional crafts and music." }
-      ]),
-    };
-  }
-
-  // Admin stats route
-  if (httpMethod === 'GET' && path === '/api/admin/stats') {
-    return {
-      statusCode: 200,
+      statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        totalStories: 2,
-        totalHeritageItems: 2,
-        totalCharacters: 2,
-        totalServices: 2
+        success: false,
+        error: 'Server error'
       }),
     };
   }
-
-  // Fallback
-  return {
-    statusCode: 404,
-    body: JSON.stringify({ error: 'Route not found' }),
-  };
 };
