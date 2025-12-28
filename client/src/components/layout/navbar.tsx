@@ -39,8 +39,8 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link href="#download">
-                <Button className="bg-newari-red hover:bg-red-700 text-white">
-                  Download
+                <Button className="bg-newari-red hover:bg-red-700 text-white text-xs px-4 py-2 h-auto whitespace-nowrap">
+                  Take Heritage Home — Download Our Interactive Guide
                 </Button>
               </Link>
             </div>

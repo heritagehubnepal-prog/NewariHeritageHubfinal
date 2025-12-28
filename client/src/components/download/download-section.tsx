@@ -7,27 +7,27 @@ export default function DownloadSection() {
   const downloadCategories = [
     {
       icon: <svg className="w-10 h-10" viewBox="0 0 24 24" fill="currentColor"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" /></svg>,
-      title: "SVG Characters",
-      description: "Scalable vector illustrations of Mincha and Bhincha",
-      buttonText: "Download SVG"
+      title: "Interactive Booklet",
+      description: "A digital interactive experience for offline cultural learning",
+      buttonText: "Download PDF"
+    },
+    {
+      icon: <svg className="w-10 h-10" viewBox="0 0 24 24" fill="currentColor"><path d="M17,1H7A2,2 0 0,0 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3A2,2 0 0,0 17,1M17,19H7V5H17V19Z" /></svg>,
+      title: "Mobile Experience",
+      description: "Take the full interactive experience on your mobile device",
+      buttonText: "Download App"
     },
     {
       icon: <Image className="w-10 h-10" />,
-      title: "PNG Assets", 
-      description: "High-resolution PNG files with transparent backgrounds",
-      buttonText: "Download PNG"
-    },
-    {
-      icon: <Palette className="w-10 h-10" />,
-      title: "Brand Kit",
-      description: "Color palettes, fonts, and brand guidelines", 
-      buttonText: "Download Kit"
+      title: "Character Assets", 
+      description: "High-resolution illustrations of Mincha and Bhincha",
+      buttonText: "Download Pack"
     },
     {
       icon: <GraduationCap className="w-10 h-10" />,
-      title: "Educational",
-      description: "Teaching materials and cultural information sheets",
-      buttonText: "Download Pack"
+      title: "Heritage Guide",
+      description: "Comprehensive information sheets on Newari traditions",
+      buttonText: "Download Guide"
     }
   ];
 
@@ -54,10 +54,11 @@ export default function DownloadSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Download Character Assets</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 italic">Take Heritage Home</h2>
+          <p className="text-2xl font-semibold mb-4 text-newari-gold">Download Our Interactive Guide</p>
           <p className="text-xl text-red-100 max-w-3xl mx-auto">
-            Get high-quality character illustrations and cultural resources for educational and promotional use. 
-            All assets are created with cultural sensitivity and respect.
+            Carry the wisdom of our ancestors in your pocket. Get our comprehensive interactive guide, 
+            high-quality character illustrations, and cultural resources for your offline journey.
           </p>
         </motion.div>
 
