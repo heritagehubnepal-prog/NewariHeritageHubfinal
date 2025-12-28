@@ -15,12 +15,15 @@ import AdminGuide from "@/pages/admin-guide";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import BackToTop from "@/components/layout/back-to-top";
+import ScrollToTop from "@/components/layout/scroll-to-top";
 
 import { AudioProvider } from "@/hooks/use-audio";
 
 function Router() {
   return (
-    <Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
       {/* Admin routes - no navbar/footer */}
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
