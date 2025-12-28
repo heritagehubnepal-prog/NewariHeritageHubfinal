@@ -147,10 +147,10 @@ export default function Games() {
               </motion.div>
               
               <div className="flex-1 min-w-0">
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 break-words">
+                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
                   Heritage Games
                 </h1>
-                <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto px-4">
+                <p className="text-lg md:text-xl text-white font-medium max-w-2xl mx-auto px-4 drop-shadow-md">
                   Learn, play, and explore Newari culture through interactive educational games
                   guided by Mincha and Bhincha!
                 </p>
@@ -174,7 +174,7 @@ export default function Games() {
             </div>
 
             <div className="flex justify-center mt-6">
-              <Badge className="bg-white/20 text-white border-white/30 text-base md:text-lg px-6 py-2">
+              <Badge className="bg-white text-newari-red border-white text-base md:text-lg px-6 py-2 shadow-lg">
                 <Gamepad2 className="h-5 w-5 mr-2" />
                 Interactive Learning Adventures
               </Badge>
