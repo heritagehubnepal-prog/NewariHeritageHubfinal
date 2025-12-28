@@ -14,6 +14,7 @@ import AdminDashboard from "@/pages/admin/dashboard";
 import AdminGuide from "@/pages/admin-guide";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import BackToTop from "@/components/layout/back-to-top";
 
 import { AudioProvider } from "@/hooks/use-audio";
 
@@ -47,6 +48,7 @@ function Router() {
             <Route component={NotFound} />
           </Switch>
           <Footer />
+          <BackToTop />
         </div>
       </Route>
     </Switch>
