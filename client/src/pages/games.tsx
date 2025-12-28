@@ -130,7 +130,7 @@ export default function Games() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex justify-center items-center gap-6 mb-8">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
               <motion.div
                 animate={{ 
                   y: [0, -10, 0],
@@ -141,16 +141,16 @@ export default function Games() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="w-24 h-24"
+                className="w-24 h-24 flex-shrink-0"
               >
                 <MinchaSVG className="w-full h-full" />
               </motion.div>
               
-              <div>
-                <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 break-words">
                   Heritage Games
                 </h1>
-                <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto px-4">
                   Learn, play, and explore Newari culture through interactive educational games
                   guided by Mincha and Bhincha!
                 </p>
@@ -167,14 +167,14 @@ export default function Games() {
                   ease: "easeInOut",
                   delay: 1.5
                 }}
-                className="w-24 h-24"
+                className="w-24 h-24 flex-shrink-0"
               >
                 <BhinchaSVG className="w-full h-full" />
               </motion.div>
             </div>
 
-            <div className="flex justify-center">
-              <Badge className="bg-white/20 text-white border-white/30 text-lg px-6 py-2">
+            <div className="flex justify-center mt-6">
+              <Badge className="bg-white/20 text-white border-white/30 text-base md:text-lg px-6 py-2">
                 <Gamepad2 className="h-5 w-5 mr-2" />
                 Interactive Learning Adventures
               </Badge>
