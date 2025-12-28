@@ -15,6 +15,8 @@ import AdminGuide from "@/pages/admin-guide";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 
+import { AudioProvider } from "@/hooks/use-audio";
+
 function Router() {
   return (
     <Switch>
@@ -54,10 +56,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AudioProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AudioProvider>
     </QueryClientProvider>
   );
 }

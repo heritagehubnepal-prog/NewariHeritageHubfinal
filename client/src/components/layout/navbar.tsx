@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
+import { Menu, X, Volume2, VolumeX } from "lucide-react";
+import { useState } from "react";
+import { useAudio } from "@/hooks/use-audio";
 
 export default function Navbar() {
-  const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [location] = useLocation();
+  const { isSoundEnabled, toggleSound } = useAudio();
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -52,11 +54,22 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+            <div className="flex items-center space-x-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleSound}
+                className="newari-brown hover:newari-red transition-colors"
+                title={isSoundEnabled ? "Disable Sound" : "Enable Sound"}
+              >
+                {isSoundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+              </Button>
               <Link href="#download">
                 <Button className="bg-newari-red hover:bg-red-700 text-white text-xs px-4 py-2 h-auto whitespace-nowrap">
                   Take Heritage Home — Download Our Interactive Guide
                 </Button>
               </Link>
+            </div>
             </div>
           </div>
           

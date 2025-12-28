@@ -25,9 +25,16 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 
+import { useAudio } from "@/hooks/use-audio";
+
 export default function Home() {
   const featuredStories = stories.slice(0, 3);
   const featuredHeritage = heritageItems.slice(0, 3);
+  const { playChime, playVoiceover } = useAudio();
+
+  useEffect(() => {
+    playChime();
+  }, []);
 
   return (
     <div className="overflow-hidden">

@@ -12,9 +12,12 @@ import { Link } from 'wouter';
 
 gsap.registerPlugin(TextPlugin);
 
+import { useAudio } from '@/hooks/use-audio';
+
 export default function EnhancedHero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const { playVoiceover } = useAudio();
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -89,7 +92,10 @@ export default function EnhancedHero() {
         {/* Enhanced character showcase */}
         <div className="flex justify-center items-center gap-16 mb-12">
           <GSAPWrapper animation="slideLeft" duration={1.2} delay={1.5}>
-            <div className="text-center character-float">
+            <div 
+              className="text-center character-float cursor-pointer"
+              onMouseEnter={() => playVoiceover('bhincha')}
+            >
               <LottieCharacter
                 fallbackSvg={<BhinchaSvg />}
                 size="xl"
@@ -105,7 +111,10 @@ export default function EnhancedHero() {
           </GSAPWrapper>
 
           <GSAPWrapper animation="slideLeft" duration={1.2} delay={1.8}>
-            <div className="text-center character-float">
+            <div 
+              className="text-center character-float cursor-pointer"
+              onMouseEnter={() => playVoiceover('mincha')}
+            >
               <LottieCharacter
                 fallbackSvg={<MinchaSvg />}
                 size="xl"
