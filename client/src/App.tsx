@@ -39,14 +39,16 @@ function Router() {
       <Route>
         <div className="min-h-screen bg-newari-cream">
           <Navbar />
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/character/:name" component={Character} />
-            <Route path="/heritage" component={Heritage} />
-            <Route path="/stories" component={Stories} />
-            <Route path="/games" component={Games} />
-            <Route component={NotFound} />
-          </Switch>
+          <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <Switch>
+              <Route path="/" component={Home} />
+              <Route path="/character/:name" component={Character} />
+              <Route path="/heritage" component={Heritage} />
+              <Route path="/stories" component={Stories} />
+              <Route path="/games" component={Games} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
           <Footer />
           <BackToTop />
         </div>
