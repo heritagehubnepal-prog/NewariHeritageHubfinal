@@ -1,11 +1,48 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import CultureCard from "@/components/heritage/culture-card";
 import { heritageItems } from "@/data/heritage";
-import { GraduationCap, ArrowRight, Calendar, Building, UtensilsCrossed } from "lucide-react";
+import { GraduationCap, ArrowRight, Calendar, Building, UtensilsCrossed, Volume2, VolumeX } from "lucide-react";
+
+import patanImg1 from "@assets/stock_images/patan_durbar_square__f251ae1e.jpg";
+import patanImg2 from "@assets/stock_images/patan_durbar_square__800b6cc8.jpg";
+import bhaktapurImg1 from "@assets/stock_images/bhaktapur_nyatapola__4db5b080.jpg";
+import indraJatraImg1 from "@assets/stock_images/indra_jatra_festival_c61bf207.jpg";
+import cuisineImg1 from "@assets/stock_images/traditional_newari_c_14b8bc6d.jpg";
+
+const slideshowImages = [
+  { url: patanImg1, title: "Patan Durbar Square" },
+  { url: bhaktapurImg1, title: "Bhaktapur Temples" },
+  { url: indraJatraImg1, title: "Indra Jatra Festival" },
+  { url: cuisineImg1, title: "Traditional Newari Cuisine" },
+  { url: patanImg2, title: "Ancient Architecture" }
+];
 
 export default function Heritage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slideshowImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+      setIsMuted(!isMuted);
+    }
+  };
+
   const categories = [
     { id: "architecture", name: "Architecture", icon: Building },
     { id: "festivals", name: "Festivals", icon: Calendar },
@@ -13,45 +50,72 @@ export default function Heritage() {
   ];
 
   return (
-    <div className="min-h-screen bg-newari-cream pt-20">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-newari-beige to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-newari-cream">
+      {/* Hero Section with Slideshow */}
+      <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden pt-20">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 z-0"
+          >
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-10000"
+              style={{ backgroundImage: `url(${slideshowImages[currentSlide].url})` }}
+            />
+            <div className="absolute inset-0 bg-black/50" />
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold newari-red mb-6">Newari Heritage</h1>
-            <p className="text-xl md:text-2xl newari-brown max-w-3xl mx-auto leading-relaxed">
-              Explore the rich cultural tapestry of the Newari people through interactive learning experiences 
-              guided by Mincha and Bhincha.
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-2xl">Newari Heritage</h1>
+            <p className="text-xl md:text-3xl font-medium max-w-4xl mx-auto leading-relaxed drop-shadow-xl mb-12">
+              Walk through centuries of Newari art, ritual, and flavor — guided by Mincha & Bhincha.
             </p>
+
+            {/* Category Navigation */}
+            <div className="flex flex-wrap justify-center gap-4">
+              {categories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <Button
+                    key={category.id}
+                    variant="outline"
+                    size="lg"
+                    className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white hover:text-newari-red transition-all shadow-lg"
+                  >
+                    <IconComponent className="mr-2 h-5 w-5" />
+                    {category.name}
+                  </Button>
+                );
+              })}
+            </div>
           </motion.div>
 
-          {/* Category Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-4 mb-16"
-          >
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <Button
-                  key={category.id}
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-newari-gold newari-brown hover:bg-newari-gold hover:text-white transition-all"
-                >
-                  <IconComponent className="mr-2 h-5 w-5" />
-                  {category.name}
-                </Button>
-              );
-            })}
-          </motion.div>
+          {/* Audio Control */}
+          <div className="absolute bottom-8 right-8">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleAudio}
+              className="rounded-full bg-black/20 backdrop-blur-md border-white/30 text-white hover:bg-white/40"
+            >
+              {isMuted ? <VolumeX className="h-6 w-6" /> : <Volume2 className="h-6 w-6" />}
+            </Button>
+            <audio 
+              ref={audioRef}
+              src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+              loop 
+            />
+          </div>
         </div>
       </section>
 
