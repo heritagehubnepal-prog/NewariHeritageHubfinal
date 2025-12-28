@@ -82,6 +82,45 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
+
+              {/* Quick Start Section */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-12 p-6 bg-white/50 backdrop-blur-sm rounded-2xl border-2 border-newari-gold/30 text-left inline-block max-w-xl mx-auto lg:mx-0"
+              >
+                <p className="text-sm font-bold newari-red uppercase tracking-wider mb-4 flex items-center gap-2">
+                  <Star className="h-4 w-4 fill-newari-red" />
+                  Not sure where to start? Try these first:
+                </p>
+                <div className="grid sm:grid-cols-1 gap-3">
+                  <Link href="/games">
+                    <button className="flex items-center gap-3 w-full text-left p-3 rounded-xl hover:bg-newari-cream transition-colors group">
+                      <span className="text-xl group-hover:scale-110 transition-transform">👉</span>
+                      <span className="text-newari-brown font-medium flex-1">
+                        <span className="newari-red font-bold">[Play a Game]</span> — Test your Newari knowledge!
+                      </span>
+                    </button>
+                  </Link>
+                  <Link href="#characters">
+                    <button className="flex items-center gap-3 w-full text-left p-3 rounded-xl hover:bg-newari-cream transition-colors group">
+                      <span className="text-xl group-hover:scale-110 transition-transform">👉</span>
+                      <span className="text-newari-brown font-medium flex-1">
+                        <span className="newari-red font-bold">[Meet Mincha & Bhincha]</span> — Your cultural guides
+                      </span>
+                    </button>
+                  </Link>
+                  <Link href="/stories">
+                    <button className="flex items-center gap-3 w-full text-left p-3 rounded-xl hover:bg-newari-cream transition-colors group">
+                      <span className="text-xl group-hover:scale-110 transition-transform">👉</span>
+                      <span className="text-newari-brown font-medium flex-1">
+                        <span className="newari-red font-bold">[Read a Story]</span> — Discover legends of Phewa Lake
+                      </span>
+                    </button>
+                  </Link>
+                </div>
+              </motion.div>
             </motion.div>
             
             <motion.div 
