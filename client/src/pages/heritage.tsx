@@ -5,6 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import CultureCard from "@/components/heritage/culture-card";
 import { heritageItems } from "@/data/heritage";
 import { GraduationCap, ArrowRight, Calendar, Building, UtensilsCrossed, Volume2, VolumeX } from "lucide-react";
+import MinchaSVG from "@/components/characters/mincha-svg";
+import BhinchaSVG from "@/components/characters/bhincha-svg";
 
 import patanImg1 from "@assets/stock_images/patan_durbar_square__f251ae1e.jpg";
 import patanImg2 from "@assets/stock_images/patan_durbar_square__800b6cc8.jpg";
@@ -23,6 +25,7 @@ const slideshowImages = [
 export default function Heritage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
+  const [selectedGuide, setSelectedGuide] = useState<"mincha" | "bhincha">("mincha");
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -43,10 +46,43 @@ export default function Heritage() {
     }
   };
 
+  const speakDialogue = (text: string) => {
+    if (!isMuted) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.pitch = selectedGuide === "mincha" ? 1.1 : 1.3;
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const categories = [
-    { id: "architecture", name: "Architecture", icon: Building },
-    { id: "festivals", name: "Festivals", icon: Calendar },
-    { id: "cuisine", name: "Cuisine", icon: UtensilsCrossed },
+    { 
+      id: "architecture", 
+      name: "Architecture", 
+      icon: Building,
+      dialogue: {
+        mincha: "Did you know the windows in Patan Durbar Square tell stories? Tap to find the hidden ones!",
+        bhincha: "Our temples are not just stone and wood; they are homes for our gods and spirits."
+      }
+    },
+    { 
+      id: "festivals", 
+      name: "Festivals", 
+      icon: Calendar,
+      dialogue: {
+        mincha: "I'm still learning the complex rituals of Indra Jatra, but the energy is incredible!",
+        bhincha: "Wait until you see the Lakhey dance! It's the heartbeat of our city."
+      }
+    },
+    { 
+      id: "cuisine", 
+      name: "Cuisine", 
+      icon: UtensilsCrossed,
+      dialogue: {
+        mincha: "Bhincha's Yomari is the best! Did you know it represents the moon?",
+        bhincha: "A Newari feast is incomplete without Samay Baji. Let's explore the flavors together!"
+      }
+    },
   ];
 
   return (
@@ -70,6 +106,43 @@ export default function Heritage() {
           </motion.div>
         </AnimatePresence>
 
+        {/* Character Selection Toggle */}
+        <div className="absolute top-24 left-8 z-20 flex flex-col gap-4">
+          <motion.div 
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20"
+          >
+            <p className="text-white text-xs font-bold mb-3 uppercase tracking-wider">Choose Your Guide</p>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => setSelectedGuide("mincha")}
+                className={`relative group transition-all ${selectedGuide === "mincha" ? "scale-110" : "opacity-50 grayscale hover:grayscale-0 hover:opacity-100"}`}
+              >
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center p-2 border-2 border-white/40">
+                  <MinchaSVG className="w-full h-full" />
+                </div>
+                {selectedGuide === "mincha" && (
+                  <motion.div layoutId="guide-ring" className="absolute -inset-1 border-2 border-newari-gold rounded-full" />
+                )}
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">MINCHA</span>
+              </button>
+              <button 
+                onClick={() => setSelectedGuide("bhincha")}
+                className={`relative group transition-all ${selectedGuide === "bhincha" ? "scale-110" : "opacity-50 grayscale hover:grayscale-0 hover:opacity-100"}`}
+              >
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center p-2 border-2 border-white/40">
+                  <BhinchaSVG className="w-full h-full" />
+                </div>
+                {selectedGuide === "bhincha" && (
+                  <motion.div layoutId="guide-ring" className="absolute -inset-1 border-2 border-newari-gold rounded-full" />
+                )}
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">BHINCHA</span>
+              </button>
+            </div>
+          </motion.div>
+        </div>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -78,23 +151,40 @@ export default function Heritage() {
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-2xl">Newari Heritage</h1>
             <p className="text-xl md:text-3xl font-medium max-w-4xl mx-auto leading-relaxed drop-shadow-xl mb-12">
-              Walk through centuries of Newari art, ritual, and flavor — guided by Mincha & Bhincha.
+              Walk through centuries of Newari art, ritual, and flavor — guided by {selectedGuide === "mincha" ? "Mincha, our history buff" : "Bhincha, our cultural guardian"}.
             </p>
 
             {/* Category Navigation */}
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
               {categories.map((category) => {
                 const IconComponent = category.icon;
+                const dialogue = category.dialogue[selectedGuide];
                 return (
-                  <Button
-                    key={category.id}
-                    variant="outline"
-                    size="lg"
-                    className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white hover:text-newari-red transition-all shadow-lg"
-                  >
-                    <IconComponent className="mr-2 h-5 w-5" />
-                    {category.name}
-                  </Button>
+                  <div key={category.id} className="group relative">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={() => speakDialogue(dialogue)}
+                      className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white hover:text-newari-red transition-all shadow-lg min-w-[160px]"
+                    >
+                      <IconComponent className="mr-2 h-5 w-5" />
+                      {category.name}
+                    </Button>
+                    
+                    {/* Character Dialogue Bubble */}
+                    <AnimatePresence>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                        whileHover={{ opacity: 1, scale: 1, y: -10 }}
+                        className="absolute -top-32 left-1/2 -translate-x-1/2 w-48 pointer-events-none opacity-0 group-hover:opacity-100 transition-all z-30"
+                      >
+                        <div className="bg-white text-newari-brown p-3 rounded-2xl shadow-2xl border-2 border-newari-gold text-sm font-medium relative">
+                          <p>"{dialogue}"</p>
+                          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r-2 border-b-2 border-newari-gold rotate-45" />
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 );
               })}
             </div>
