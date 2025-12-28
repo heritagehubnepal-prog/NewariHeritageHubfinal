@@ -242,7 +242,7 @@ export default function Games() {
                       onClick={() => setSelectedGame(game.gameType)}
                       className={`w-full ${game.color} hover:opacity-90 text-white transform group-hover:scale-105 transition-all duration-200`}
                     >
-                      Start Playing
+                      Play & Learn Like a Newari Hero!
                     </Button>
                   </CardContent>
                 </Card>

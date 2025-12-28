@@ -68,7 +68,7 @@ export default function Home() {
                 <Link href="#characters">
                   <Button size="lg" className="bg-eco-green hover:bg-forest-green text-white transform hover:scale-105 transition-all">
                     <Heart className="mr-2 h-5 w-5" />
-                    Meet Our Ambassadors
+                    Meet Your Cultural Guides →
                   </Button>
                 </Link>
                 <Link href="#services">
@@ -78,7 +78,7 @@ export default function Home() {
                     className="border-2 border-earth-orange earth-orange hover:bg-earth-orange hover:text-white transform hover:scale-105 transition-all"
                   >
                     <Building className="mr-2 h-5 w-5" />
-                    Explore Hub Services
+                    Begin Your Newari Journey →
                   </Button>
                 </Link>
               </div>
@@ -336,7 +336,7 @@ export default function Home() {
                   <Link href={`/character/${character.name.toLowerCase()}`}>
                     <Button className="bg-newari-red hover:bg-red-700 text-white">
                       <Book className="mr-2 h-4 w-4" />
-                      Read {character.name === "Mincha" ? "His" : "Her"} Stories
+                      Meet {character.name} — Your Cultural Guide →
                     </Button>
                   </Link>
                 </div>
@@ -411,7 +411,7 @@ export default function Home() {
                     className="bg-newari-red hover:bg-red-700 text-white transform hover:scale-105 transition-all"
                   >
                     <GraduationCap className="mr-2 h-5 w-5" />
-                    Start Learning
+                    Begin Your Newari Journey →
                   </Button>
                 </Link>
               </div>
