@@ -123,7 +123,7 @@ export default function Games() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-newari-cream via-white to-eco-green/5">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-newari-red via-newari-gold to-eco-green">
+      <section className="py-20 bg-newari-cream border-b-4 border-newari-gold">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -147,10 +147,10 @@ export default function Games() {
               </motion.div>
               
               <div className="flex-1 min-w-0">
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                <h1 className="text-4xl md:text-6xl font-bold newari-red mb-4 drop-shadow-lg">
                   Heritage Games
                 </h1>
-                <p className="text-lg md:text-xl text-white font-medium max-w-2xl mx-auto px-4 drop-shadow-md">
+                <p className="text-lg md:text-xl newari-brown font-medium max-w-2xl mx-auto px-4 drop-shadow-md">
                   Learn, play, and explore Newari culture through interactive educational games
                   guided by Mincha and Bhincha!
                 </p>
