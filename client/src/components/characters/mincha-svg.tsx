@@ -32,9 +32,16 @@ export default function MinchaSVG({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={interactive ? handleCharacterClick : undefined}
+      animate={{ 
+        y: [0, -5, 0],
+        rotate: isHovered ? [0, -2, 2, 0] : 0
+      }}
       whileHover={interactive ? { scale: 1.05 } : {}}
       whileTap={interactive ? { scale: 0.98 } : {}}
-      transition={{ duration: 0.2 }}
+      transition={{ 
+        y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+        rotate: { duration: 0.5, repeat: isHovered ? Infinity : 0 }
+      }}
     >
       <svg
         viewBox="0 0 400 500"

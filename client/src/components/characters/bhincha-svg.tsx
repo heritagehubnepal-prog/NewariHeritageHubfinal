@@ -1,11 +1,29 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+
 export default function BhinchaSVG({ className = "w-full h-full" }: { className?: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <svg
-      viewBox="0 0 400 500"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+    <motion.div
+      className="w-full h-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      animate={{ 
+        y: [0, -5, 0],
+        rotate: isHovered ? [0, 2, -2, 0] : 0
+      }}
+      transition={{ 
+        y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+        rotate: { duration: 0.5, repeat: isHovered ? Infinity : 0 }
+      }}
     >
+      <svg
+        viewBox="0 0 400 500"
+        className={className}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
       {/* Cute Traditional Newari Girl Character - Bhincha */}
       
       {/* Simple background */}
@@ -122,5 +140,6 @@ export default function BhinchaSVG({ className = "w-full h-full" }: { className?
         </pattern>
       </defs>
     </svg>
+    </motion.div>
   );
 }
