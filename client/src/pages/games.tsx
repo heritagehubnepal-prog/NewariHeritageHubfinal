@@ -206,44 +206,42 @@ export default function Games() {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                whileHover={{ y: -10 }}
-                className="group"
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group h-full"
               >
-                <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-eco-green cursor-pointer">
-                  <CardHeader>
-                    <div className={`${game.color} text-white w-16 h-16 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                <Card className="h-full bg-white rounded-2xl overflow-hidden shadow-lg border-2 border-newari-gold/20 hover:shadow-2xl hover:border-newari-gold transition-all duration-300 flex flex-col cursor-pointer">
+                  <CardHeader className="p-6 pb-0">
+                    <div className={`${game.color} text-white w-16 h-16 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300 shrink-0`}>
                       {game.icon}
                     </div>
                     <CardTitle className="text-xl newari-brown text-center">{game.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-center">
-                    <p className="text-gray-600 mb-6 leading-relaxed">{game.description}</p>
+                  <CardContent className="p-6 flex flex-col flex-1">
+                    <p className="text-gray-600 mb-6 leading-relaxed text-center flex-1">{game.description}</p>
                     
-                    <div className="space-y-3 mb-6">
+                    <div className="space-y-3 mb-8 bg-newari-cream/30 p-4 rounded-xl border border-newari-gold/10">
                       <div className="flex justify-between text-sm">
-                        <span className="font-medium">Difficulty:</span>
-                        <Badge variant="outline">{game.difficulty}</Badge>
+                        <span className="font-bold newari-brown">Difficulty:</span>
+                        <Badge variant="outline" className="border-newari-gold/30 text-newari-red font-bold">{game.difficulty}</Badge>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="font-medium">Players:</span>
+                        <span className="font-bold newari-brown">Players:</span>
                         <span className="text-gray-600">{game.players}</span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="font-medium">Duration:</span>
+                        <span className="font-bold newari-brown">Duration:</span>
                         <span className="text-gray-600">{game.time}</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="font-medium">Guide:</span>
-                        <span className="text-gray-600 text-xs">{game.narrator}</span>
                       </div>
                     </div>
 
-                    <Button 
-                      onClick={() => setSelectedGame(game.gameType)}
-                      className={`w-full ${game.color} hover:opacity-90 text-white transform group-hover:scale-105 transition-all duration-200`}
-                    >
-                      Play & Learn Like a Newari Hero!
-                    </Button>
+                    <div className="mt-auto">
+                      <Button 
+                        onClick={() => setSelectedGame(game.gameType)}
+                        className={`w-full bg-newari-red hover:bg-red-700 text-white rounded-xl py-6 font-bold transform transition-all duration-200 shadow-md hover:shadow-lg`}
+                      >
+                        Play & Learn Like a Newari Hero!
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>

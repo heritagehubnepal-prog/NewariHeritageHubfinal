@@ -224,14 +224,21 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.02, y: -5 }}
               >
-                <Card className="h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <CardContent className="p-6">
-                    <div className={`${service.color} ${service.textColor} w-16 h-16 rounded-2xl flex items-center justify-center mb-4`}>
+                <Card className="h-full bg-white rounded-2xl overflow-hidden shadow-lg border-2 border-newari-gold/20 hover:shadow-2xl hover:border-newari-gold transition-all duration-300 flex flex-col">
+                  <CardContent className="p-6 flex flex-col flex-1">
+                    <div className={`${service.color} ${service.textColor} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shrink-0`}>
                       {service.icon}
                     </div>
                     <h3 className="text-xl font-bold newari-brown mb-3">{service.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                    <p className="text-gray-600 leading-relaxed flex-1">{service.description}</p>
+                    <div className="mt-auto pt-4 border-t border-newari-gold/10">
+                      <Button variant="ghost" className="newari-red hover:text-red-700 hover:bg-newari-red/5 font-bold p-0 w-full flex justify-between rounded-xl">
+                        <span>Learn More</span>
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
