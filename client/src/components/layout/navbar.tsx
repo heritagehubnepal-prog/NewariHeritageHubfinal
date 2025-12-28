@@ -31,13 +31,27 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  <span className="newari-brown hover:newari-red px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer">
-                    {item.label}
-                  </span>
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = location === item.href;
+                return (
+                  <Link key={item.href} href={item.href}>
+                    <span className={`px-3 py-2 rounded-md text-sm font-medium transition-all cursor-pointer relative ${
+                      isActive 
+                        ? "newari-red font-bold" 
+                        : "newari-brown hover:newari-red"
+                    }`}>
+                      {item.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="nav-active"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-newari-red"
+                          initial={false}
+                        />
+                      )}
+                    </span>
+                  </Link>
+                );
+              })}
               <Link href="#download">
                 <Button className="bg-newari-red hover:bg-red-700 text-white text-xs px-4 py-2 h-auto whitespace-nowrap">
                   Take Heritage Home — Download Our Interactive Guide
@@ -69,16 +83,23 @@ export default function Navbar() {
           className="md:hidden bg-white border-t border-newari-beige"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <span 
-                  className="newari-brown hover:newari-red block px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </span>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = location === item.href;
+              return (
+                <Link key={item.href} href={item.href}>
+                  <span 
+                    className={`block px-3 py-2 rounded-md text-base font-medium transition-all cursor-pointer ${
+                      isActive 
+                        ? "newari-red bg-newari-cream font-bold border-l-4 border-newari-red" 
+                        : "newari-brown hover:newari-red hover:bg-newari-beige"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              );
+            })}
             <Link href="#download">
               <Button 
                 className="bg-newari-red hover:bg-red-700 text-white w-full mt-2"
