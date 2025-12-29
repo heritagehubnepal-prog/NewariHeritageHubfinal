@@ -223,50 +223,70 @@ export default function CulturalQuiz() {
   const badge = getBadge(difficulty, score, filteredQuestions.length);
 
   return (
-    <div id="quiz-card" style={{
-      background: '#FFF9F0',
-      padding: '24px',
-      borderRadius: '12px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-      maxWidth: '600px',
-      margin: '0 auto',
-      position: 'relative'
-    }}>
+    <div 
+      id="quiz-card" 
+      key={`quiz-${difficulty}-${gameFinished ? 'finished' : currentQuestion}`}
+      style={{
+        background: '#FFF9F0',
+        padding: '24px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+        maxWidth: '600px',
+        margin: '0 auto',
+        position: 'relative'
+      }}
+    >
       {/* ✅ SCROLL ANCHOR — MUST BE FIRST */}
       <div id="quiz-top-anchor" style={{ position: 'absolute', top: 0, left: 0, width: '1px', height: '1px', opacity: 0 }}></div>
 
       <div className="">
         {!gameFinished ? (
           <>
-            {/* Progress Indicator */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <div style={{ 
-                width: '18px', 
-                height: '18px', 
-                background: '#2196F3', 
-                color: 'white', 
-                borderRadius: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '12px',
-                fontWeight: 'bold'
-              }}>?</div>
-              <div style={{ fontSize: '14px', color: '#5D4037' }}>
-                <strong>{question.narrator} asks:</strong> Question {currentQuestion + 1} of {filteredQuestions.length}
+            {/* ✅ PROGRESS HEADER — STABLE, SMOOTH, FLICKER-FREE */}
+            <div key="progress-header" style={{ marginBottom: '24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <div style={{ 
+                  width: '18px', 
+                  height: '18px', 
+                  background: '#2196F3', 
+                  color: 'white', 
+                  borderRadius: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '12px',
+                  fontWeight: 'bold'
+                }}>?</div>
+                <div style={{ fontSize: '14px', color: '#5D4037' }}>
+                  <strong>{question.narrator} asks:</strong> Question {currentQuestion + 1} of {filteredQuestions.length}
+                </div>
               </div>
+
+              <div style={{
+                height: '6px',
+                background: 'linear-gradient(to right, #9C27B0, #FF5722)',
+                borderRadius: '3px',
+                transition: 'background 0.3s ease' // ✅ Smooth transition
+              }} />
             </div>
 
-            <div style={{
-              height: '6px',
-              background: 'linear-gradient(to right, #9C27B0, #FF5722)',
-              borderRadius: '3px',
-              marginBottom: '24px'
-            }} />
-
-            <h2 style={{ color: '#B71C1C', fontSize: '18px', fontWeight: '600', marginBottom: '24px', lineHeight: '1.4' }}>
-              {question.question}
-            </h2>
+            <motion.div
+              key={currentQuestion}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h2 style={{ 
+                color: '#B71C1C', 
+                fontSize: '20px', // ✅ Slightly larger for readability
+                fontWeight: '600', 
+                marginBottom: '24px', 
+                lineHeight: '1.5',
+                wordWrap: 'break-word'
+              }}>
+                {question.question}
+              </h2>
+            </motion.div>
 
             <div className="space-y-3">
               {question.options.map((option: string, index: number) => {
@@ -359,7 +379,7 @@ export default function CulturalQuiz() {
               >
                 <Button 
                   onClick={handleNextQuestion}
-                  tabIndex={-1} // ✅ Prevents auto-focus scroll
+                  tabIndex={-1}
                   className="bg-newari-red hover:bg-red-700 text-white min-h-[48px] px-8"
                 >
                   {currentQuestion < filteredQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
