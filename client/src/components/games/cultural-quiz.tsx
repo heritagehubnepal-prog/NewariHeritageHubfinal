@@ -292,8 +292,12 @@ export default function CulturalQuiz() {
                     style={{ height: '40px', width: '40px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
                   />
                   <div style={{ 
-                    background: question.narrator === "Mincha" ? '#E8F5E9' : '#FFEBEE', 
-                    color: question.narrator === "Mincha" ? '#2E7D32' : '#D32F2F', 
+                    background: selectedAnswer === question.correctAnswer
+                      ? (question.narrator === "Mincha" ? '#E8F5E9' : '#F1F8E9')
+                      : '#FFEBEE', 
+                    color: selectedAnswer === question.correctAnswer
+                      ? (question.narrator === "Mincha" ? '#2E7D32' : '#33691E')
+                      : '#D32F2F', 
                     padding: '12px', 
                     borderRadius: '8px', 
                     fontSize: '14px',
