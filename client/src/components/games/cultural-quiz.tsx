@@ -142,8 +142,6 @@ const quizQuestions: QuizQuestion[] = [
 import { filterQuizQuestions, getBadge } from "@/utils/quiz-utils";
 import QuizSelector from "./quiz-selector";
 
-// ... (keep previous interfaces and questions)
-
 export default function CulturalQuiz() {
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard' | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -154,12 +152,22 @@ export default function CulturalQuiz() {
   const [streak, setStreak] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0);
 
+  // ✅ FIX 1: Scroll to top when quiz page FIRST LOADS
   useEffect(() => {
-    // Scroll to top of quiz card smoothly when component mounts or difficulty changes
+    const quizCard = document.getElementById('quiz-card');
+    if (quizCard) {
+      quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
+  // ✅ FIX 2: Scroll to top AFTER difficulty is selected (with small delay for DOM update)
+  useEffect(() => {
     if (difficulty) {
       const quizCard = document.getElementById('quiz-card');
       if (quizCard) {
-        quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+          quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
     }
   }, [difficulty]);
@@ -173,11 +181,11 @@ export default function CulturalQuiz() {
 
   const handleAnswerSelect = (answerIndex: number) => {
     if (selectedAnswer !== null) return;
-    
+
     setSelectedAnswer(answerIndex);
     setShowExplanation(true);
 
-    // Scroll to top of quiz card smoothly
+    // ✅ FIX 3: Scroll to top AFTER answer is selected
     const quizCard = document.getElementById('quiz-card');
     if (quizCard) {
       quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -255,13 +263,12 @@ export default function CulturalQuiz() {
             <h2 style={{ color: '#B71C1C', fontSize: '18px', fontWeight: '600', marginBottom: '24px', lineHeight: '1.4' }}>
               {question.question}
             </h2>
-// ... (rest of the file remains similar but use filteredQuestions.length)
 
             <div className="space-y-3">
               {question.options.map((option: string, index: number) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrect = index === question.correctAnswer;
-                
+
                 return (
                   <button
                     key={index}
@@ -339,7 +346,7 @@ export default function CulturalQuiz() {
                 </motion.div>
               )}
             </AnimatePresence>
-            
+
             {selectedAnswer !== null && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -360,14 +367,14 @@ export default function CulturalQuiz() {
             <Trophy className="h-16 w-16 text-newari-gold mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-[#B71C1C] mb-2">Quiz Complete!</h2>
             <p className="text-lg text-[#5D4037] mb-4">You scored {score} out of {filteredQuestions.length}</p>
-            
+
             <div 
               className="text-white inline-block px-6 py-2 rounded-full my-4 text-sm font-bold shadow-lg"
               style={{ background: badge.color }}
             >
               {badge.icon} {badge.name}
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Button 
                 onClick={resetGame}
