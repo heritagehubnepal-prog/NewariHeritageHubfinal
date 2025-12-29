@@ -167,6 +167,12 @@ export default function CulturalQuiz() {
     setSelectedAnswer(answerIndex);
     setShowExplanation(true);
 
+    // Scroll to top of quiz card smoothly
+    const quizCard = document.getElementById('quiz-card');
+    if (quizCard) {
+      quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     if (answerIndex === question.correctAnswer) {
       setScore(score + 1);
       setStreak(streak + 1);
@@ -199,7 +205,7 @@ export default function CulturalQuiz() {
   const badge = getBadge(difficulty, score, filteredQuestions.length);
 
   return (
-    <div style={{
+    <div id="quiz-card" style={{
       background: '#FFF9F0',
       padding: '24px',
       borderRadius: '12px',
