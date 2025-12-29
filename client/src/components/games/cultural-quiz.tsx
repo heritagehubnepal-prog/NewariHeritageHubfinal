@@ -154,6 +154,16 @@ export default function CulturalQuiz() {
   const [streak, setStreak] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0);
 
+  useEffect(() => {
+    // Scroll to top of quiz card smoothly when component mounts or difficulty changes
+    if (difficulty) {
+      const quizCard = document.getElementById('quiz-card');
+      if (quizCard) {
+        quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [difficulty]);
+
   if (!difficulty) {
     return <QuizSelector onSelect={setDifficulty} />;
   }
