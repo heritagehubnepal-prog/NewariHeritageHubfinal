@@ -144,7 +144,49 @@ import brandLogo from "@assets/IMG_1252_1766975034937.png";
 // ... (keep previous interfaces and questions)
 
 export default function CulturalQuiz() {
-  // ... (keep previous state)
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [score, setScore] = useState(0);
+  const [gameFinished, setGameFinished] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [streak, setStreak] = useState(0);
+  const [maxStreak, setMaxStreak] = useState(0);
+
+  const question = quizQuestions[currentQuestion];
+
+  const handleAnswerSelect = (answerIndex: number) => {
+    if (selectedAnswer !== null) return;
+    
+    setSelectedAnswer(answerIndex);
+    setShowExplanation(true);
+
+    if (answerIndex === question.correctAnswer) {
+      setScore(score + 1);
+      setStreak(streak + 1);
+      setMaxStreak(Math.max(maxStreak, streak + 1));
+    } else {
+      setStreak(0);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < quizQuestions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedAnswer(null);
+      setShowExplanation(false);
+    } else {
+      setGameFinished(true);
+    }
+  };
+
+  const resetGame = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setScore(0);
+    setGameFinished(false);
+    setShowExplanation(false);
+    setStreak(0);
+  };
 
   return (
     <div className="w-full max-w-[600px] mx-auto">
