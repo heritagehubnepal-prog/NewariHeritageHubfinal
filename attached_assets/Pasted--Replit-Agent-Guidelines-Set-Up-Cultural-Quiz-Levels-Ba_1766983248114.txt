@@ -1,0 +1,58 @@
+🤖 Replit Agent Guidelines: Set Up Cultural Quiz Levels & Badges
+Instructions for the AI Agent in Replit:
+You are helping build Heritage Hub Nepal, a cultural education platform focused on Newari heritage.
+Do not change existing working code. Only add new files or minimal enhancements to support difficulty levels and badges in the Cultural Quiz.
+
+🎯 Goal
+Implement a 3-level quiz system (Easy, Medium, Hard) with unique completion badges, using pure frontend logic (no backend, no login).
+
+📁 1. Update Question Data Structure
+In src/data/quizData.ts (or wherever questions are stored):
+Add a new field: difficulty: 'easy' | 'medium' | 'hard'
+Keep all existing fields (question, options, correct, explanation, character)
+Do not change logic — just extend the type and add the field to each question (use placeholder values like 'medium' for now)
+✅ Example:
+
+ts
+123456789
+🖼️ 2. Create Difficulty Selector Component
+Create new file: src/components/QuizSelector.tsx
+Must export a React component that:
+Shows a centered card with title: “Choose Your Challenge”
+Has 3 buttons (use existing .btn class if available):
+🌱 Easy (5 Questions) → calls onSelect('easy')
+🏯 Medium (8 Questions) → calls onSelect('medium')
+🔥 Hard (12 Questions) → calls onSelect('hard')
+Style buttons with:
+Easy: background: #4CAF50
+Medium: background: #FF9800
+Hard: background: #F44336
+✅ Return props type:
+
+ts
+123
+🔧 3. Add Quiz Filtering Logic
+Create new file: src/utils/quizUtils.ts
+Export two functions:
+ts
+123456789101112
+💡 Badge Rules (hardcode these):
+
+Easy + ≥70% → { name: "Heritage Seed", icon: "🌱", color: "#4CAF50" }
+Medium + ≥80% → { name: "Cultural Explorer", icon: "🏯", color: "#FF5722" }
+Hard + ≥90% → { name: "Heritage Guardian", icon: "🛡️", color: "#9C27B0" }
+Else → { name: "Curious Learner", icon: "📚", color: "#2196F3" }
+🎨 4. Update Quiz & Result Screens (Minimal Changes)
+In Quiz.tsx:
+Accept difficulty as prop
+Use getQuizQuestions() to load correct question set
+In ResultScreen.tsx:
+Accept difficulty, score, total
+Use getBadge() to show badge in a styled pill (use color for background, white text)
+✅ Do not redesign layout — just insert badge display below score.
+
+🧪 5. Keep It Lightweight & Safe
+No external dependencies
+No API calls
+No localStorage unless already used
+Preserve existing scroll-to-top, character logic, and feedback colors

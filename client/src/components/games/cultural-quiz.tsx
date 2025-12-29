@@ -139,11 +139,13 @@ const quizQuestions: QuizQuestion[] = [
   }
 ];
 
-import brandLogo from "@assets/IMG_1252_1766975034937.png";
+import { filterQuizQuestions, getBadge } from "@/utils/quiz-utils";
+import QuizSelector from "./quiz-selector";
 
 // ... (keep previous interfaces and questions)
 
 export default function CulturalQuiz() {
+  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard' | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [score, setScore] = useState(0);
@@ -152,7 +154,12 @@ export default function CulturalQuiz() {
   const [streak, setStreak] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0);
 
-  const question = quizQuestions[currentQuestion];
+  if (!difficulty) {
+    return <QuizSelector onSelect={setDifficulty} />;
+  }
+
+  const filteredQuestions = filterQuizQuestions(quizQuestions, difficulty);
+  const question = filteredQuestions[currentQuestion];
 
   const handleAnswerSelect = (answerIndex: number) => {
     if (selectedAnswer !== null) return;
@@ -170,7 +177,7 @@ export default function CulturalQuiz() {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < quizQuestions.length - 1) {
+    if (currentQuestion < filteredQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
       setShowExplanation(false);
@@ -180,6 +187,7 @@ export default function CulturalQuiz() {
   };
 
   const resetGame = () => {
+    setDifficulty(null);
     setCurrentQuestion(0);
     setSelectedAnswer(null);
     setScore(0);
@@ -187,6 +195,8 @@ export default function CulturalQuiz() {
     setShowExplanation(false);
     setStreak(0);
   };
+
+  const badge = getBadge(difficulty, score, filteredQuestions.length);
 
   return (
     <div style={{
@@ -215,7 +225,7 @@ export default function CulturalQuiz() {
                 fontWeight: 'bold'
               }}>?</div>
               <div style={{ fontSize: '14px', color: '#5D4037' }}>
-                <strong>{question.narrator} asks:</strong> Question {currentQuestion + 1} of {quizQuestions.length}
+                <strong>{question.narrator} asks:</strong> Question {currentQuestion + 1} of {filteredQuestions.length}
               </div>
             </div>
 
@@ -229,9 +239,10 @@ export default function CulturalQuiz() {
             <h2 style={{ color: '#B71C1C', fontSize: '18px', fontWeight: '600', marginBottom: '24px', lineHeight: '1.4' }}>
               {question.question}
             </h2>
+// ... (rest of the file remains similar but use filteredQuestions.length)
 
             <div className="space-y-3">
-              {question.options.map((option, index) => {
+              {question.options.map((option: string, index: number) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrect = index === question.correctAnswer;
                 
@@ -323,7 +334,7 @@ export default function CulturalQuiz() {
                   onClick={handleNextQuestion}
                   className="bg-newari-red hover:bg-red-700 text-white min-h-[48px] px-8"
                 >
-                  {currentQuestion < quizQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
+                  {currentQuestion < filteredQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
                 </Button>
               </motion.div>
             )}
@@ -332,9 +343,13 @@ export default function CulturalQuiz() {
           <div className="text-center py-8">
             <Trophy className="h-16 w-16 text-newari-gold mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-[#B71C1C] mb-2">Quiz Complete!</h2>
+            <p className="text-lg text-[#5D4037] mb-4">You scored {score} out of {filteredQuestions.length}</p>
             
-            <div className="bg-[#FF5722] text-white inline-block px-4 py-1.5 rounded-full my-4 text-sm font-bold">
-              Newari Culture Master
+            <div 
+              className="text-white inline-block px-6 py-2 rounded-full my-4 text-sm font-bold shadow-lg"
+              style={{ background: badge.color }}
+            >
+              {badge.icon} {badge.name}
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
