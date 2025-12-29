@@ -80,6 +80,8 @@ const learningOutcomes = [
   }
 ];
 
+import brandLogo from "@assets/IMG_1252_1766975034937.png";
+
 export default function Games() {
   const [selectedGame, setSelectedGame] = useState<GameType>(null);
 
@@ -87,6 +89,12 @@ export default function Games() {
     return (
       <div className="min-h-screen w-full bg-gradient-to-br from-newari-cream via-white to-eco-green/5 py-8 px-4 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
+          {/* Header Integration */}
+          <div className="flex items-center gap-3 mb-6">
+            <img src={brandLogo} alt="Logo" className="h-10 w-auto object-contain" />
+            <h1 className="text-2xl font-bold newari-red">Heritage Hub Nepal</h1>
+          </div>
+          
           {/* Back Navigation */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}

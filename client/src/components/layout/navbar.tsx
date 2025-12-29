@@ -5,6 +5,8 @@ import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { useState } from "react";
 import { useAudio } from "@/hooks/use-audio";
 
+import brandLogo from "@assets/IMG_1252_1766975034937.png";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
@@ -24,9 +26,12 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/">
-              <h1 className="text-2xl font-bold newari-red cursor-pointer hover:text-red-700 transition-colors">
-                Heritage Hub Nepal
-              </h1>
+              <div className="flex items-center gap-2 cursor-pointer group">
+                <img src={brandLogo} alt="Logo" className="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+                <h1 className="text-xl md:text-2xl font-bold newari-red hover:text-red-700 transition-colors hidden sm:block">
+                  Heritage Hub Nepal
+                </h1>
+              </div>
             </Link>
           </div>
           
