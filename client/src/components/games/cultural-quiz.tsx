@@ -300,6 +300,9 @@ export default function CulturalQuiz() {
                     border: '1px solid currentColor',
                     position: 'relative'
                   }}>
+                    <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
+                      {selectedAnswer === question.correctAnswer ? "✨ Correct!" : "❌ Not quite right..."}
+                    </div>
                     {question.explanation}
                   </div>
                 </motion.div>
