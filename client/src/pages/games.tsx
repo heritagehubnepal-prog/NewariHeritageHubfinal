@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -84,6 +84,14 @@ import brandLogo from "@assets/IMG_1252_1766975034937.png";
 
 export default function Games() {
   const [selectedGame, setSelectedGame] = useState<GameType>(null);
+
+  useEffect(() => {
+    if (selectedGame) {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [selectedGame]);
 
   if (selectedGame) {
     return (
