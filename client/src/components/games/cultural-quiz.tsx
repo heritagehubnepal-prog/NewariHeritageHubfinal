@@ -197,22 +197,23 @@ export default function CulturalQuiz() {
       maxWidth: '600px',
       margin: '0 auto'
     }}>
-      {/* Header Integration */}
-      <header style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px 0' }}>
-        <img src={brandLogo} alt="Heritage Hub Nepal" height="36" />
-        <h1 style={{ color: '#B71C1C', margin: 0, fontSize: '22px' }}>Heritage Hub Nepal</h1>
-      </header>
-
       <div className="">
         {!gameFinished ? (
           <>
             {/* Progress Indicator */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <img 
-                src={question.narrator === "Mincha" ? "/assets/mincha.png" : "/assets/bhincha.png"} 
-                alt={question.narrator}
-                style={{ height: '40px', width: '40px', borderRadius: '50%' }}
-              />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <div style={{ 
+                width: '18px', 
+                height: '18px', 
+                background: '#2196F3', 
+                color: 'white', 
+                borderRadius: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '12px',
+                fontWeight: 'bold'
+              }}>?</div>
               <div style={{ fontSize: '14px', color: '#5D4037' }}>
                 <strong>{question.narrator} asks:</strong> Question {currentQuestion + 1} of {quizQuestions.length}
               </div>
@@ -225,7 +226,7 @@ export default function CulturalQuiz() {
               marginBottom: '24px'
             }} />
 
-            <h2 style={{ color: '#B71C1C', fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>
+            <h2 style={{ color: '#B71C1C', fontSize: '18px', fontWeight: '600', marginBottom: '24px', lineHeight: '1.4' }}>
               {question.question}
             </h2>
 
