@@ -1,0 +1,77 @@
+🎯 Lightweight Prompt: Enhance Cultural Quiz Game
+
+Goal: Make the Cultural Quiz more engaging, brand-aligned, and user-friendly — using minimal code, maximum cultural resonance. All changes must work in your current React+Vite Replit project.
+
+✅ 1.Header Integration
+
+ Replace plain text header in quiz page with:
+<header style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px 0' }}>
+  <img src="/logo.png" alt="Heritage Hub Nepal" height="36" />
+  <h1 style={{ color: '#B71C1C', margin: 0, fontSize: '22px' }}>Cultural Quiz</h1>
+</header>
+✅ 2.Fix Scrolling Behavior
+
+ Add scroll-to-top on route change (use useLocation + useEffect):
+// In Quiz component or App.tsx
+const { pathname } = useLocation();
+useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+✅ 3. Brand-Aligned UI Components
+
+ Container: Wrap quiz in <div style={{ background: '#FFF9F0', padding: '20px', borderRadius: '12px' }}>
+ Question: Use color: #B71C1C; font-size: 20px; font-weight: 600; margin-bottom: 24px;
+ Answer Buttons:
+<button 
+  style={{
+    display: 'block',
+    width: '100%',
+    padding: '14px',
+    margin: '8px 0',
+    background: 'white',
+    border: '1px solid #E64A19',
+    borderRadius: '10px',
+    textAlign: 'left',
+    fontSize: '16px',
+    cursor: 'pointer'
+  }}
+>
+  {option}
+</button>
+ Hover Effect: On hover → borderColor: '#FF5722', boxShadow: '0 0 8px rgba(255,87,34,0.2)'
+✅ 4.Progress Indicator
+
+ Add above question:
+<div style={{ fontSize: '14px', color: '#5D4037', marginBottom: '8px' }}>
+  Question {current + 1} of {total}
+</div>
+ Add progress bar:
+<div style={{
+  height: '6px',
+  background: 'linear-gradient(to right, #9C27B0, #FF5722)',
+  borderRadius: '3px',
+  marginBottom: '24px'
+}} />
+✅ 5.Feedback with Character Guidance
+
+ After answer selection, show:
+{/* For Mincha (eco answers) */}
+<div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+  <img src="/assets/mincha.png" height="40" style={{ borderRadius: '50%' }} />
+  <div style={{ background: '#E8F5E9', color: '#2E7D32', padding: '12px', borderRadius: '8px', fontSize: '14px' }}>
+    {explanation}
+  </div>
+</div>
+ Use Bhincha avatar + #FFEBEE / #D32F2F for cultural answers
+✅ 6.Result Screen
+
+ Show badge:
+<div style={{ background: '#FF5722', color: 'white', display: 'inline-block', padding: '6px 16px', borderRadius: '20px', margin: '16px 0' }}>
+  Newari Culture Master
+</div>
+ Add two buttons:
+Primary: background: #9C27B0 → “Play Again”
+Secondary: background: #E64A19 → “Explore More Games”
+✅ 7.Accessibility & Mobile
+
+ Ensure all tap targets ≥ 48px tall
+ Use max-width: 600px; margin: 0 auto; for quiz container
+ Test contrast: text vs background ≥ 4.5:1
