@@ -152,23 +152,27 @@ export default function CulturalQuiz() {
   const [streak, setStreak] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0);
 
-  // ✅ FIX 1: Scroll to top when quiz page FIRST LOADS
+  // ✅ FLAWLESS SCROLL FUNCTION
+  const scrollToQuizTop = () => {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const anchor = document.getElementById('quiz-top-anchor');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      }, 50);
+    });
+  };
+
+  // Scroll on mount
   useEffect(() => {
-    const quizCard = document.getElementById('quiz-card');
-    if (quizCard) {
-      quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    scrollToQuizTop();
   }, []);
 
-  // ✅ FIX 2: Scroll to top AFTER difficulty is selected (with small delay for DOM update)
+  // Scroll after difficulty
   useEffect(() => {
     if (difficulty) {
-      const quizCard = document.getElementById('quiz-card');
-      if (quizCard) {
-        setTimeout(() => {
-          quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
+      setTimeout(scrollToQuizTop, 100);
     }
   }, [difficulty]);
 
@@ -185,12 +189,6 @@ export default function CulturalQuiz() {
     setSelectedAnswer(answerIndex);
     setShowExplanation(true);
 
-    // ✅ FIX 3: Scroll to top AFTER answer is selected
-    const quizCard = document.getElementById('quiz-card');
-    if (quizCard) {
-      quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
     if (answerIndex === question.correctAnswer) {
       setScore(score + 1);
       setStreak(streak + 1);
@@ -198,6 +196,8 @@ export default function CulturalQuiz() {
     } else {
       setStreak(0);
     }
+
+    setTimeout(scrollToQuizTop, 100);
   };
 
   const handleNextQuestion = () => {
@@ -229,8 +229,12 @@ export default function CulturalQuiz() {
       borderRadius: '12px',
       boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
       maxWidth: '600px',
-      margin: '0 auto'
+      margin: '0 auto',
+      position: 'relative'
     }}>
+      {/* ✅ SCROLL ANCHOR — MUST BE FIRST */}
+      <div id="quiz-top-anchor" style={{ position: 'absolute', top: 0, left: 0, width: '1px', height: '1px', opacity: 0 }}></div>
+
       <div className="">
         {!gameFinished ? (
           <>
@@ -355,6 +359,7 @@ export default function CulturalQuiz() {
               >
                 <Button 
                   onClick={handleNextQuestion}
+                  tabIndex={-1} // ✅ Prevents auto-focus scroll
                   className="bg-newari-red hover:bg-red-700 text-white min-h-[48px] px-8"
                 >
                   {currentQuestion < filteredQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
