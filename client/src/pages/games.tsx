@@ -94,9 +94,8 @@ export default function Games() {
             className="mb-8 sticky top-0 bg-gradient-to-b from-newari-cream via-newari-cream to-transparent pt-4 pb-2 z-10"
           >
             <Button 
-              variant="outline"
               onClick={() => setSelectedGame(null)}
-              className="mb-4"
+              className="mb-4 bg-[#B71C1C] hover:bg-[#8E1616] text-white border-none px-4 py-2 h-auto text-sm rounded-lg shadow-md"
             >
               ← Back to Games
             </Button>

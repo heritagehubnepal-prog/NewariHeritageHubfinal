@@ -196,18 +196,17 @@ export default function CulturalQuiz() {
         {!gameFinished ? (
           <>
             {/* Progress Indicator */}
-            <div className="text-sm text-[#5D4037] mb-2">
+            <div style={{ fontSize: '14px', color: '#5D4037', marginBottom: '8px' }}>
               Question {currentQuestion + 1} of {quizQuestions.length}
             </div>
-            <div className="h-1.5 w-full bg-gray-200 rounded-full mb-6 overflow-hidden">
-              <motion.div 
-                className="h-full bg-gradient-to-r from-[#9C27B0] to-[#FF5722]"
-                initial={{ width: 0 }}
-                animate={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
-              />
-            </div>
+            <div style={{
+              height: '6px',
+              background: 'linear-gradient(to right, #9C27B0, #FF5722)',
+              borderRadius: '3px',
+              marginBottom: '24px'
+            }} />
 
-            <h2 className="text-xl font-semibold text-[#B71C1C] mb-6">
+            <h2 style={{ color: '#B71C1C', fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>
               {question.question}
             </h2>
 
@@ -221,17 +220,28 @@ export default function CulturalQuiz() {
                     key={index}
                     onClick={() => handleAnswerSelect(index)}
                     disabled={selectedAnswer !== null}
-                    className={`w-full p-3.5 rounded-lg text-left text-base transition-all duration-200 border-2 min-h-[48px] ${
-                      selectedAnswer === null
-                        ? "bg-white border-[#E64A19] hover:border-[#FF5722] hover:shadow-[0_0_8px_rgba(255,87,34,0.2)]"
-                        : isSelected
-                        ? isCorrect
-                          ? "bg-green-50 border-green-500"
-                          : "bg-red-50 border-red-500"
-                        : isCorrect
-                        ? "bg-green-50 border-green-500"
-                        : "bg-white border-gray-100 opacity-50"
-                    }`}
+                    className="answer-btn"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      padding: '14px',
+                      margin: '8px 0',
+                      background: 'white',
+                      border: `1px solid ${
+                        selectedAnswer === null 
+                          ? '#E64A19' 
+                          : isSelected 
+                            ? isCorrect ? '#22C55E' : '#EF4444' 
+                            : isCorrect ? '#22C55E' : '#E5E7EB'
+                      }`,
+                      borderRadius: '10px',
+                      textAlign: 'left',
+                      fontSize: '16px',
+                      cursor: selectedAnswer === null ? 'pointer' : 'default',
+                      transition: 'all 0.2s ease',
+                      opacity: selectedAnswer !== null && !isSelected && !isCorrect ? 0.5 : 1,
+                      boxShadow: isSelected ? '0 0 8px rgba(255,87,34,0.2)' : 'none'
+                    }}
                   >
                     {option}
                   </button>
@@ -245,18 +255,20 @@ export default function CulturalQuiz() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex gap-3 mt-4"
+                  style={{ display: 'flex', gap: '12px', marginTop: '16px' }}
                 >
                   <img 
                     src={question.narrator === "Mincha" ? "/assets/mincha.png" : "/assets/bhincha.png"} 
                     alt={question.narrator}
-                    className="h-10 w-10 rounded-full shrink-0"
+                    style={{ height: '40px', width: '40px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
                   />
-                  <div className={`p-3 rounded-lg text-sm ${
-                    question.narrator === "Mincha" 
-                      ? "bg-[#E8F5E9] text-[#2E7D32]" 
-                      : "bg-[#FFEBEE] text-[#D32F2F]"
-                  }`}>
+                  <div style={{ 
+                    background: question.narrator === "Mincha" ? '#E8F5E9' : '#FFEBEE', 
+                    color: question.narrator === "Mincha" ? '#2E7D32' : '#D32F2F', 
+                    padding: '12px', 
+                    borderRadius: '8px', 
+                    fontSize: '14px' 
+                  }}>
                     {question.explanation}
                   </div>
                 </motion.div>
