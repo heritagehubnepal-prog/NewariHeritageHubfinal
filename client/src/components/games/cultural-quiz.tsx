@@ -189,20 +189,35 @@ export default function CulturalQuiz() {
   };
 
   return (
-    <div className="w-full max-w-[600px] mx-auto">
+    <div style={{
+      background: '#FFF9F0',
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+      maxWidth: '600px',
+      margin: '0 auto'
+    }}>
       {/* Header Integration */}
-      <header className="flex items-center gap-3 py-4">
-        <img src={brandLogo} alt="Heritage Hub Nepal" className="h-10 w-auto object-contain" />
-        <h1 className="text-[22px] font-bold text-[#B71C1C] m-0">Cultural Quiz</h1>
+      <header style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px 0' }}>
+        <img src={brandLogo} alt="Heritage Hub Nepal" height="36" />
+        <h1 style={{ color: '#B71C1C', margin: 0, fontSize: '22px' }}>Heritage Hub Nepal</h1>
       </header>
 
-      <div className="bg-[#FFF9F0] p-5 rounded-xl">
+      <div className="">
         {!gameFinished ? (
           <>
             {/* Progress Indicator */}
-            <div style={{ fontSize: '14px', color: '#5D4037', marginBottom: '8px' }}>
-              Question {currentQuestion + 1} of {quizQuestions.length}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <img 
+                src={question.narrator === "Mincha" ? "/assets/mincha.png" : "/assets/bhincha.png"} 
+                alt={question.narrator}
+                style={{ height: '40px', width: '40px', borderRadius: '50%' }}
+              />
+              <div style={{ fontSize: '14px', color: '#5D4037' }}>
+                <strong>{question.narrator} asks:</strong> Question {currentQuestion + 1} of {quizQuestions.length}
+              </div>
             </div>
+
             <div style={{
               height: '6px',
               background: 'linear-gradient(to right, #9C27B0, #FF5722)',
@@ -224,9 +239,19 @@ export default function CulturalQuiz() {
                     key={index}
                     onClick={() => handleAnswerSelect(index)}
                     disabled={selectedAnswer !== null}
-                    className="answer-btn"
+                    onMouseEnter={(e) => {
+                      if (selectedAnswer === null) {
+                        e.currentTarget.style.borderColor = '#FF5722';
+                        e.currentTarget.style.boxShadow = '0 0 8px rgba(255,87,34,0.1)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (selectedAnswer === null) {
+                        e.currentTarget.style.borderColor = '#E64A19';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }
+                    }}
                     style={{
-                      display: 'block',
                       width: '100%',
                       padding: '14px',
                       margin: '8px 0',
@@ -244,7 +269,6 @@ export default function CulturalQuiz() {
                       cursor: selectedAnswer === null ? 'pointer' : 'default',
                       transition: 'all 0.2s ease',
                       opacity: selectedAnswer !== null && !isSelected && !isCorrect ? 0.5 : 1,
-                      boxShadow: isSelected ? '0 0 8px rgba(255,87,34,0.2)' : 'none'
                     }}
                   >
                     {option}
@@ -271,7 +295,9 @@ export default function CulturalQuiz() {
                     color: question.narrator === "Mincha" ? '#2E7D32' : '#D32F2F', 
                     padding: '12px', 
                     borderRadius: '8px', 
-                    fontSize: '14px' 
+                    fontSize: '14px',
+                    border: '1px solid currentColor',
+                    position: 'relative'
                   }}>
                     {question.explanation}
                   </div>
