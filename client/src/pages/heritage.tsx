@@ -107,37 +107,37 @@ export default function Heritage() {
         </AnimatePresence>
 
         {/* Character Selection Toggle */}
-        <div className="absolute top-24 left-8 z-20 flex flex-col gap-4">
+        <div className="absolute top-24 left-8 z-20">
           <motion.div 
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20"
+            className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 shadow-xl"
           >
-            <p className="text-white text-xs font-bold mb-3 uppercase tracking-wider">Choose Your Guide</p>
-            <div className="flex gap-4">
+            <p className="text-white text-[10px] font-bold mb-4 uppercase tracking-widest opacity-80 text-center">Choose Your Guide</p>
+            <div className="flex items-center justify-center gap-6">
               <button 
                 onClick={() => setSelectedGuide("mincha")}
-                className={`relative group transition-all ${selectedGuide === "mincha" ? "scale-110" : "opacity-50 grayscale hover:grayscale-0 hover:opacity-100"}`}
+                className={`relative group transition-all duration-300 flex flex-col items-center gap-2 ${selectedGuide === "mincha" ? "scale-110" : "opacity-50 grayscale hover:grayscale-0 hover:opacity-100"}`}
               >
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center p-2 border-2 border-white/40">
-                  <MinchaSVG className="w-full h-full" />
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center p-2 border-2 border-white/40 shadow-inner overflow-hidden">
+                  <MinchaSVG className="w-full h-full object-contain" />
                 </div>
                 {selectedGuide === "mincha" && (
                   <motion.div layoutId="guide-ring" className="absolute -inset-1 border-2 border-newari-gold rounded-full" />
                 )}
-                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">MINCHA</span>
+                <span className={`text-[10px] text-white font-bold transition-all duration-300 ${selectedGuide === "mincha" ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>MINCHA</span>
               </button>
               <button 
                 onClick={() => setSelectedGuide("bhincha")}
-                className={`relative group transition-all ${selectedGuide === "bhincha" ? "scale-110" : "opacity-50 grayscale hover:grayscale-0 hover:opacity-100"}`}
+                className={`relative group transition-all duration-300 flex flex-col items-center gap-2 ${selectedGuide === "bhincha" ? "scale-110" : "opacity-50 grayscale hover:grayscale-0 hover:opacity-100"}`}
               >
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center p-2 border-2 border-white/40">
-                  <BhinchaSVG className="w-full h-full" />
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center p-2 border-2 border-white/40 shadow-inner overflow-hidden">
+                  <BhinchaSVG className="w-full h-full object-contain" />
                 </div>
                 {selectedGuide === "bhincha" && (
                   <motion.div layoutId="guide-ring" className="absolute -inset-1 border-2 border-newari-gold rounded-full" />
                 )}
-                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">BHINCHA</span>
+                <span className={`text-[10px] text-white font-bold transition-all duration-300 ${selectedGuide === "bhincha" ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>BHINCHA</span>
               </button>
             </div>
           </motion.div>
