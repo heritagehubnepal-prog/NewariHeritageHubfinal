@@ -56,11 +56,11 @@ export function EnhancedCharacterSection({ characters }: EnhancedCharacterSectio
           </div>
         </GSAPWrapper>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12 items-stretch">
           {characters.map((character, index) => (
-            <Card key={character.id} className="character-card overflow-hidden border-0 shadow-2xl">
-              <CardContent className="p-0">
-                <div className="relative h-96 bg-gradient-to-br from-newari-cream to-newari-gold/20">
+            <Card key={character.id} className="character-card overflow-hidden border-0 shadow-2xl flex flex-col h-full">
+              <CardContent className="p-0 flex flex-col h-full">
+                <div className="relative h-96 bg-gradient-to-br from-newari-cream to-newari-gold/20 flex-shrink-0">
                   <div className="absolute inset-0 flex items-center justify-center p-8">
                     <LottieCharacter
                       fallbackSvg={character.name === 'Bhincha' ? 
@@ -79,10 +79,10 @@ export function EnhancedCharacterSection({ characters }: EnhancedCharacterSectio
                     <p className="text-white/90">{character.role}</p>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-6 leading-relaxed">{character.description}</p>
+                <div className="p-6 flex flex-col flex-grow">
+                  <p className="text-gray-600 mb-6 leading-relaxed flex-grow">{character.description}</p>
                   <Link href={`/character/${character.name.toLowerCase()}`}>
-                    <Button className="w-full bg-newari-red hover:bg-newari-red/90">
+                    <Button className="w-full bg-newari-red hover:bg-newari-red/90 mt-auto">
                       Learn More About {character.name}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
