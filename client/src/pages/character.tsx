@@ -52,11 +52,11 @@ export default function Character() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="w-full max-w-md mx-auto">
+              <div className="w-full max-w-md mx-auto aspect-[4/5] bg-gradient-to-br from-newari-cream to-white rounded-3xl shadow-2xl border-4 border-newari-gold flex items-center justify-center p-8 overflow-hidden">
                 {character.name === "Mincha" ? (
-                  <MinchaSVG className="w-full h-auto" />
+                  <MinchaSVG className="w-full h-full object-contain transform scale-110" />
                 ) : (
-                  <BhinchaSVG className="w-full h-auto" />
+                  <BhinchaSVG className="w-full h-full object-contain transform scale-110" />
                 )}
               </div>
             </motion.div>

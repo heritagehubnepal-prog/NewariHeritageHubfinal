@@ -387,12 +387,14 @@ export default function Home() {
                     )}
                   </div>
                   
-                  <Link href={`/character/${character.name.toLowerCase()}`}>
-                    <Button className="bg-newari-red hover:bg-red-700 text-white">
-                      <Book className="mr-2 h-4 w-4" />
-                      Meet {character.name} — Your Cultural Guide →
-                    </Button>
-                  </Link>
+                  <div className="mt-auto">
+                    <Link href={`/character/${character.name.toLowerCase()}`}>
+                      <Button className="bg-newari-red hover:bg-red-700 text-white w-full">
+                        <Book className="mr-2 h-4 w-4" />
+                        Meet {character.name} — Your Cultural Guide →
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}

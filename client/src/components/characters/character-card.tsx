@@ -17,16 +17,16 @@ export default function CharacterCard({ character }: CharacterCardProps) {
         transition={{ duration: 0.3 }}
         className="cursor-pointer"
       >
-        <Card className="bg-white rounded-2xl p-6 shadow-xl border-4 border-newari-gold hover:shadow-2xl transition-all duration-300">
-          <CardContent className="p-0">
-            <div className="w-full h-56 mb-6 overflow-hidden rounded-xl flex items-center justify-center bg-gradient-to-b from-eco-green/5 to-transparent">
+        <Card className="bg-white rounded-2xl p-6 shadow-xl border-4 border-newari-gold hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+          <CardContent className="p-0 flex flex-col h-full">
+            <div className="w-full h-56 mb-6 overflow-hidden rounded-xl flex items-center justify-center bg-gradient-to-b from-eco-green/5 to-transparent flex-shrink-0">
               {character.name === "Mincha" ? (
-                <MinchaSVG className="w-full h-full transform scale-110" />
+                <MinchaSVG className="w-full h-full transform scale-110 p-2" />
               ) : (
-                <BhinchaSVG className="w-full h-full transform scale-110" />
+                <BhinchaSVG className="w-full h-full transform scale-110 p-2" />
               )}
             </div>
-            <div className="relative z-10 pt-2 bg-white">
+            <div className="relative z-10 pt-2 bg-white flex-grow flex flex-col justify-center">
               <h3 className="text-2xl font-bold newari-red text-center">{character.name}</h3>
               <p className="newari-brown text-center mt-2">{character.role}</p>
             </div>
