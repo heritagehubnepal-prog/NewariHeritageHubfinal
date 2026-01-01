@@ -585,13 +585,13 @@ export default function Home() {
               
               <div className="relative">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-eco-green transform -rotate-3">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-eco-green transform -rotate-3 flex flex-col items-center min-h-[180px]">
                     <MinchaSVG className="w-full h-32" />
-                    <p className="text-center eco-green font-bold mt-2">Mincha</p>
+                    <p className="text-center eco-green font-bold mt-auto pt-2">Mincha</p>
                   </div>
-                  <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-newari-red transform rotate-3">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-newari-red transform rotate-3 flex flex-col items-center min-h-[180px]">
                     <BhinchaSVG className="w-full h-32" />
-                    <p className="text-center newari-red font-bold mt-2">Bhincha</p>
+                    <p className="text-center newari-red font-bold mt-auto pt-2">Bhincha</p>
                   </div>
                 </div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
