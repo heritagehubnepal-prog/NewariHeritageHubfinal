@@ -313,47 +313,47 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
             {characters.map((character, index) => (
               <motion.div
                 key={character.id}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="bg-gradient-to-br from-newari-cream to-white rounded-3xl p-8 shadow-2xl border-2 border-newari-gold"
+                className="bg-gradient-to-br from-newari-cream to-white rounded-3xl p-8 shadow-2xl border-2 border-newari-gold flex flex-col h-full"
               >
                 <div className="text-center mb-8">
-                  <div className="w-64 h-80 mx-auto mb-6 rounded-2xl shadow-lg border-4 border-newari-gold overflow-hidden bg-gradient-to-br from-newari-cream to-white">
+                  <div className="w-64 h-80 mx-auto mb-6 rounded-2xl shadow-lg border-4 border-newari-gold overflow-hidden bg-gradient-to-br from-newari-cream to-white flex items-center justify-center">
                     {character.name === "Mincha" ? (
-                      <MinchaSVG className="w-full h-full" />
+                      <MinchaSVG className="w-full h-full p-4" />
                     ) : (
-                      <BhinchaSVG className="w-full h-full" />
+                      <BhinchaSVG className="w-full h-full p-4" />
                     )}
                   </div>
                 </div>
                 
-                <div className="text-center">
+                <div className="text-center flex flex-col flex-grow">
                   <h3 className="text-3xl font-bold newari-red mb-4">{character.name}</h3>
-                  <p className="text-lg newari-brown mb-6 italic">"{character.quote}"</p>
+                  <p className="text-lg newari-brown mb-6 italic min-h-[3.5rem] flex items-center justify-center">"{character.quote}"</p>
                   
                   <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-white rounded-lg p-4 border-2 border-newari-beige">
+                    <div className="bg-white rounded-lg p-4 border-2 border-newari-beige flex flex-col justify-center">
                       <div className="newari-gold text-2xl mb-2">👑</div>
                       <h4 className="font-semibold newari-red">Role</h4>
                       <p className="text-sm newari-brown">{character.role}</p>
                     </div>
-                    <div className="bg-white rounded-lg p-4 border-2 border-newari-beige">
+                    <div className="bg-white rounded-lg p-4 border-2 border-newari-beige flex flex-col justify-center">
                       <div className="newari-gold text-2xl mb-2">❤️</div>
                       <h4 className="font-semibold newari-red">Trait</h4>
                       <p className="text-sm newari-brown">{character.trait}</p>
                     </div>
                   </div>
                   
-                  <p className="newari-brown leading-relaxed mb-6">
+                  <p className="newari-brown leading-relaxed mb-6 flex-grow">
                     {character.description}
                   </p>
                   
-                  <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                  <div className="flex flex-wrap gap-2 mb-8 justify-center min-h-[2.5rem] items-center">
                     {character.name === "Mincha" ? (
                       <>
                         <span className="bg-eco-green/20 eco-green px-3 py-1 rounded-full text-xs font-medium">
