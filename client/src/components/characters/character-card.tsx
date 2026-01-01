@@ -19,15 +19,17 @@ export default function CharacterCard({ character }: CharacterCardProps) {
       >
         <Card className="bg-white rounded-2xl p-6 shadow-xl border-4 border-newari-gold hover:shadow-2xl transition-all duration-300">
           <CardContent className="p-0">
-            <div className="w-full h-48 mb-4 overflow-hidden rounded-xl">
+            <div className="w-full h-56 mb-6 overflow-hidden rounded-xl flex items-center justify-center bg-gradient-to-b from-eco-green/5 to-transparent">
               {character.name === "Mincha" ? (
-                <MinchaSVG className="w-full h-full" />
+                <MinchaSVG className="w-full h-full transform scale-110" />
               ) : (
-                <BhinchaSVG className="w-full h-full" />
+                <BhinchaSVG className="w-full h-full transform scale-110" />
               )}
             </div>
-            <h3 className="text-2xl font-bold newari-red text-center">{character.name}</h3>
-            <p className="newari-brown text-center mt-2">{character.role}</p>
+            <div className="relative z-10 pt-2 bg-white">
+              <h3 className="text-2xl font-bold newari-red text-center">{character.name}</h3>
+              <p className="newari-brown text-center mt-2">{character.role}</p>
+            </div>
           </CardContent>
         </Card>
       </motion.div>

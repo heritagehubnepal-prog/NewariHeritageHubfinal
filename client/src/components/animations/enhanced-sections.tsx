@@ -61,7 +61,7 @@ export function EnhancedCharacterSection({ characters }: EnhancedCharacterSectio
             <Card key={character.id} className="character-card overflow-hidden border-0 shadow-2xl">
               <CardContent className="p-0">
                 <div className="relative h-96 bg-gradient-to-br from-newari-cream to-newari-gold/20">
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center p-8">
                     <LottieCharacter
                       fallbackSvg={character.name === 'Bhincha' ? 
                         <div className="w-48 h-48 bg-newari-red/20 rounded-full flex items-center justify-center">
@@ -74,7 +74,7 @@ export function EnhancedCharacterSection({ characters }: EnhancedCharacterSectio
                       size="xl"
                     />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 pt-20">
                     <h3 className="text-3xl font-bold text-white mb-2">{character.name}</h3>
                     <p className="text-white/90">{character.role}</p>
                   </div>
