@@ -24,11 +24,11 @@ export default function Navbar() {
     <nav className="bg-white shadow-lg border-b-4 border-newari-gold sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+          <div className="flex items-center min-w-0 flex-1">
             <Link href="/">
-              <div className="flex items-center gap-2 cursor-pointer group">
-                <img src={brandLogo} alt="Logo" className="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
-                <h1 className="text-xl md:text-2xl font-bold newari-red hover:text-red-700 transition-colors hidden sm:block">
+              <div className="flex items-center gap-2 cursor-pointer group min-w-0">
+                <img src={brandLogo} alt="Logo" className="h-10 w-auto object-contain transition-transform group-hover:scale-105 flex-shrink-0" />
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold newari-red hover:text-red-700 transition-colors truncate">
                   Heritage Hub Nepal
                 </h1>
               </div>
