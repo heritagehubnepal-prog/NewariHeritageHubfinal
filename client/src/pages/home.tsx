@@ -270,7 +270,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {[
                 { name: "Hadigaun", status: "Current Hub", color: "bg-eco-green text-white" },
                 { name: "Patan", status: "Coming Soon", color: "bg-newari-gold text-white" },
@@ -283,10 +283,10 @@ export default function Home() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`${location.color} rounded-2xl p-4 text-center transform hover:scale-105 transition-all`}
+                  className={`${location.color} rounded-2xl p-4 flex flex-col items-center justify-center min-h-[100px] text-center transform hover:scale-105 transition-all`}
                 >
-                  <h4 className="font-bold text-lg mb-1">{location.name}</h4>
-                  <p className="text-sm opacity-90">{location.status}</p>
+                  <h4 className="font-bold text-lg mb-1 whitespace-nowrap">{location.name}</h4>
+                  <p className="text-sm opacity-90 leading-tight">{location.status}</p>
                 </motion.div>
               ))}
             </div>
